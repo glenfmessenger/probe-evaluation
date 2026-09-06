@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0-poc",
+  "component": "AHD",
+  "description": "Activation-based Hallucination Detection",
+  "model_name": "gemma-3-1b-it",
+  "hidden_dimension": 1152,
+  "extraction_layer": 16,
+  "extraction_layer_pct": 0.6153846153846154,
+  "num_layers": 26,
+  "threshold": 3406.698919677734,
+  "stats": {
+    "separation": 14.83809757232666,
+    "accuracy": 1.0,
+    "auc": 1.0,
+    "fpr": 0.0,
+    "fnr": 0.0
+  },
+  "created_at": "2025-12-31T22:49:34.272990Z",
+  "created_by": "Glen Messenger",
+  "license": "Apache-2.0"
+}

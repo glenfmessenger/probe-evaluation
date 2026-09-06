@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "component": "AHD",
+  "model_name": "gemma-3-1b-it",
+  "hidden_dimension": 1152,
+  "extraction_layer": 16,
+  "extraction_layer_pct": 0.6153846153846154,
+  "threshold": -3326.987548828125,
+  "calibrated_threshold": -3397.114453125,
+  "stats": {
+    "separation": 2.0224924087524414,
+    "accuracy": 0.9166666666666666,
+    "auc": 0.9600000000000001,
+    "factual_mean": -3067.10400390625,
+    "factual_std": 260.42822265625,
+    "hallucination_mean": -4106.35986328125,
+    "hallucination_std": 513.8490600585938
+  },
+  "created_at": "2025-12-31T22:53:46.506093Z"
+}

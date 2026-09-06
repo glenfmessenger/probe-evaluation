@@ -1,0 +1,16 @@
+# Dockerfile.pinned — Phase 1 VM image for the AASE evaluation harness (PREFLIGHT_REPORT.md, Part C).
+# Nearest-resolvable stack around vLLM 0.13.0 (torch 2.9.0 / CUDA 12.8 wheels). Build on the GPU VM:
+#   docker build -f Dockerfile.pinned -t aase-phase1 .
+#   docker run --gpus all -v $PWD:/work -e HF_TOKEN=... aase-phase1 python aase_vllm/scripts/benchmark_vllm.py --dry-run
+# CPU-only verification of the harness (what preflight ran): the same image without --gpus runs `python -m pytest -q`.
+FROM --platform=linux/amd64 python:3.11.16-slim
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 TOKENIZERS_PARALLELISM=false
+RUN apt-get update && apt-get install -y --no-install-recommends git build-essential && rm -rf /var/lib/apt/lists/*
+WORKDIR /work
+COPY requirements-pinned.txt /work/requirements-pinned.txt
+# vllm 0.13.0 pins torch==2.9.0 (cu128 wheels from PyPI). No CUDA toolkit is needed in the image for the wheels to
+# install; the NVIDIA driver on the host (>= 570 for CUDA 12.8) is required at run time.
+RUN pip install --no-cache-dir -r requirements-pinned.txt
+COPY . /work
+RUN git submodule update --init third_party/harmbench || true
+CMD ["python", "-m", "pytest", "-q"]

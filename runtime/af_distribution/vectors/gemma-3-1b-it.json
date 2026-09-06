@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "model_name": "gemma-3-1b-it",
+  "model_family": "gemma3",
+  "hf_id": "google/gemma-3-1b-it",
+  "hidden_dimension": 1152,
+  "extraction_layer": 16,
+  "extraction_layer_pct": 0.6153846153846154,
+  "num_layers": 26,
+  "num_vectors": 16,
+  "categories": [
+    "vcr",
+    "src",
+    "cse",
+    "ssh",
+    "iwp",
+    "ipv",
+    "dfm",
+    "ncr",
+    "hte",
+    "prv",
+    "spc_ele",
+    "spc_fin",
+    "spc_hlt",
+    "spc_lgl",
+    "sxc_prn"
+  ],
+  "has_obfuscation": true,
+  "obfuscation_threshold": -1218.5037133789062,
+  "obfuscation_high_confidence_threshold": -1054.523239746094,
+  "obfuscation_sensitivity": 0.7,
+  "created_at": "2025-12-28T23:23:41.874332Z",
+  "created_by": "Glen Messenger",
+  "license": "Apache-2.0",
+  "category_stats": {
+    "obfuscation": {
+      "separation": 2.9982032775878906,
+      "threshold": -1218.5037133789062,
+      "train_accuracy": 0.9333333333333333,
+      "false_positive_rate": 0.03333333333333333,
+      "false_negative_rate": 0.1
+    },
+    "vcr": {
+      "separation": 7.094662189483643,
+      "threshold": 1803.9179260253904,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "src": {
+      "separation": 6.476751804351807,
+      "threshold": 1262.5515533447265,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "cse": {
+      "separation": 4.2265214920043945,
+      "threshold": 1638.620380859375,
+      "train_accuracy": 0.8888888888888888,
+      "false_positive_rate": 0.04,
+      "false_negative_rate": 0.2
+    },
+    "ssh": {
+      "separation": 3.5939908027648926,
+      "threshold": 1082.8629608154297,
+      "train_accuracy": 0.9555555555555556,
+      "false_positive_rate": 0.04,
+      "false_negative_rate": 0.05
+    },
+    "iwp": {
+      "separation": 10.00562572479248,
+      "threshold": 671.834706878662,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ipv": {
+      "separation": 3.074110746383667,
+      "threshold": 3050.5353515624997,
+      "train_accuracy": 0.95,
+      "false_positive_rate": 0.05,
+      "false_negative_rate": 0.05
+    },
+    "dfm": {
+      "separation": 5.906473636627197,
+      "threshold": 2409.2688049316403,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ncr": {
+      "separation": 7.9026384353637695,
+      "threshold": 630.4471817016599,
+      "train_accuracy": 0.9818181818181818,
+      "false_positive_rate": 0.02857142857142857,
+      "false_negative_rate": 0.0
+    },
+    "hte": {
+      "separation": 11.91378402709961,
+      "threshold": 2138.167657470703,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "prv": {
+      "separation": 3.922180414199829,
+      "threshold": 2771.3454467773436,
+      "train_accuracy": 0.9777777777777777,
+      "false_positive_rate": 0.04,
+      "false_negative_rate": 0.0
+    },
+    "spc_ele": {
+      "separation": 3.7349300384521484,
+      "threshold": -924.9997802734379,
+      "train_accuracy": 0.95,
+      "false_positive_rate": 0.05,
+      "false_negative_rate": 0.05
+    },
+    "spc_fin": {
+      "separation": 7.299854755401611,
+      "threshold": 1665.1655426025388,
+      "train_accuracy": 0.9833333333333333,
+      "false_positive_rate": 0.025,
+      "false_negative_rate": 0.0
+    },
+    "spc_hlt": {
+      "separation": 5.8740692138671875,
+      "threshold": 1432.932775878906,
+      "train_accuracy": 0.9777777777777777,
+      "false_positive_rate": 0.04,
+      "false_negative_rate": 0.0
+    },
+    "spc_lgl": {
+      "separation": 8.571043968200684,
+      "threshold": 238.74456787109344,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "sxc_prn": {
+      "separation": 12.422774314880371,
+      "threshold": 2520.349090576172,
+      "train_accuracy": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    }
+  },
+  "total_size_bytes": 73796
+}

@@ -1,0 +1,61 @@
+% Section 8 -- Comparison to guard models. Framing rule 6: the case is cost profile, NOT accuracy.
+% The guard model wins on accuracy and the section says so plainly, in its own words, in the first paragraph.
+\section{Comparison to Guard Models}
+\label{sec:guard}
+
+The deployed alternative to an activation probe is a guard model: a separate classifier, itself a language model,
+that reads the prompt and returns a safety verdict. Llama Guard~3 \cite{inan2023llama} is the common open reference,
+and ShieldGemma \cite{zeng2024shieldgemma} and WildGuard \cite{han2024wildguard} occupy the same slot. The comparison
+below runs both systems on identical inputs through their own intended interfaces.
+
+\textbf{The guard model is more accurate, on every metric, and the probe's case is not accuracy.}
+Table~\ref{tab:guard} gives the numbers: Llama Guard~3 reaches $93.5\,\%$ accuracy against the probe's $81.7\,\%$,
+with a false-positive rate of $8.9\,\%$ against $26.9\,\%$ and F1 of $0.932$ against $0.822$. We state this first
+because the comparison is easy to present the other way round by choosing a favourable prompt set, and because the
+probe's actual advantage does not depend on winning it.
+
+\input{tables/tab_guard}
+
+The evaluation is $650$ prompts---$300$ HarmBench behaviours, $250$ XSTest safe prompts, $100$ JailbreakBench benign
+prompts---with the guard model prompted through its own chat template including its hazard taxonomy, and the probe
+read at its own layer and threshold. Both systems see exactly the same text.
+
+The shape of the probe's errors is worth more than the aggregate. All $94$ of its false positives are JailbreakBench
+benign prompts, and none are XSTest: the failure is entirely on on-topic benign requests, which is the topic-confound
+signature of Section~\ref{sec:learn} appearing in a system-level metric. Llama Guard's false positives are spread
+more evenly ($3.2\,\%$ on XSTest, $23.0\,\%$ on JailbreakBench), so it is not merely a better-calibrated version of
+the same detector; it is discriminating on a partly different basis.
+
+\subsection{Where the cost actually sits}
+\label{sec:cost}
+
+\input{tables/tab_latency}
+
+The probe's case is the cost profile, and Table~\ref{tab:latency} shows why it is not the ratio in
+Table~\ref{tab:guard} that matters. The probe itself is a dot product between a $3{,}584$-dimensional activation and a
+direction vector: measured at $1.2$--$1.5$ microseconds, four orders of magnitude below the forward pass it rides on.
+And that forward pass is not an additional cost, because it is the pass already being run to serve the request. In a
+deployment that is generating a response anyway, the marginal cost of the probe is the dot product and a hook.
+
+A guard model has a different structure of cost: it is a second model, of comparable size to the one being guarded,
+run as an extra inference. Here that is $64.7$~ms mean and $107.0$~ms at the ninety-ninth percentile against the
+probe path's $16.2$~ms and $21.1$~ms, a mean ratio of $4.0\times$; but the ratio is an artifact of which host model
+the probe rides on, and would change with a different one. The durable statement is architectural rather than
+numerical: a probe adds microseconds to an inference that is already happening, whereas a guard model adds an
+inference. Memory follows the same pattern---an $8$B guard model must be resident alongside the served model, while a
+direction vector is a few kilobytes.
+
+\textbf{Hardware caveat.} These are A100-40GB numbers on a current inference stack. Earlier figures for this codebase
+were collected on an L4, where the absolute latencies and the ratio both differ; the two are not comparable, and we
+report only the measurements made here. Latency ratios between a probe and a guard model should be read as a property
+of a particular pairing on particular hardware, not as a constant of the method.
+
+\subsection{What the comparison supports}
+\label{sec:guard_claims}
+
+An activation probe is not a cheaper way to get guard-model accuracy, and on this evidence it is not close. What it
+offers is a detector whose marginal cost is negligible on an inference that is already being performed, which makes
+it a candidate for a first-stage filter or an always-on monitor rather than a replacement for a guard model. Whether
+that is worth $12$ accuracy points, and a false-positive rate concentrated precisely on benign requests that share a
+topic with harmful ones, is a deployment question rather than a research one---but it should be asked with the honest
+numbers in Table~\ref{tab:guard} rather than with a comparison tuned to favour the probe.

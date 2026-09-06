@@ -1,0 +1,14 @@
+{
+  "google/gemma-2-9b-it": {
+    "aag": {
+      "separation_sigma": 3.7569851875305176,
+      "accuracy": 1.0,
+      "threshold": 0.3558071553707123,
+      "positive_mean": 0.6297277212142944,
+      "negative_mean": 0.028325233608484268,
+      "auc": 1.0,
+      "n_positive": 50,
+      "n_negative": 100
+    }
+  }
+}

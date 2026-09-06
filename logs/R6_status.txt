@@ -1,0 +1,57 @@
+=== 2026-09-03T18:16:19Z R6 latency google/gemma-3-1b-it START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:16:56Z R6 google/gemma-3-1b-it exit=0
+== check latency google/gemma-3-1b-it
+  ok: provenance git=ad7d4bd78b9d config=e325d8f864fe
+  ok: latency google/gemma-3-1b-it: fwd 41.5ms probe 0.0010ms n=50
+== PASS
+2026-09-03T18:16:58Z R6 google/gemma-3-1b-it pushed f63aa43
+=== 2026-09-03T18:16:58Z R6 latency google/gemma-2-2b-it START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:17:34Z R6 google/gemma-2-2b-it exit=0
+== check latency google/gemma-2-2b-it
+  ok: provenance git=f63aa43865b3 config=e325d8f864fe
+  ok: latency google/gemma-2-2b-it: fwd 31.5ms probe 0.0011ms n=50
+== PASS
+2026-09-03T18:17:36Z R6 google/gemma-2-2b-it pushed ccb9e7a
+=== 2026-09-03T18:17:36Z R6 latency meta-llama/Llama-3.2-1B-Instruct START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:18:05Z R6 meta-llama/Llama-3.2-1B-Instruct exit=0
+== check latency meta-llama/Llama-3.2-1B-Instruct
+  ok: provenance git=ccb9e7afca19 config=e325d8f864fe
+  ok: latency meta-llama/Llama-3.2-1B-Instruct: fwd 10.1ms probe 0.0012ms n=50
+== PASS
+2026-09-03T18:18:08Z R6 meta-llama/Llama-3.2-1B-Instruct pushed c80754f
+=== 2026-09-03T18:18:08Z R6 latency meta-llama/Llama-3.2-3B-Instruct START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:18:38Z R6 meta-llama/Llama-3.2-3B-Instruct exit=0
+== check latency meta-llama/Llama-3.2-3B-Instruct
+  ok: provenance git=c80754f66464 config=e325d8f864fe
+  ok: latency meta-llama/Llama-3.2-3B-Instruct: fwd 15.9ms probe 0.0014ms n=50
+== PASS
+2026-09-03T18:18:40Z R6 meta-llama/Llama-3.2-3B-Instruct pushed ab5eb44
+=== 2026-09-03T18:18:40Z R6 latency google/gemma-3-4b-it START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:19:34Z R6 google/gemma-3-4b-it exit=0
+== check latency google/gemma-3-4b-it
+  ok: provenance git=ab5eb447ede2 config=e325d8f864fe
+  ok: latency google/gemma-3-4b-it: fwd 61.2ms probe 0.0013ms n=50
+== PASS
+2026-09-03T18:19:35Z R6 google/gemma-3-4b-it pushed 4483584
+=== 2026-09-03T18:19:35Z R6 latency meta-llama/Llama-3.1-8B-Instruct START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:20:08Z R6 meta-llama/Llama-3.1-8B-Instruct exit=0
+== check latency meta-llama/Llama-3.1-8B-Instruct
+  ok: provenance git=44835847ec1f config=e325d8f864fe
+  ok: latency meta-llama/Llama-3.1-8B-Instruct: fwd 17.7ms probe 0.0015ms n=50
+== PASS
+2026-09-03T18:20:09Z R6 meta-llama/Llama-3.1-8B-Instruct pushed 278a118
+=== 2026-09-03T18:20:09Z R6 latency google/gemma-2-9b-it START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T18:20:49Z R6 google/gemma-2-9b-it exit=0
+== check latency google/gemma-2-9b-it
+  ok: provenance git=278a1184853b config=e325d8f864fe
+  ok: latency google/gemma-2-9b-it: fwd 50.0ms probe 0.0013ms n=50
+== PASS
+2026-09-03T18:20:50Z R6 google/gemma-2-9b-it pushed 85566ed
+=== 2026-09-03T18:20:50Z R6 ALL LEGS DONE

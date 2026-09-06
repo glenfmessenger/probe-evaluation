@@ -1,0 +1,71 @@
+=== 2026-09-03T17:39:41Z R2 injecagent google/gemma-3-1b-it START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:41:51Z R2 google/gemma-3-1b-it exit=0
+== check injecagent google/gemma-3-1b-it
+  ok: provenance git=0b26c8a21554 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.1757 std=0.1634 distinct=2106
+  ok: injecagent: benign n=120 mean=+0.1649 std=0.1578 distinct=120
+  ok: injecagent google/gemma-3-1b-it: det 0.406 (base 0.408, enh 0.404) fpr 0.367 [hn 0.333 plain 0.381] auc 0.517
+== PASS
+2026-09-03T17:41:53Z R2 google/gemma-3-1b-it pushed 1c3cd95
+=== 2026-09-03T17:41:53Z R2 injecagent google/gemma-2-2b-it START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:43:39Z R2 google/gemma-2-2b-it exit=0
+== check injecagent google/gemma-2-2b-it
+  ok: provenance git=1c3cd9582bb7 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.3967 std=0.0810 distinct=2103
+  ok: injecagent: benign n=120 mean=+0.3711 std=0.0772 distinct=120
+  ok: injecagent google/gemma-2-2b-it: det 0.478 (base 0.367, enh 0.588) fpr 0.392 [hn 0.222 plain 0.464] auc 0.581
+== PASS
+2026-09-03T17:43:41Z R2 google/gemma-2-2b-it pushed aa504ff
+=== 2026-09-03T17:43:41Z R2 injecagent meta-llama/Llama-3.2-1B-Instruct START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:44:34Z R2 meta-llama/Llama-3.2-1B-Instruct exit=0
+== check injecagent meta-llama/Llama-3.2-1B-Instruct
+  ok: provenance git=aa504ffe1051 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.4708 std=0.0459 distinct=2095
+  ok: injecagent: benign n=120 mean=+0.4450 std=0.0494 distinct=120
+  ok: injecagent meta-llama/Llama-3.2-1B-Instruct: det 0.438 (base 0.392, enh 0.485) fpr 0.292 [hn 0.306 plain 0.286] auc 0.635
+== PASS
+2026-09-03T17:44:35Z R2 meta-llama/Llama-3.2-1B-Instruct pushed 4b2bfb6
+=== 2026-09-03T17:44:35Z R2 injecagent meta-llama/Llama-3.2-3B-Instruct START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:45:41Z R2 meta-llama/Llama-3.2-3B-Instruct exit=0
+== check injecagent meta-llama/Llama-3.2-3B-Instruct
+  ok: provenance git=4b2bfb6083cf config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.5957 std=0.0794 distinct=2103
+  ok: injecagent: benign n=120 mean=+0.5380 std=0.0714 distinct=120
+  ok: injecagent meta-llama/Llama-3.2-3B-Instruct: det 0.797 (base 0.775, enh 0.819) fpr 0.575 [hn 0.528 plain 0.595] auc 0.719
+== PASS
+2026-09-03T17:45:43Z R2 meta-llama/Llama-3.2-3B-Instruct pushed 046b3fc
+=== 2026-09-03T17:45:43Z R2 injecagent google/gemma-3-4b-it START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:48:49Z R2 google/gemma-3-4b-it exit=0
+== check injecagent google/gemma-3-4b-it
+  ok: provenance git=046b3fc5c755 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=-0.6997 std=0.2626 distinct=2100
+  ok: injecagent: benign n=120 mean=-0.8126 std=0.1902 distinct=120
+  ok: injecagent google/gemma-3-4b-it: det 0.014 (base 0.001, enh 0.028) fpr 0.008 [hn 0.000 plain 0.012] auc 0.697
+== PASS
+2026-09-03T17:48:51Z R2 google/gemma-3-4b-it pushed 6bb26fe
+=== 2026-09-03T17:48:51Z R2 injecagent meta-llama/Llama-3.1-8B-Instruct START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:50:08Z R2 meta-llama/Llama-3.1-8B-Instruct exit=0
+== check injecagent meta-llama/Llama-3.1-8B-Instruct
+  ok: provenance git=6bb26fe1ed31 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.4898 std=0.0949 distinct=2098
+  ok: injecagent: benign n=120 mean=+0.4226 std=0.0780 distinct=120
+  ok: injecagent meta-llama/Llama-3.1-8B-Instruct: det 0.994 (base 0.992, enh 0.996) fpr 0.958 [hn 1.000 plain 0.940] auc 0.703
+== PASS
+2026-09-03T17:50:10Z R2 meta-llama/Llama-3.1-8B-Instruct pushed 444b8a3
+=== 2026-09-03T17:50:10Z R2 injecagent google/gemma-2-9b-it START
+/dev/vda1       497G   92G  405G  19% /
+2026-09-03T17:52:37Z R2 google/gemma-2-9b-it exit=0
+== check injecagent google/gemma-2-9b-it
+  ok: provenance git=444b8a3b6f33 config=e325d8f864fe
+  ok: injecagent: positive n=2108 mean=+0.4142 std=0.0852 distinct=2094
+  ok: injecagent: benign n=120 mean=+0.3524 std=0.0715 distinct=120
+  ok: injecagent google/gemma-2-9b-it: det 0.736 (base 0.622, enh 0.849) fpr 0.475 [hn 0.389 plain 0.512] auc 0.710
+== PASS
+2026-09-03T17:52:39Z R2 google/gemma-2-9b-it pushed 908e2c1
+=== 2026-09-03T17:52:39Z R2 ALL LEGS DONE

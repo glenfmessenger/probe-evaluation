@@ -1,0 +1,15 @@
+{
+  "probe_type": "af",
+  "model_name": "meta-llama/Llama-3.2-1B-Instruct",
+  "layer_index": 8,
+  "layer_pct": 0.5,
+  "backend": "vllm",
+  "separation_sigma": 3.9508875783545854,
+  "accuracy": 0.975,
+  "threshold": -0.1740664541721344,
+  "positive_mean": 0.04492836445569992,
+  "negative_mean": -0.3930612802505493,
+  "auc": 0.99,
+  "n_positive": 20,
+  "n_negative": 20
+}

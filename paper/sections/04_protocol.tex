@@ -1,0 +1,132 @@
+% Section 4 -- Evaluation protocol.
+% Contribution C6 lives here, together with the three pre-registered designs that could not answer their own questions.
+\section{Evaluation Protocol}
+\label{sec:protocol}
+
+The results in this paper were produced under a protocol fixed before any of them existed. We describe it in detail
+because two of its features---the amendment mechanism and the over-performance stop rule---did more work than any
+single experiment, and because three of our own pre-registered designs turned out to be unable to answer the questions
+they were written for. Reporting that is the point of this section.
+
+\subsection{Pre-registration}
+\label{sec:prereg}
+
+Before any GPU work, a thresholds document was committed to the repository specifying, for each task, what would
+count as a pass, what would count as a failure, what would be reported as marginal, and---separately, so that outcomes
+could not be reinterpreted afterwards---what each verdict would license the paper to claim. The document was written
+against the state of knowledge at that time, and it was wrong in instructive ways. It is preserved in the repository
+with every superseded sentence struck through rather than deleted, so a reader can audit what was pre-registered
+against what was concluded.
+
+\subsection{Controls applied to every result}
+\label{sec:controls}
+
+Four controls are applied by default rather than on suspicion.
+
+\textbf{Length stratification.} Length as a confound in language-model evaluation is documented: response length
+biases uncertainty-quantification benchmarks \cite{lengthconfound2025a}, and at least one probe study length-matches
+its conditions for exactly this reason \cite{evalawareness2026}. Prompt length in activation-probe safety evaluation is nonetheless
+not routinely controlled, and our contribution here is to quantify what that costs. It is large on two independent
+benchmarks used here. On AILuminate, character length alone separates harmful prompts from
+the benign controls at AUC $0.95$, and probe cells that appeared to reach $0.85$--$0.92$ on encoded prompts fall to
+$0.49$--$0.65$ once it is controlled (Section~\ref{sec:obfuscation}). On the harmful-content evaluation set, length
+alone scores $0.903$ unstratified and $0.578$ length-stratified (Table~\ref{tab:af_lexical}) --- it is the single
+strongest cheap feature available, and stratification is what removes it.
+Every AUC we report is therefore accompanied by a length-stratified counterpart, written \aucstar{}: character length
+is split into five quantile bins within the compared groups, an AUC is computed inside each bin, and the results are
+pooled weighted by $n_{\text{pos}} \cdot n_{\text{neg}}$, with bins holding fewer than five of either class dropped
+and reported. Where a threshold in this paper is stated as length-controlled, \aucstar{} is the number that must clear
+it.
+
+\textbf{Topic-matched negatives.} Every harmful-content result is reported against an on-topic benign set as well as
+an off-topic one (Section~\ref{sec:data}), because the gap between the two is the measurement of interest rather than
+a robustness check.
+
+\textbf{Refusal separation.} A probe that fires on exactly the prompts the model was going to refuse anyway adds
+nothing to a deployed system. For every task we generate the model's own continuation on a seeded subsample, classify
+it as a refusal or not, and report probe detection conditioned on that. The marginal value of a probe over the
+model's existing behaviour is then visible rather than assumed.
+
+\textbf{Lexical baselines.} Every result is reported beside the best cheap text classifier we can construct for the
+same contrast: for harmful-content detection, tuned keyword and request-shape features (Table~\ref{tab:af_lexical});
+for policy compliance, a second-person-pronoun count and, later, a bag-of-words model. This is not a formality. In one
+of the three tasks the lexical baseline matched the probe, and the finding that follows from it
+(Section~\ref{sec:learn}) is the paper's main negative result.
+
+\subsection{Leakage and grouping}
+\label{sec:leakage}
+
+Splits are checked for shared content, not merely for shared examples. The agent-injection data is built by crossing a
+small pool of injection strings with a small pool of user instructions, so a split that is disjoint at the case level
+can still place every test-half injection string in the training half; we report both that split and a grouped split
+in which whole injection strings are assigned to one side (Section~\ref{sec:read}). A related point applies to
+cross-validation on data containing near-duplicates: leave-one-out is invalid there, because a held-out item's twin
+sits in the training fold carrying the opposite label and the model reliably anti-predicts. We measured this at AUC
+$0.019$---near-perfect separation with the sign inverted---on a set built from matched pairs. The correct procedure,
+which we adopt, is leave-pair-out cross-validation scored against a within-pair-swap null.
+
+\subsection{Amendments}
+\label{sec:amendments}
+
+A pre-registered interpretation can fail in two distinct ways, and we record them distinctly.
+
+\emph{Type A, mechanism reassigned}: the threshold is met and the effect is real, but the pre-registered cause is
+refuted by a control. The claim survives with a different mechanism, and the original wording is struck through beside
+the replacement.
+
+\emph{Type B, evidence disqualified}: the threshold is met, but the evaluation data cannot bear the claim. The
+constructive sentence is withheld, and no amount of additional analysis on the same data can restore it.
+
+Both occurred. Section~\ref{sec:template} is a type-A amendment: harmful-content probing passed its criteria, but the
+control showed the improvement came from somewhere other than where the design predicted. Section~\ref{sec:learn} is a
+type-B amendment: policy-compliance probing passed its criteria on data that a regular expression can also solve.
+
+\subsection{The over-performance stop rule}
+\label{sec:stoprule}
+
+The rule that caught the most is the one that treats a good result as a warning. A result that \emph{beats} its
+pre-registered threshold stops the run and is not written up as a pass until contamination, leakage and cheap-baseline
+checks have been run, when any of the following hold: it exceeds the threshold by at least $0.05$ AUC; any AUC is at
+least $0.95$; or it exceeds the claims of prior work on the same benchmark.
+
+The rule exists because, in the history of this codebase, an impressive number has repeatedly measured something other
+than the claim: evaluation data that had silently fallen back to a synthetic generator, a training set that contained
+the very encodings being tested, and prompt length. All three arms of the present study triggered the rule. One
+overshoot survived the checks unchanged, one survived but changed mechanism, and one did not survive at all. Without
+the rule, all three would have been reported as successes.
+
+We also apply a degenerate-score stop: constant scores, scores collapsing into a few repeated values, or any loader
+exception halts the run. An exact $0\,\%$ or $100\,\%$ rate is not by itself degenerate---it is non-blocking when the
+underlying score distribution is well spread---but every such instance is logged. Nineteen occurred here, almost all
+from applying a shipped probe outside the distribution it was fitted on.
+
+\subsection{Three designs that could not answer their own questions}
+\label{sec:selfdefeating}
+
+Three of our pre-registered designs were found, during execution, to be incapable of testing what they were written to
+test. We report them because the failure modes generalise.
+
+\emph{A comparison between two estimators that are the same estimator.} The design compared a paired construction
+against an unpaired one on identical text, so that ``the method is the only thing that varies''. For complete,
+aligned, equal-sized pairs the two are algebraically identical (Section~\ref{sec:learn}), and the two conditions agreed
+bit for bit on every model. The comparison was replaced by an ablation that varies the training \emph{negatives}
+instead, which is what the underlying hypothesis had actually been about.
+
+\emph{A split that measured recognition rather than generalisation.} Described in Section~\ref{sec:leakage}; replaced
+by a grouped split.
+
+\emph{An evaluation set that a regular expression can solve.} Described in Section~\ref{sec:learn}; not replaceable,
+and the reason a claim is withheld.
+
+The general lesson is that a pre-registered design is a hypothesis about the measurement instrument as much as about
+the phenomenon, and can be falsified in the same way. Recording that falsification is more useful than quietly
+substituting a design that works.
+
+\subsection{Provenance}
+\label{sec:provenance}
+
+Every results file embeds the git commit, the sha256 of the configuration and of every dataset file, the resolved
+package versions, and the GPU. The runner validates that block before committing a result, and refuses to run at all
+if the sha256 of any authored evaluation data differs from the version signed off by the author. Every table in this
+manuscript is generated from those files by a script that aborts the build if a source is missing, so no number here
+is typed by hand. The tables were generated from results commit \texttt{\resultscommit}.

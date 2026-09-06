@@ -1,0 +1,42 @@
+% Section 9 -- Discussion. Author's draft of 2026-09-05, cite keys mapped to refs.bib.
+% One figure corrected against the committed data and flagged: the composition of the authored benign material.
+\section{Discussion}
+\label{sec:discussion}
+
+\textbf{What the minimal-data regime is, and is not.} Our results do not show that activation probes fail; two of
+three tasks end with probes performing strongly on real benchmarks after one-line changes to where the activation is
+read. Nor do they show the minimal-data regime matches production systems: the frontier deployments we cite train on
+data at scales this regime excludes by definition, and DeepMind's report of length-shift failures at production scale
+\cite{gdm2026probes} suggests convention sensitivity persists even with that data. What the results show is narrower
+and, we think, more useful: in the minimal-data regime, the reported number is a joint property of the probe and of
+conventions most papers relegate to implementation detail. Two studies of the same recipe can honestly report
+near-perfect and near-chance performance while differing only in template mode, read position, hooked tensor, or the
+composition of the benign set. Until those are reported as experimental variables, results in this literature are not
+comparable across papers.
+
+\textbf{Implications for practice.} For practitioners, the repairs are free and the checklist is short: read through
+the chat template; for localized threats, pool over the relevant span rather than reading the final token; verify
+which tensor the serving framework's hook returns; stratify by length; include a topic-matched benign set and a
+lexical baseline; separate probe detections from the model's own refusals. For consumers of probe
+results---including procurement and deployment decisions---the checklist inverts into due-diligence questions, and a
+reported result that cannot answer them should be treated as unmeasured rather than favorable.
+
+\textbf{Limitations.} The obfuscation sweep covers one $9$B model exhaustively rather than many models shallowly; the
+finding may not transfer to models that decode more capably. Our benign sets, though pinned and controlled, are partly
+authored; Section~\ref{sec:apc}'s own finding cautions against over-trusting authored instruments, and we apply that
+caution to ourselves---$40$ of the $120$ agent benign cases are authored, including $26$ of its $36$ hard negatives,
+where its positives are real benchmark cases.
+Distributional detection is not adversarial robustness: obfuscated-activation attacks \cite{bailey2025obfuscated} show
+latent-space monitors can be actively evaded, and nothing here addresses an adaptive attacker. Benchmarks themselves
+turn over; the InjecAgent artifacts we document \cite{injecagentissue7} may be repaired, at which point our measured
+numbers describe a superseded version. Finally, all probes here are linear; whether the policy-compliance
+construct-validity barrier or the encoded-content result changes under non-linear probes is open, though the barrier
+argument in Section~\ref{sec:apc} is classifier-independent by construction.
+
+\textbf{Why the protocol section reports its own failures.} Three of our pre-registered designs could not answer their
+own questions---a split that leaked injection strings, a comparison whose two arms were algebraically identical, and
+an instrument whose validity dissolved as its confounds were controlled. We report these not as confession but as
+data: pre-registration's value was not that our designs were right, but that their failures were detectable,
+attributable, and correctable in the open. An evaluation regime in which errors that inflate results are as
+discoverable as errors that deflate them is the substantive proposal of this paper; the specific conventions are its
+current, and certainly incomplete, instantiation.

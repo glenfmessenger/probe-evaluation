@@ -1,0 +1,16 @@
+{
+  "probe_type": "apc",
+  "policy": "legal",
+  "model_name": "meta-llama/Llama-3.2-1B-Instruct",
+  "layer_index": 4,
+  "layer_pct": 0.25,
+  "backend": "vllm",
+  "separation_sigma": 4.829205987679963,
+  "accuracy": 1.0,
+  "threshold": -0.11139672994613647,
+  "positive_mean": 0.1598154604434967,
+  "negative_mean": -0.38260892033576965,
+  "auc": 1.0,
+  "n_positive": 15,
+  "n_negative": 15
+}

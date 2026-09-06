@@ -1,0 +1,32 @@
+=== 2026-09-03T21:51:36Z b1 START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T21:53:54Z b1 exit=1
+ARM FAILED (see logs/gates_b1.log)
+=== 2026-09-03T21:54:55Z b1 START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T22:03:12Z b1 exit=0
+  provenance ok (results/gates/b1/google_gemma_2_2b_it.json): aaf4f6707f76 eval_config e325d8f864fe gates_config f82cb56bf512 signoff Glen Messenger 2026-09-03
+  outputs: 7 file(s)
+2026-09-03T22:03:14Z b1 pushed 3e6f0ff
+=== 2026-09-03T22:03:14Z b2 START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T22:12:03Z b2 exit=0
+  provenance ok (results/gates/b2/google_gemma_2_2b_it.json): 3e6f0ffcc633 eval_config e325d8f864fe gates_config f82cb56bf512 signoff Glen Messenger 2026-09-03
+  outputs: 7 file(s)
+2026-09-03T22:12:04Z b2 pushed 8ed89b6
+=== 2026-09-03T22:12:04Z b3 START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T22:12:45Z b3 exit=0
+  provenance ok (results/gates/b3/google_gemma_2_9b_it.json): 8ed89b6fe3ea eval_config e325d8f864fe gates_config f82cb56bf512 signoff Glen Messenger 2026-09-03
+  outputs: 3 file(s)
+=== 2026-09-03T22:15:23Z b2g START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T22:24:11Z b2g exit=0
+  provenance ok (results/gates/b2_grouped/google_gemma_2_2b_it.json): c6f7fe1a5f81 eval_config e325d8f864fe gates_config f82cb56bf512 signoff Glen Messenger 2026-09-03
+  outputs: 7 file(s)
+=== 2026-09-03T22:27:14Z b2t START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T22:36:28Z b2t exit=0
+  provenance ok (results/gates/b2_templated/google_gemma_2_2b_it.json): 88096d0ee28f eval_config e325d8f864fe gates_config f82cb56bf512 signoff Glen Messenger 2026-09-03
+  outputs: 7 file(s)
+PUSH FAILED — hard stop

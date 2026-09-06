@@ -1,0 +1,57 @@
+{
+  "version": "0.1.0",
+  "type": "policy_compliance",
+  "created_at": "2025-12-30T04:21:46.589041Z",
+  "created_by": "Glen Messenger",
+  "model_hidden_dim": 1152,
+  "extraction_layer": 16,
+  "extraction_layer_pct": 0.65,
+  "num_policies": 3,
+  "policies": {
+    "medical_advice": {
+      "policy_id": "medical_advice",
+      "policy_name": "No Medical Advice",
+      "separation": 4.247064113616943,
+      "threshold": -2517.839959716797,
+      "train_accuracy": 0.975,
+      "test_accuracy": 0.9,
+      "false_positive_rate": 0.2,
+      "false_negative_rate": 0.0,
+      "num_train_positive": 20,
+      "num_train_negative": 20,
+      "num_test_positive": 10,
+      "num_test_negative": 10,
+      "training_time_seconds": 3.5866243839263916
+    },
+    "competitor_mentions": {
+      "policy_id": "competitor_mentions",
+      "policy_name": "No Competitor Mentions",
+      "separation": 2.017571210861206,
+      "threshold": -15.385085449218709,
+      "train_accuracy": 0.8,
+      "test_accuracy": 0.95,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.1,
+      "num_train_positive": 20,
+      "num_train_negative": 20,
+      "num_test_positive": 10,
+      "num_test_negative": 10,
+      "training_time_seconds": 3.196769952774048
+    },
+    "pricing_commitments": {
+      "policy_id": "pricing_commitments",
+      "policy_name": "No Pricing Commitments",
+      "separation": 1.8965171575546265,
+      "threshold": 502.0222875976565,
+      "train_accuracy": 0.7,
+      "test_accuracy": 0.7,
+      "false_positive_rate": 0.1,
+      "false_negative_rate": 0.5,
+      "num_train_positive": 20,
+      "num_train_negative": 20,
+      "num_test_positive": 10,
+      "num_test_negative": 10,
+      "training_time_seconds": 3.203672409057617
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "model": "google/gemma-3-4b-it",
+  "num_layers": 34,
+  "timestamp": "2026-01-01T01:03:07.724987Z",
+  "best_layer": 17,
+  "best_layer_pct": 0.5,
+  "results": [
+    {
+      "layer": 6,
+      "accuracy": 0.8333333333333334,
+      "auc": 0.8977777777777778,
+      "separation_sigma": 2.7663557529449463,
+      "factual_mean": -2990.2529296875,
+      "halluc_mean": -3060.50732421875
+    },
+    {
+      "layer": 10,
+      "accuracy": 0.7333333333333333,
+      "auc": 0.7155555555555555,
+      "separation_sigma": 1.0895404815673828,
+      "factual_mean": -8290.1884765625,
+      "halluc_mean": -8465.1767578125
+    },
+    {
+      "layer": 12,
+      "accuracy": 0.7333333333333333,
+      "auc": 0.7911111111111111,
+      "separation_sigma": 2.162912130355835,
+      "factual_mean": -21801.728515625,
+      "halluc_mean": -23177.689453125
+    },
+    {
+      "layer": 17,
+      "accuracy": 0.9666666666666667,
+      "auc": 0.9955555555555555,
+      "separation_sigma": 2.693279504776001,
+      "factual_mean": -30694.607421875,
+      "halluc_mean": -34451.02734375
+    },
+    {
+      "layer": 22,
+      "accuracy": 0.9333333333333333,
+      "auc": 0.9688888888888889,
+      "separation_sigma": 2.1106295585632324,
+      "factual_mean": -27060.1875,
+      "halluc_mean": -33036.38671875
+    },
+    {
+      "layer": 25,
+      "accuracy": 0.9333333333333333,
+      "auc": 0.9777777777777779,
+      "separation_sigma": 2.485445737838745,
+      "factual_mean": -28818.00390625,
+      "halluc_mean": -37746.44140625
+    },
+    {
+      "layer": 28,
+      "accuracy": 0.9333333333333333,
+      "auc": 0.9777777777777779,
+      "separation_sigma": 2.6860060691833496,
+      "factual_mean": -40262.1875,
+      "halluc_mean": -53619.578125
+    }
+  ]
+}

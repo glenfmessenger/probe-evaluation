@@ -1,0 +1,8 @@
+=== 2026-09-03T18:11:16Z R5 START
+R5 exit=0
+== check llama-guard 
+  ok: meta-llama/Llama-3.2-3B-Instruct: acc 0.817 tpr 0.917 fpr 0.269 f1 0.822 lat 16.2ms
+  ok: llama_guard: acc 0.935 tpr 0.963 fpr 0.089 f1 0.932 lat 64.7ms
+== PASS
+R5 pushed ad7d4bd
+R5_DONE

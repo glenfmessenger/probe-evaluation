@@ -1,0 +1,129 @@
+% Section 6 -- What minimal-data probes learn.
+% 6.3 is the author's draft of 2026-09-05. Five figures in it conflicted with the committed results; all five were
+% corrected to the results and the corrections were approved by the author on 2026-09-05, so the \disc flags are
+% cleared. The refit passage was then rewritten by the author to state affirmatively that no evaluation data touched
+% the probes -- a stronger fact than the original wording, and the one the corrected method actually supports.
+\section{What Minimal-Data Probes Learn}
+\label{sec:learn}
+
+Section~\ref{sec:extraction} showed that where a probe is read changes what it appears to know. This section asks the
+complementary question: with the extraction convention held fixed, what have these probes actually learned? The answer
+differs by task, and in one case the more interesting finding is that the question cannot be answered with the
+instruments available.
+
+\subsection{Topic, not harm}
+\label{sec:topicharm}
+
+The harmful-content probes separate topic from not-topic rather than harmful from benign, and the two benign sets of
+Section~\ref{sec:data} make this legible. Read at the final token of bare text, the shipped probes reach AUC
+$0.90$--$1.00$ against XSTest---benign prompts that merely sound alarming---and only $0.46$--$0.67$ against
+JailbreakBench benign prompts, which share their subject matter with harmful requests. The false-positive rates say
+the same thing more bluntly: $0$--$17\,\%$ on XSTest against $30$--$94\,\%$ on the on-topic set. A detector that fires
+on nine in ten benign requests about the same subject is not detecting harm.
+
+This is what makes the pooled benign set a reporting hazard rather than a convenience. Pooling XSTest and
+JailbreakBench yields an aggregate AUC of $0.81$--$0.91$, which reads as a working detector and conceals that
+essentially all of its errors fall on one half of the benign data. It also explains the system-level result of
+Section~\ref{sec:guard}: all $94$ of the probe pipeline's false positives are on-topic benign prompts.
+
+Chat-templated reading substantially repairs this (Table~\ref{tab:extraction_convention}), which is the finding of
+Section~\ref{sec:template}. What it does not do is make the probe a harm detector by construction, and the lexical
+baselines of Table~\ref{tab:af_lexical} bound how much credit is due: the best cheap text feature reaches
+$\aucstar{} = 0.710$, so the templated probe's margin over ``read the words'' is $+0.213$ to $+0.272$, not the whole
+of its AUC.
+
+\subsection{Paired contrastive training is not a training method}
+\label{sec:paired}
+
+A recurring proposal for minimal-data probes is to build the training set from matched pairs---each positive aligned
+with a negative sharing topic, style and length---and to average the \emph{within-pair} differences, on the argument
+that shared features cancel in the difference and only the safety-relevant direction survives.
+
+The argument is sound and the method is not distinct. For $n$ complete, aligned pairs,
+\begin{equation}
+    \frac{1}{n}\sum_{i=1}^{n}\left(h^{+}_{i} - h^{-}_{i}\right)
+    \;=\; \frac{1}{n}\sum_{i=1}^{n} h^{+}_{i} - \frac{1}{n}\sum_{i=1}^{n} h^{-}_{i},
+    \label{eq:identity}
+\end{equation}
+which is exactly~\eqref{eq:direction}. The pairing changes the estimator not at all; the two agree to the last bit,
+and our implementation asserts the equality on every model and mode rather than merely reporting it. Any difference
+between a ``paired'' and an ``unpaired'' probe is therefore a difference in the training \emph{data}, and an
+experiment comparing the two rules is measuring nothing.
+
+That leaves the real question: does building the training set from on-topic pairs help? It is testable by holding the
+estimator and the positive examples fixed and varying only the negatives, which is the \emph{off-topic} row of
+Table~\ref{tab:extraction_convention}. Swapping $40$ on-topic benign twins for the off-topic negatives the shipped
+probes were fitted with moves AUC against on-topic benign prompts by between $-0.003$ and $+0.018$---indistinguishable
+from zero on every model---while the extraction change discussed above moves it by $+0.296$ to $+0.544$. The training
+set was not where the leverage was.
+
+We report this as a retirement rather than a refutation. The proposal is not wrong about pairing cancelling shared
+features; it is wrong that this constitutes a distinct \emph{method}, and that part is settled by
+equation~\eqref{eq:identity} rather than by measurement. What remains is the data construction, and there our claim is
+the narrower empirical one: across seven models we observed no effect distinguishable from zero, against an extraction
+change measured on the same probes that moved the same quantity by an order of magnitude more. We have not run an
+equivalence test, so this bounds the effect as small on these models rather than establishing that it is nil.
+
+\subsection{Policy compliance: when the evaluation cannot certify the claim}
+\label{sec:apc}
+
+Our third task asks whether a probe can distinguish giving advice from providing information---a speech-act
+distinction underlying enterprise policies such as ``do not provide medical advice.'' The results here are of a
+different kind from Section~\ref{sec:extraction}'s: we diagnose the failure, and then show that the natural instrument
+for testing any repair is itself invalid at this text granularity.
+
+\textbf{The minimal-data probe has no external validity.} A compliance probe trained in the standard minimal-data
+recipe---fifteen authored contrastive pairs per policy, evaluated on six held-out pairs---achieves
+a perfect held-out score. On an external evaluation set of $360$ labelled responses it collapses: AUC $0.14$--$0.58$
+across models (Table~\ref{tab:apc_external}), and at its own calibrated threshold it flags every case---every advice
+response, every information response, and all twenty refusals---in four of the six model/mode cells
+(Table~\ref{tab:apc_refusal}). The perfect original score is an artifact of a six-example split; the refusal result
+illustrates a measurement error we suggest is general, in which a probe's detections are never separated from the
+model's own refusal behaviour, conflating ``the probe caught it'' with ``the model was never going to comply.''
+
+\input{tables/tab_apc_external}
+\input{tables/tab_apc_refusal}
+
+\textbf{Refit probes pass---and the pass is uninterpretable.} Probes refit by the same recipe on the same fifteen
+authored pairs---differing from the shipped probes only in extraction convention---reach AUC $0.99$ within-topic and
+$0.98$--$1.00$ cross-topic on the external set. No evaluation data touched the probes; apparently strong evidence of
+speech-act reading. But a two-token regex---the presence of second-person pronouns---achieves $0.93$--$0.95$ on the same contrasts, and $1.000$
+on the hardest cells (Table~\ref{tab:apc_lexical}). The evaluation cannot distinguish a semantic classifier from a
+lexical-cue detector, because in this authored set the cue and the construct coincide.
+
+\input{tables/tab_apc_lexical}
+
+\textbf{Controlling the cue dissolves the construct.} We attempted to build the discriminating instrument: an
+evaluation set in which lexical cues and the advice/information label are decorrelated by construction. Three
+successive drafts failed in three distinct ways (Table~\ref{tab:apc_construction}). The first controlled second-person
+marking; a directive-modal regex then separated the classes at $0.875$. The second controlled modals; a bag-of-words
+classifier separated them at $1.000$ via register---professional nouns such as \emph{clinicians} and \emph{guidelines} appearing in $28$ of $40$ information cases against $8$ of $40$
+advice cases. The third drove every measured lexical cue to chance---pronouns $0.544$, modals $0.545$,
+professional-register nouns $0.500$, length $0.485$, omnibus lexical classifier $0.478$ against a within-pair-swap
+null of $0.435 \pm 0.084$---and in doing so dissolved the labels themselves: median within-pair similarity after stopword removal reached $0.814$,
+and members of the ``advice'' class no longer carried directive force under our own pre-registered labelling rule.
+
+\input{tables/tab_apc_construction}
+
+The omnibus figure needs one methodological note, developed in Section~\ref{sec:leakage}: on minimal-pair data
+leave-one-out cross-validation is invalid, because a held-out item's twin sits in the training fold carrying the
+opposite label and the classifier reliably anti-predicts. Measured that way draft~3 scores $0.019$---near-perfect
+separation with the sign inverted---which says nothing about lexical separability. Leave-pair-out against a
+within-pair-swap null is the correct procedure and is what the figures above report.
+
+\textbf{The finding.} The three failures share one cause, which we state as a result rather than as a limitation: in
+short text, directive force is substantially constituted by its lexical markers. Pronoun address, deontic modality,
+and register are not confounds of the advice/information distinction at this granularity; they are much of what the
+distinction consists in. It follows that short-text authored evaluations cannot certify a semantic claim for any
+compliance classifier---probe, fine-tuned model, or otherwise---because any instrument that removes the cues removes
+the construct.
+
+Two practical consequences. First, for short responses, a lexical classifier may simply be an adequate compliance
+control, and claims that a representation-level method outperforms one require evidence such evaluations cannot
+provide. Second, certifying semantic speech-act classification requires naturally occurring multi-sentence responses,
+where directive force is carried structurally across discourse---an evaluation we scope as future work rather than
+attempt with an instrument we have shown cannot answer the question.
+
+We are careful about what this does and does not say. It is not a claim that these probes cannot read speech acts. It
+is the narrower and better-supported claim that no evidence we can construct at this text granularity could establish
+that they do.

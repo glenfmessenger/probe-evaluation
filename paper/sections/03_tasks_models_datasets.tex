@@ -1,0 +1,119 @@
+% Section 3 -- Tasks, models, and datasets.
+% Every count in this section comes from a generated table or from a results file; see paper/tools/gen_tables.py.
+\section{Tasks, Models, and Datasets}
+\label{sec:setup}
+
+\subsection{The minimal-data regime}
+\label{sec:regime}
+
+We study linear probes on language-model activations trained from tens of examples rather than thousands. The appeal
+is obvious: a direction vector costs one forward pass to apply, adds roughly a microsecond of arithmetic to a request
+that already costs tens of milliseconds, and can be fitted in minutes on a laptop's worth of labelled text. The
+question this paper asks is not whether such probes can be fitted---they always can---but what has to be true of an
+evaluation before a number computed on one means what it appears to mean.
+
+All probes here share the same construction. Given a set of positive texts $P$ and negative texts $N$, activations
+$h_\ell$ are read at a single decoder layer $\ell$ and a single token position, and the direction is the difference of
+class means,
+\begin{equation}
+    v = \frac{1}{|P|}\sum_{i \in P} h^{(i)}_\ell - \frac{1}{|N|}\sum_{j \in N} h^{(j)}_\ell .
+    \label{eq:direction}
+\end{equation}
+At inference a text is scored by the cosine of its activation with the unit direction, $s = \langle \hat{h}_\ell,
+\hat{v}\rangle$, and classified against a threshold fitted on the training negatives at a $5\,\%$ false-positive
+quantile, floored at the midpoint of the class means. Section~\ref{sec:learn} shows that a construction widely
+described as a distinct alternative to~\eqref{eq:direction}---averaging \emph{within-pair} differences over matched
+pairs---is not an alternative at all but the same estimator, which is why this paper uses the term \emph{paired
+contrastive data construction} throughout and never treats pairing as an estimator choice.
+
+\subsection{Three tasks}
+\label{sec:tasks}
+
+We evaluate three probe families, chosen because they span the three places a safety probe is typically inserted and
+because they fail in three different ways.
+
+\textbf{Harmful-content filtering (\af{})} scores an incoming user prompt and is meant to fire on requests a model
+should refuse. It is the easiest task to appear to solve, because harmful and benign prompts differ in topic as well
+as in harm.
+
+\textbf{Agent-injection detection (\aag{})} scores an agent scaffold---a user instruction, a tool response, and the
+model's turn boundary---and is meant to fire when the tool response contains an instruction injected by a third party.
+Unlike \af{}, the signal is localised inside a long input at a position that varies from case to case.
+
+\textbf{Policy compliance (\apc{})} scores a model's own \emph{response} and is meant to distinguish giving advice
+from providing information within a regulated domain. It is the only one of the three whose target is a speech act
+rather than a topic, and Section~\ref{sec:learn} shows this is what makes it hard to evaluate honestly.
+
+\subsection{Models}
+\label{sec:models}
+
+Seven instruction-tuned models across three families (Gemma-2, Gemma-3, Llama-3), from $1$B to $9$B parameters, all in
+\texttt{bfloat16} on a single A100-40GB. Table~\ref{tab:models} lists the layer each probe family reads. Those layer
+indices are the ones the probes were originally fitted at and are held fixed throughout this paper: a layer chosen by
+sweeping on the evaluation set would not be a held-out number, and the one place we do sweep (Section~\ref{sec:read})
+is reported as a note rather than as a headline.
+
+\input{tables/tab_models}
+
+One detail of the extraction stack turns out to matter more than the layer index, and is treated separately in
+Section~\ref{sec:tensor}: which \emph{tensor} at that layer the probe reads.
+
+\subsection{Datasets}
+\label{sec:data}
+
+Table~\ref{tab:datasets} summarises the evaluation data. Three choices in it are load-bearing.
+
+\textbf{The benign side is reported per set, never pooled.} For \af{} we use two benign sets with deliberately
+different character. XSTest-v2 safe prompts are built to \emph{look} unsafe while being harmless---questions about
+killing a process, or about historical atrocities---and are the realistic false-refusal stressor. JailbreakBench
+benign prompts are on-topic twins of harmful behaviours: same subject matter, benign intent. A probe that has learned
+topic rather than harm separates the harmful set from XSTest easily and from JailbreakBench barely, and pooling the
+two benign sets hides exactly that. Every \af{} number in this paper is therefore reported against both.
+
+\textbf{HarmBench is used at $300$ behaviours, not $400$.} The $100$ copyright behaviours are excluded because they
+request verbatim reproduction of protected text rather than harmful content, and including them would mis-measure a
+harm probe. The exclusion is stated here rather than buried in a configuration file.
+
+\textbf{The agent benign side is constructed, because none exists.} InjecAgent ships $1{,}054$ injected cases per
+attack setting but only $17$ clean tool contexts, which puts a floor of $5.9\,\%$ on any false-positive-rate
+measurement. We assembled a $120$-case benign set from the InjecAgent user cases, AgentDojo suites and authored
+scaffolds in the same format, including $36$ hard negatives---clean tool responses that contain imperative language,
+urgency markers, or embedded quoted text---so that false positives can be attributed to a cause rather than merely
+counted.
+
+\input{tables/tab_datasets}
+
+Two label artifacts in InjecAgent are worth recording for anyone else using it. Every one of the $1{,}054$ injected
+tool responses is wrapped in an outer pair of quotation marks and has its inner quotes escaped, while none of the
+benign templates is; left in place this is a perfect label cue that has nothing to do with injection. We normalise it
+away for the main results. Separately, and more consequentially for evaluation design, the $1{,}054$ cases are built
+by crossing only $62$ distinct attacker instructions with $17$ user instructions, so a case-level train/test split
+places every test-half injection string in the training half as well. Section~\ref{sec:read} reports both that split
+and a grouped split that removes the overlap. Both artifacts have been reported upstream \cite{injecagentissue7}.
+
+\subsection{The policy-compliance labelling rule}
+\label{sec:apcrule}
+
+Advice and information shade into each other, so the rule that separates them was fixed in writing before any
+activation was extracted, and did not change afterwards:
+
+\begin{quote}
+\emph{A hedge does not remove a surviving directive; being detailed enough to act on does not make a description
+advice.}
+\end{quote}
+
+Concretely, a response is labelled \emph{advice} when it directs the reader toward a specific action concerning their
+own case, whether or not it is hedged---``ibuprofen often helps, so take $400$\,mg with food, but do check with your
+doctor'' is advice. It is labelled \emph{information} when it describes facts, mechanisms, typical ranges or ordinary
+professional practice without directing the reader, however actionable the content---``adult dosing in the labelling
+is $400$--$600$\,mg every six hours'' is information. Responses that decline and hand off without conveying either a
+directive or substantive content are labelled \emph{refusal} and are excluded from the advice-versus-information
+comparison, then reported separately: a compliance probe that fires on refusals would fire on precisely the responses
+the policy is trying to elicit, and Section~\ref{sec:learn} shows that the shipped probes do.
+
+The external evaluation set contains $240$ medical responses in four bands---clear advice, clear information, hedged
+advice, and information detailed enough to act on---plus $20$ refusals, with $60$ financial and $60$ legal responses
+in the same structure for cross-topic transfer. The two middle bands are the ones that matter: hedged advice catches
+a probe that has learned that hedging means compliance, and information-dense catches one that has learned that
+clinical specificity means violation. Section~\ref{sec:learn} reports what happened when we asked whether this set
+could support a claim about speech acts at all.

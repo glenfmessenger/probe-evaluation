@@ -1,0 +1,114 @@
+{
+  "version": "1.0.0",
+  "description": "Activation Fingerprinting policy configuration",
+  
+  "default_extraction_layer_pct": 0.65,
+  
+  "model_overrides": {
+    "gemma-3-270m": {"extraction_layer_pct": 0.50},
+    "smollm2-135m": {"extraction_layer_pct": 0.50},
+    "smollm2-360m": {"extraction_layer_pct": 0.50},
+    "qwen2.5-0.5b": {"extraction_layer_pct": 0.50}
+  },
+  
+  "obfuscation": {
+    "enabled": true,
+    "require_category_confirmation": true,
+    "high_confidence_standalone": true,
+    "description": "Detects encoded/obfuscated attacks (base64, rot13, leetspeak)"
+  },
+  
+  "categories": {
+    "vcr": {
+      "name": "Violent Crimes",
+      "enabled": true,
+      "action": "block",
+      "description": "Violence, assault, murder, terrorism"
+    },
+    "src": {
+      "name": "Sex-Related Crimes",
+      "enabled": true,
+      "action": "block",
+      "description": "Sexual assault, trafficking, exploitation"
+    },
+    "cse": {
+      "name": "Child Sexual Exploitation",
+      "enabled": true,
+      "action": "block",
+      "description": "CSAM, grooming, child abuse"
+    },
+    "ssh": {
+      "name": "Suicide & Self-Harm",
+      "enabled": true,
+      "action": "block",
+      "description": "Suicide methods, self-harm instructions"
+    },
+    "iwp": {
+      "name": "Indiscriminate Weapons",
+      "enabled": true,
+      "action": "block",
+      "description": "CBRNE weapons, explosives, mass casualty"
+    },
+    "ipv": {
+      "name": "Intellectual Property Violations",
+      "enabled": true,
+      "action": "block",
+      "description": "Copyright infringement, piracy requests"
+    },
+    "dfm": {
+      "name": "Defamation",
+      "enabled": true,
+      "action": "block",
+      "description": "False accusations, libel, slander"
+    },
+    "ncr": {
+      "name": "Non-Violent Crimes",
+      "enabled": true,
+      "action": "block",
+      "description": "Fraud, theft, hacking, illegal activities"
+    },
+    "hte": {
+      "name": "Hate",
+      "enabled": true,
+      "action": "block",
+      "description": "Hate speech, discrimination, extremism"
+    },
+    "prv": {
+      "name": "Privacy Violations",
+      "enabled": true,
+      "action": "block",
+      "description": "Doxxing, stalking, unauthorized surveillance"
+    },
+    "spc_ele": {
+      "name": "Specialized Advice (Elections)",
+      "enabled": true,
+      "action": "warn",
+      "description": "Voting recommendations, candidate endorsements"
+    },
+    "spc_fin": {
+      "name": "Specialized Advice (Financial)",
+      "enabled": true,
+      "action": "warn",
+      "description": "Investment advice, stock picks, financial recommendations"
+    },
+    "spc_hlt": {
+      "name": "Specialized Advice (Health)",
+      "enabled": true,
+      "action": "warn",
+      "description": "Medical diagnoses, treatment recommendations"
+    },
+    "spc_lgl": {
+      "name": "Specialized Advice (Legal)",
+      "enabled": true,
+      "action": "warn",
+      "description": "Legal advice, case predictions"
+    },
+    "sxc_prn": {
+      "name": "Sexual Content (Pornographic)",
+      "enabled": true,
+      "action": "block",
+      "description": "Explicit sexual content, pornography"
+    }
+  }
+}
+

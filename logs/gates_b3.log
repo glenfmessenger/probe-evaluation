@@ -1,0 +1,53 @@
+B3 cases: 360 ({'medical': 240, 'financial': 60, 'legal': 60}); bands advice=['clear_advice', 'hedged_advice'] information=['clear_information', 'information_dense'] + refusal; policy medical; feature mlp_out; modes ['raw', 'templated']
+B3 models: ['google/gemma-2-9b-it', 'meta-llama/Llama-3.1-8B-Instruct', 'meta-llama/Llama-3.2-3B-Instruct'] (primary google/gemma-2-9b-it, secondaries chosen from B1 by AUC vs JBB benign)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.13it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.10it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.18it/s]
+  google/gemma-2-9b-it: APC/medical layer_index 10 (layer_pct 0.25), 15 training pairs
+    google_gemma_2_9b_it/raw: 16/360 (0s)
+    google_gemma_2_9b_it/raw: 176/360 (2s)
+    google_gemma_2_9b_it/raw: 336/360 (4s)
+    google_gemma_2_9b_it/raw: 360/360 (4s)
+    [raw] january   medical AUC 0.579 (strat 0.577) | transfer fin 0.640 leg 0.341 | hard bands hedged 1.00 dense 0.00 | refusal flag 1.00
+    [raw] paired    medical AUC 0.427 (strat 0.427) | transfer fin 0.761 leg 0.737 | hard bands hedged 0.13 dense 0.87 | refusal flag 0.00
+    [raw] standard  medical AUC 0.427 (strat 0.427) | transfer fin 0.761 leg 0.737 | hard bands hedged 0.13 dense 0.87 | refusal flag 0.00
+    google_gemma_2_9b_it/templated: 16/360 (0s)
+    google_gemma_2_9b_it/templated: 176/360 (2s)
+    google_gemma_2_9b_it/templated: 336/360 (4s)
+    google_gemma_2_9b_it/templated: 360/360 (4s)
+    [templated] january   medical AUC 0.894 (strat 0.893) | transfer fin 0.638 leg 0.617 | hard bands hedged 1.00 dense 0.00 | refusal flag 1.00
+    [templated] paired    medical AUC 0.867 (strat 0.889) | transfer fin 0.962 leg 1.000 | hard bands hedged 0.62 dense 0.80 | refusal flag 0.60
+    [templated] standard  medical AUC 0.867 (strat 0.889) | transfer fin 0.962 leg 1.000 | hard bands hedged 0.62 dense 0.80 | refusal flag 0.60
+  wrote /home/ubuntu/aase/results/gates/b3/google_gemma_2_9b_it.json
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.14it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.13it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.14it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.63it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.41it/s]
+  meta-llama/Llama-3.1-8B-Instruct: APC/medical layer_index 8 (layer_pct 0.25), 15 training pairs
+    meta_llama_Llama_3_1_8B_Instruct/raw: 16/360 (0s)
+    meta_llama_Llama_3_1_8B_Instruct/raw: 176/360 (1s)
+    meta_llama_Llama_3_1_8B_Instruct/raw: 336/360 (3s)
+    meta_llama_Llama_3_1_8B_Instruct/raw: 360/360 (3s)
+    [raw] january   medical AUC 0.402 (strat 0.385) | transfer fin 0.471 leg 0.537 | hard bands hedged 0.47 dense 0.31 | refusal flag 0.40
+    [raw] paired    medical AUC 0.490 (strat 0.546) | transfer fin 0.647 leg 0.619 | hard bands hedged 0.22 dense 0.87 | refusal flag 0.00
+    [raw] standard  medical AUC 0.490 (strat 0.546) | transfer fin 0.647 leg 0.619 | hard bands hedged 0.22 dense 0.87 | refusal flag 0.00
+    meta_llama_Llama_3_1_8B_Instruct/templated: 16/360 (0s)
+    meta_llama_Llama_3_1_8B_Instruct/templated: 176/360 (2s)
+    meta_llama_Llama_3_1_8B_Instruct/templated: 336/360 (4s)
+    meta_llama_Llama_3_1_8B_Instruct/templated: 360/360 (4s)
+    [templated] january   medical AUC 0.144 (strat 0.126) | transfer fin 0.270 leg 0.128 | hard bands hedged 0.22 dense 0.09 | refusal flag 0.15
+    [templated] paired    medical AUC 0.991 (strat 0.996) | transfer fin 1.000 leg 0.997 | hard bands hedged 0.89 dense 0.96 | refusal flag 0.70
+    [templated] standard  medical AUC 0.991 (strat 0.996) | transfer fin 1.000 leg 0.997 | hard bands hedged 0.89 dense 0.96 | refusal flag 0.70
+  wrote /home/ubuntu/aase/results/gates/b3/meta_llama_Llama_3_1_8B_Instruct.json
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.87it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.69it/s]
+  meta-llama/Llama-3.2-3B-Instruct: APC/medical layer_index 7 (layer_pct 0.25), 15 training pairs
+    meta_llama_Llama_3_2_3B_Instruct/raw: 16/360 (0s)
+    meta_llama_Llama_3_2_3B_Instruct/raw: 176/360 (1s)
+    meta_llama_Llama_3_2_3B_Instruct/raw: 336/360 (1s)
+    meta_llama_Llama_3_2_3B_Instruct/raw: 360/360 (2s)
+    [raw] january   medical AUC 0.560 (strat 0.571) | transfer fin 0.416 leg 0.415 | hard bands hedged 1.00 dense 0.00 | refusal flag 1.00
+    [raw] paired    medical AUC 0.308 (strat 0.276) | transfer fin 0.339 leg 0.413 | hard bands hedged 0.15 dense 0.64 | refusal flag 0.00
+    [raw] standard  medical AUC 0.308 (strat 0.276) | transfer fin 0.339 leg 0.413 | hard bands hedged 0.15 dense 0.64 | refusal flag 0.00
+    meta_llama_Llama_3_2_3B_Instruct/templated: 16/360 (0s)
+    meta_llama_Llama_3_2_3B_Instruct/templated: 176/360 (1s)
+    meta_llama_Llama_3_2_3B_Instruct/templated: 336/360 (2s)
+    meta_llama_Llama_3_2_3B_Instruct/templated: 360/360 (2s)
+    [templated] january   medical AUC 0.408 (strat 0.395) | transfer fin 0.598 leg 0.503 | hard bands hedged 1.00 dense 0.00 | refusal flag 1.00
+    [templated] paired    medical AUC 0.986 (strat 0.994) | transfer fin 0.978 leg 1.000 | hard bands hedged 0.95 dense 0.93 | refusal flag 0.50
+    [templated] standard  medical AUC 0.986 (strat 0.994) | transfer fin 0.978 leg 1.000 | hard bands hedged 0.95 dense 0.93 | refusal flag 0.50
+  wrote /home/ubuntu/aase/results/gates/b3/meta_llama_Llama_3_2_3B_Instruct.json

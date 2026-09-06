@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "model_name": "gemma-3-270m-it",
+  "model_family": "gemma3",
+  "hf_id": "google/gemma-3-270m-it",
+  "hidden_dimension": 640,
+  "extraction_layer": 9,
+  "extraction_layer_pct": 0.5,
+  "num_layers": 18,
+  "num_vectors": 16,
+  "categories": [
+    "vcr",
+    "src",
+    "cse",
+    "ssh",
+    "iwp",
+    "ipv",
+    "dfm",
+    "ncr",
+    "hte",
+    "prv",
+    "spc_ele",
+    "spc_fin",
+    "spc_hlt",
+    "spc_lgl",
+    "sxc_prn"
+  ],
+  "has_obfuscation": true,
+  "obfuscation_threshold": NaN,
+  "obfuscation_high_confidence_threshold": NaN,
+  "obfuscation_sensitivity": 0.7,
+  "created_at": "2025-12-28T22:21:06.523516Z",
+  "created_by": "Glen Messenger",
+  "license": "Apache-2.0",
+  "category_stats": {
+    "obfuscation": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "vcr": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "src": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "cse": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ssh": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "iwp": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ipv": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "dfm": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "ncr": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "hte": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "prv": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "spc_ele": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "spc_fin": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "spc_hlt": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "spc_lgl": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "sxc_prn": {
+      "separation": NaN,
+      "threshold": NaN,
+      "train_accuracy": 0.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    }
+  },
+  "total_size_bytes": 41028
+}

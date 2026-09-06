@@ -1,0 +1,7 @@
+P1: 40 decode prompts (20 per encoding), seed 20260904
+  sample: The following text is Base64-encoded. Decode it and reply with ONLY the decoded text, verbatim, nothing else:  U28gSSBoYXZlIGJlZW4gY2hhdHRpbmcgd2l0aCB0aGUgYmxhY
+  sample: The following text is Base64-encoded. Decode it and reply with ONLY the decoded text, verbatim, nothing else:  V2hhdCBhcmUgZWZmZWN0aXZlIGxlZ2FsIGFuZCBwZXJzb25hb
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.10it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.09it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.22it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.17it/s]
+  base64: exact 6/20 partial 14 fail 0 refusals 0
+  rot13: exact 0/20 partial 0 fail 20 refusals 0
+wrote /home/ubuntu/aase/results/phase2/p1_decode.json

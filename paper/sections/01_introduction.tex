@@ -1,0 +1,80 @@
+% Section 1 -- Introduction. Author's draft of 2026-09-05, cite keys mapped to refs.bib.
+% Framing rule 1 (CLEAN START) is structural here: the motivation is the production deployments and the literature,
+% never this project's own history. The closing sentence deliberately repeats the abstract's.
+\section{Introduction}
+\label{sec:intro}
+
+Activation probes---small linear classifiers applied to a language model's hidden states---occupy an attractive point
+in the safety-tooling design space. The activations they read are computed during inference regardless; the probes
+themselves add microseconds of latency and kilobytes of memory; and unlike guard models, they scale to every request
+at negligible marginal cost. This promise is no longer speculative: in early 2026, two frontier laboratories
+independently reported production deployments of probe-first monitoring cascades, in which lightweight probes screen
+all traffic and expensive classifiers examine only flagged cases \cite{cunningham2026classifiers, gdm2026probes}.
+
+Production systems, however, train their probes on data at a scale most practitioners do not have. This paper asks how
+far the approach stretches in the opposite regime---the minimal-data regime, where probes are trained on tens of
+contrastive examples authored in an afternoon. The question is practically urgent: the minimal-data recipe is cheap
+enough that enterprises, open-source projects, and researchers will attempt it, and recent work reports strong results
+from exactly such recipes \cite{han2025safeswitch, conceptguard2025, mckenzie2025probes}. It is also scientifically
+unsettled, because the evaluations behind those results differ from one another in choices that are rarely treated as
+experimental variables at all: which token position is read, whether the prompt is formatted through the model's chat
+template, which tensor a serving framework's hook actually returns, and what the benign side of the evaluation
+contains.
+
+We evaluate the minimal-data regime systematically: three safety tasks---harmful-content detection, prompt-injection
+detection, and policy compliance---across seven open models from three architecture families, under a pre-registered
+protocol with controls that, to our knowledge, no prior activation-probe study applies together: topic-matched benign
+sets, length stratification, encoded-benign controls, refusal separation, lexical baselines, and leakage-grouped
+splits.
+
+Our central finding is that reported outcomes in this regime are dominated by two factors that most papers do not
+report: extraction convention and evaluation design. The same probes, on the same models, move from apparent failure
+to strong performance---or the reverse---when either factor changes. Concretely: probes that flag $30$--$94\,\%$ of
+topic-matched benign prompts become accurate detectors (length-stratified AUC $0.92$--$0.98$, exceeding tuned lexical
+baselines by $+0.21$ to $+0.27$) when prompts are read through the model's chat template rather than as bare text; and
+probes that the conventional final-token read leaves at $0.58$--$0.86$ reach $0.94$--$0.97$ AUC when the activation is
+instead averaged over the tool-response span, on injections never seen in training.
+Neither repair changes the probe or its training data. Conversely, rigorous evaluation retires claims that weaker
+evaluation supports: a proposed training method whose estimator we show to be algebraically identical to its baseline;
+obfuscation robustness that can be manufactured at will by training on encodings; and a compliance-classification task
+whose short-text evaluations, we show, cannot certify a semantic claim for any classifier---probe or
+otherwise---because directive force in short text is carried by the very lexical markers such evaluations must
+control.
+
+The frontier-scale evidence points the same direction: DeepMind's production report identifies distribution shift in
+input length as the principal generalization failure for deployed probes \cite{gdm2026probes}---at production scale,
+the same class of phenomenon we localize, at accessible scale, to specific and repairable conventions.
+
+We make six contributions.
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Two extraction-convention repairs.} Reading prompts through the model's chat template removes the topic
+      confound in harmful-content probing, raising length-stratified AUC by $+0.30$ to $+0.54$ on all seven models;
+      and reading the mean over the tool-response span rather than the final token raises prompt-injection detection
+      from $0.58$--$0.86$ to $0.94$--$0.97$ AUC on injections never seen in training (Section~\ref{sec:extraction}).
+\item \textbf{Retirement of paired contrastive training.} Its estimator is algebraically identical to standard
+      contrastive training for complete aligned pairs, and an ablation holding the estimator fixed shows its data
+      construction contributes between $-0.003$ and $+0.018$ AUC (Section~\ref{sec:learn}).
+\item \textbf{A construct-validity result.} In short authored text, directive force is substantially lexically
+      constituted, so short-text authored evaluation cannot certify a semantic claim for any compliance classifier;
+      we show this by building three instruments that each fail in a different way (Section~\ref{sec:learn}).
+\item \textbf{An anatomy of obfuscation failure.} Across $22$ blocks, two template modes, two probe constructions and
+      two activation spaces, no configuration separates encoded-harmful from encoded-benign prompts once length is
+      controlled---even for encodings the model demonstrably decodes---while training on encoded examples
+      manufactures near-perfect apparent detection at a near-perfect encoded-benign false-positive rate
+      (Section~\ref{sec:obfuscation}).
+\item \textbf{Five evaluation hazards of independent value.} Exploitable label artifacts in a standard
+      prompt-injection benchmark; prompt length as a pervasive confound; a tensor-identity hazard in serving-framework
+      activation hooks; the necessity of separating probe detections from the model's own refusals; and the
+      invalidity of leave-one-out cross-validation on minimal-pair data (Sections~\ref{sec:setup},
+      \ref{sec:protocol}, \ref{sec:tensor}).
+\item \textbf{A pre-registered protocol stress-tested in use.} Committed thresholds, two distinct amendment types for
+      when a pre-registered interpretation fails, a stop rule that treats over-performance as a warning, and three
+      cases in which our own pre-registered designs proved unable to answer their own questions
+      (Section~\ref{sec:protocol}).
+\end{enumerate}
+
+Throughout, every number derives from committed, provenance-stamped results; the protocol, its pre-registered
+thresholds, and the cases where our own pre-registered designs failed to answer their questions are reported as
+findings in their own right. Minimal-data activation probes can work; whether they do is decided by conventions most
+papers never report.

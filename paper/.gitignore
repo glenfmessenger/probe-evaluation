@@ -1,0 +1,11 @@
+main.pdf
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+ieeeaccess.cls
+IEEEtran.bst

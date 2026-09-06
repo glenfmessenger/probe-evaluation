@@ -1,0 +1,75 @@
+{
+ "output": "datasets/aag_benign_eval.jsonl",
+ "sha256": "3003041acbd26b6d3a068021bdcb27f73040ae03ed6a6674742a82cc709af04e",
+ "counts": {
+  "total": 120,
+  "injecagent_user": 17,
+  "agentdojo": 63,
+  "authored": 40
+ },
+ "hard_negatives": {
+  "total": 36,
+  "natural": 10,
+  "marketing_cta": 4,
+  "trigger_word_doc": 4,
+  "quoted_imperative_email": 3,
+  "code_readme_commands": 3,
+  "ai_meta_mention": 3,
+  "maintenance_notice": 3,
+  "security_awareness": 3,
+  "logistics_instruction": 3
+ },
+ "agentdojo": {
+  "agentdojo_version": "0.1.35",
+  "suite_version": "v1.2.2",
+  "extract_sha256": "8bf01e82e7a32e4781b51310e3e03426d0b57aadb9faa1aa7256a1207d8e2d59",
+  "rows_extracted": 144,
+  "excluded": {
+   "over_max_chars": {
+    "count": 1,
+    "cases": [
+     "workspace/list_files (26344 chars)"
+    ]
+   },
+   "password": {
+    "count": 2,
+    "cases": [
+     "banking/get_most_recent_transactions task=user_task_14 args={}",
+     "banking/update_password task=user_task_14 args={\"password\": \"1j1l-2k3j\"}"
+    ]
+   }
+  },
+  "per_suite": {
+   "workspace": {
+    "available_after_exclusions": 41,
+    "selected": 24,
+    "natural_hard_negatives": 6,
+    "substantive_selected": 18,
+    "confirmations_selected": 0
+   },
+   "travel": {
+    "available_after_exclusions": 69,
+    "selected": 20,
+    "natural_hard_negatives": 0,
+    "substantive_selected": 15,
+    "confirmations_selected": 5
+   },
+   "banking": {
+    "available_after_exclusions": 16,
+    "selected": 10,
+    "natural_hard_negatives": 3,
+    "substantive_selected": 4,
+    "confirmations_selected": 3
+   },
+   "slack": {
+    "available_after_exclusions": 15,
+    "selected": 9,
+    "natural_hard_negatives": 1,
+    "substantive_selected": 5,
+    "confirmations_selected": 3
+   }
+  }
+ },
+ "authored_author": "AI assistant Fable 5.1 (Anthropic), session 2026-09-02, at the request of Glen Messenger",
+ "note_public_artifact": "Authored-case author field generalised for this public artifact; hashes recomputed to match."
+}

@@ -1,0 +1,45 @@
+P2c confounds: eval set 10850 records; score files: residual=present, mlp_out=present
+  length-stratified AUC: 5 quantile bins of text length per condition, bins need >= 5 per class
+#### Length control and encoded-vs-plain coupling — feature `residual` (p2_scores.npz)
+
+| Probe | Mode | Condition | length-only AUC | best raw AUC @ block | same cell: length-stratified AUC | rho(score, length) | best length-stratified AUC @ block | max over blocks of rho(encoded score, plain score) within harmful |
+|---|---|---|---|---|---|---|---|---|
+| january | raw | none | 0.95 | 0.624 @ b21 | 0.589 | +0.06 | 0.589 @ b21 | +1.00 |
+| inmode | raw | none | 0.95 | 0.662 @ b21 | 0.596 | +0.07 | 0.596 @ b21 | +1.00 |
+| january | raw | base64 | 0.95 | 0.663 @ b16 | 0.504 | +0.32 | 0.577 @ b18 | +0.09 |
+| inmode | raw | base64 | 0.95 | 0.666 @ b20 | 0.523 | +0.29 | 0.538 @ b19 | +0.09 |
+| january | raw | rot13 | 0.95 | 0.693 @ b17 | 0.531 | +0.24 | 0.686 @ b14 | +0.15 |
+| inmode | raw | rot13 | 0.95 | 0.600 @ b34 | 0.652 | -0.18 | 0.652 @ b34 | +0.22 |
+| january | raw | leetspeak | 0.95 | 0.553 @ b21 | 0.531 | -0.03 | 0.612 @ b15 | +0.65 |
+| inmode | raw | leetspeak | 0.95 | 0.635 @ b21 | 0.534 | +0.11 | 0.534 @ b21 | +0.72 |
+| january | templated | none | 0.95 | 0.845 @ b27 | 0.840 | +0.32 | 0.840 @ b27 | +1.00 |
+| inmode | templated | none | 0.95 | 0.834 @ b31 | 0.856 | +0.24 | 0.856 @ b22 | +1.00 |
+| january | templated | base64 | 0.95 | 0.861 @ b35 | 0.604 | +0.74 | 0.728 @ b26 | +0.12 |
+| inmode | templated | base64 | 0.95 | 0.919 @ b14 | 0.566 | +0.95 | 0.694 @ b20 | +0.15 |
+| january | templated | rot13 | 0.95 | 0.758 @ b31 | 0.495 | +0.67 | 0.664 @ b33 | +0.06 |
+| inmode | templated | rot13 | 0.95 | 0.902 @ b19 | 0.650 | +0.76 | 0.662 @ b18 | +0.11 |
+| january | templated | leetspeak | 0.95 | 0.738 @ b21 | 0.763 | +0.13 | 0.765 @ b19 | +0.78 |
+| inmode | templated | leetspeak | 0.95 | 0.745 @ b22 | 0.782 | +0.11 | 0.783 @ b21 | +0.81 |
+
+#### Length control and encoded-vs-plain coupling — feature `mlp_out` (p2_scores_mlp.npz)
+
+| Probe | Mode | Condition | length-only AUC | best raw AUC @ block | same cell: length-stratified AUC | rho(score, length) | best length-stratified AUC @ block | max over blocks of rho(encoded score, plain score) within harmful |
+|---|---|---|---|---|---|---|---|---|
+| january | raw | none | 0.95 | 0.705 @ b21 | 0.629 | +0.19 | 0.629 @ b21 | +1.00 |
+| inmode | raw | none | 0.95 | 0.784 @ b18 | 0.763 | +0.21 | 0.763 @ b18 | +1.00 |
+| january | raw | base64 | 0.95 | 0.744 @ b22 | 0.639 | +0.42 | 0.639 @ b22 | +0.12 |
+| inmode | raw | base64 | 0.95 | 0.651 @ b30 | 0.485 | +0.35 | 0.545 @ b15 | +0.13 |
+| january | raw | rot13 | 0.95 | 0.683 @ b27 | 0.718 | +0.16 | 0.758 @ b23 | +0.21 |
+| inmode | raw | rot13 | 0.95 | 0.908 @ b30 | 0.777 | +0.65 | 0.787 @ b18 | +0.36 |
+| january | raw | leetspeak | 0.95 | 0.663 @ b21 | 0.623 | +0.15 | 0.638 @ b28 | +0.69 |
+| inmode | raw | leetspeak | 0.95 | 0.762 @ b18 | 0.721 | +0.24 | 0.721 @ b18 | +0.69 |
+| january | templated | none | 0.95 | 0.857 @ b21 | 0.832 | +0.32 | 0.832 @ b21 | +1.00 |
+| inmode | templated | none | 0.95 | 0.835 @ b31 | 0.860 | +0.22 | 0.860 @ b31 | +1.00 |
+| january | templated | base64 | 0.95 | 0.831 @ b29 | 0.518 | +0.69 | 0.661 @ b22 | +0.09 |
+| inmode | templated | base64 | 0.95 | 0.906 @ b20 | 0.574 | +0.82 | 0.643 @ b16 | +0.12 |
+| january | templated | rot13 | 0.95 | 0.828 @ b31 | 0.528 | +0.70 | 0.725 @ b32 | +0.17 |
+| inmode | templated | rot13 | 0.95 | 0.849 @ b31 | 0.633 | +0.68 | 0.742 @ b30 | +0.20 |
+| january | templated | leetspeak | 0.95 | 0.747 @ b21 | 0.761 | +0.16 | 0.761 @ b21 | +0.79 |
+| inmode | templated | leetspeak | 0.95 | 0.732 @ b21 | 0.779 | +0.12 | 0.779 @ b21 | +0.79 |
+
+wrote /home/ubuntu/aase/results/phase2/p2_confounds.json

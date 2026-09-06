@@ -1,0 +1,53 @@
+=== 2026-09-03T19:21:14Z p1 START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T19:22:00Z p1 exit=0
+  provenance ok: f0854853cd5d config e325d8f864fe phase2_config 7523adb7feb1
+  stop-rule check ok
+2026-09-03T19:22:01Z p1 pushed 6539f01
+=== 2026-09-03T19:22:01Z ALL PARTS DONE
+=== 2026-09-03T19:22:18Z p2 START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T19:22:37Z p2 exit=1
+PART FAILED (see logs/phase2_p2.log)
+=== 2026-09-03T19:26:09Z p2 START
+/dev/vda1       497G  107G  390G  22% /
+2026-09-03T19:36:23Z p2 exit=0
+  provenance ok: 9c07c23ec38c config e325d8f864fe phase2_config 7523adb7feb1
+  p2 score cells: 176, degenerate: 0
+  stop-rule check ok
+2026-09-03T19:36:26Z p2 pushed 3f91740
+=== 2026-09-03T19:36:26Z ALL PARTS DONE
+=== 2026-09-03T19:37:13Z p3 START
+/dev/vda1       497G  110G  387G  23% /
+2026-09-03T19:37:34Z p3 exit=0
+  provenance ok: 3f917403bcf0 config e325d8f864fe phase2_config 7523adb7feb1
+  p3 cells checked, degenerate: 0
+  stop-rule check ok
+2026-09-03T19:37:36Z p3 pushed feb263c
+=== 2026-09-03T19:37:36Z p4 START
+/dev/vda1       497G  110G  387G  23% /
+2026-09-03T19:44:30Z p4 exit=0
+  provenance ok: feb263c21014 config e325d8f864fe phase2_config 7523adb7feb1
+  stop-rule check ok
+2026-09-03T19:44:31Z p4 pushed 8abcdf0
+=== 2026-09-03T19:44:31Z ALL PARTS DONE
+=== 2026-09-03T19:45:12Z p2b START
+/dev/vda1       497G  110G  387G  23% /
+2026-09-03T19:55:22Z p2b exit=0
+  provenance ok: 7d742fb5598d config e325d8f864fe phase2_config 7523adb7feb1
+  p2 score cells: 176, degenerate: 0
+  stop-rule check ok
+2026-09-03T19:55:25Z p2b pushed aa41809
+=== 2026-09-03T19:55:25Z p4b START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T20:02:13Z p4b exit=0
+  provenance ok: aa4180932e60 config e325d8f864fe phase2_config 7523adb7feb1
+  stop-rule check ok
+2026-09-03T20:02:15Z p4b pushed 1ebb200
+=== 2026-09-03T20:02:15Z p2c START
+/dev/vda1       497G  114G  383G  23% /
+2026-09-03T20:02:18Z p2c exit=0
+  provenance ok: 1ebb20018fe5 config e325d8f864fe phase2_config 7523adb7feb1
+  stop-rule check ok
+2026-09-03T20:02:20Z p2c pushed a42a0a8
+=== 2026-09-03T20:02:20Z ALL PARTS DONE

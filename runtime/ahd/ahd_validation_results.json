@@ -1,0 +1,204 @@
+{
+  "model": "google/gemma-3-1b-it",
+  "timestamp": "2025-12-31T23:12:39.380466Z",
+  "layer_sweep": [
+    {
+      "layer_idx": 10,
+      "layer_pct": 0.38461538461538464,
+      "train_accuracy": 0.95,
+      "train_auc": 0.9788888888888889,
+      "separation": 2.3447482585906982
+    },
+    {
+      "layer_idx": 13,
+      "layer_pct": 0.5,
+      "train_accuracy": 0.8833333333333333,
+      "train_auc": 0.941111111111111,
+      "separation": 2.237985372543335
+    },
+    {
+      "layer_idx": 14,
+      "layer_pct": 0.5384615384615384,
+      "train_accuracy": 0.8666666666666667,
+      "train_auc": 0.9366666666666668,
+      "separation": 2.061347723007202
+    },
+    {
+      "layer_idx": 15,
+      "layer_pct": 0.5769230769230769,
+      "train_accuracy": 0.9166666666666666,
+      "train_auc": 0.9588888888888889,
+      "separation": 2.1367344856262207
+    },
+    {
+      "layer_idx": 16,
+      "layer_pct": 0.6153846153846154,
+      "train_accuracy": 0.9166666666666666,
+      "train_auc": 0.9600000000000001,
+      "separation": 2.024449110031128
+    },
+    {
+      "layer_idx": 18,
+      "layer_pct": 0.6923076923076923,
+      "train_accuracy": 0.9,
+      "train_auc": 0.9588888888888889,
+      "separation": 2.107731819152832
+    },
+    {
+      "layer_idx": 19,
+      "layer_pct": 0.7307692307692307,
+      "train_accuracy": 0.8666666666666667,
+      "train_auc": 0.9422222222222221,
+      "separation": 1.9805289506912231
+    },
+    {
+      "layer_idx": 20,
+      "layer_pct": 0.7692307692307693,
+      "train_accuracy": 0.9,
+      "train_auc": 0.9588888888888889,
+      "separation": 2.063093900680542
+    },
+    {
+      "layer_idx": 22,
+      "layer_pct": 0.8461538461538461,
+      "train_accuracy": 0.9,
+      "train_auc": 0.9633333333333334,
+      "separation": 2.204904556274414
+    }
+  ],
+  "quantization": [
+    {
+      "precision": "bfloat16",
+      "load_success": true,
+      "train_accuracy": 0.95,
+      "test_accuracy": 0.975,
+      "auc": 0.9788888888888889,
+      "latency_ms": 51.24924010015093,
+      "model_size_mb": 1907.131103515625,
+      "error": ""
+    },
+    {
+      "precision": "float16",
+      "load_success": true,
+      "train_accuracy": 0.95,
+      "test_accuracy": 0.95,
+      "auc": 0.98,
+      "latency_ms": 49.97968330280855,
+      "model_size_mb": 1907.131103515625,
+      "error": ""
+    },
+    {
+      "precision": "int8",
+      "load_success": true,
+      "train_accuracy": 0.95,
+      "test_accuracy": 1.0,
+      "auc": 0.9822222222222222,
+      "latency_ms": 181.27758919727057,
+      "model_size_mb": 1241.693603515625,
+      "error": ""
+    },
+    {
+      "precision": "int4",
+      "load_success": true,
+      "train_accuracy": 0.8833333333333333,
+      "test_accuracy": 0.825,
+      "auc": 0.9644444444444444,
+      "latency_ms": 95.7711262977682,
+      "model_size_mb": 908.974853515625,
+      "error": ""
+    }
+  ],
+  "final_evaluation": {
+    "train_accuracy": 0.95,
+    "train_auc": 0.9788888888888889,
+    "train_separation": 2.3447482585906982,
+    "test_accuracy": 0.9,
+    "test_factual_accuracy": 0.88,
+    "test_hallucination_accuracy": 0.92,
+    "test_auc": 0.9716,
+    "test_n_samples": 100,
+    "n_errors": 10,
+    "threshold": 160.82862854003906,
+    "factual_mean": 221.53201293945312,
+    "factual_std": 38.57028579711914,
+    "hallucination_mean": 101.1714859008789,
+    "hallucination_std": 51.33196258544922
+  },
+  "optimal_layer": {
+    "layer_idx": 10,
+    "layer_pct": 0.38461538461538464
+  },
+  "errors": [
+    {
+      "question": "What gas do plants absorb?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 153.80714416503906
+    },
+    {
+      "question": "What force keeps us on the ground?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 149.4250946044922
+    },
+    {
+      "question": "Who discovered penicillin?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 151.65835571289062
+    },
+    {
+      "question": "What ancient wonder was in Egypt?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 158.20814514160156
+    },
+    {
+      "question": "Who wrote the Declaration of Independence?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 160.68421936035156
+    },
+    {
+      "question": "Who invented the light bulb?",
+      "true_label": "factual",
+      "predicted": "hallucination",
+      "correct": false,
+      "score": 149.85585021972656
+    },
+    {
+      "question": "What is the capital of the Republic of Zorgon?",
+      "true_label": "hallucination",
+      "predicted": "factual",
+      "correct": false,
+      "score": 160.958740234375
+    },
+    {
+      "question": "What airline did Christopher Columbus fly?",
+      "true_label": "hallucination",
+      "predicted": "factual",
+      "correct": false,
+      "score": 168.33558654785156
+    },
+    {
+      "question": "What is the 8th day of the week called?",
+      "true_label": "hallucination",
+      "predicted": "factual",
+      "correct": false,
+      "score": 206.22804260253906
+    },
+    {
+      "question": "Who was the 100th President of the United States?",
+      "true_label": "hallucination",
+      "predicted": "factual",
+      "correct": false,
+      "score": 180.3018798828125
+    }
+  ],
+  "verdict": "STRONG"
+}

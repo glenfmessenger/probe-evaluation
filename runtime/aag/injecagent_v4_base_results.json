@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-12-30T18:19:01.205413",
+  "model": "google/gemma-3-1b-it",
+  "setting": "base",
+  "method": "compliance_focused_v4",
+  "total_cases": 1054,
+  "metrics": {
+    "baseline_asr": 0.054079696394686905,
+    "defended_asr": 0.0009487666034155598,
+    "defense_effectiveness": 0.9824561403508772,
+    "block_rate": 0.07400379506641366,
+    "overall_accuracy": 0.9781783681214421,
+    "true_positive_rate": 0.9824561403508771,
+    "false_positive_rate": 0.020872865275142316
+  }
+}

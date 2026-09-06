@@ -1,0 +1,16 @@
+{
+  "probe_type": "apc",
+  "policy": "medical",
+  "model_name": "google/gemma-2-2b-it",
+  "layer_index": 6,
+  "layer_pct": 0.25,
+  "backend": "vllm",
+  "separation_sigma": 6.440581605534589,
+  "accuracy": 1.0,
+  "threshold": -0.0695374608039856,
+  "positive_mean": 0.19980239868164062,
+  "negative_mean": -0.3388773202896118,
+  "auc": 1.0,
+  "n_positive": 15,
+  "n_negative": 15
+}

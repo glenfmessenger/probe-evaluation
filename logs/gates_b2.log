@@ -1,0 +1,206 @@
+B2 split: train 529+61, test 525+59, enhanced hold-out 1054 (+59 benign); designs ['final', 'mean', 'maxpos', 'oracle']; feature mlp_out
+B2 spans: injection verbatim 1054/1054, injection end fraction median 0.846, at span end 0
+B2 models (7): ['meta-llama/Llama-3.2-1B-Instruct', 'google/gemma-3-1b-it', 'google/gemma-2-2b-it', 'meta-llama/Llama-3.2-3B-Instruct', 'google/gemma-3-4b-it', 'meta-llama/Llama-3.1-8B-Instruct', 'google/gemma-2-9b-it']
+  meta-llama/Llama-3.2-1B-Instruct: AAG layer_index 8 of 16; layers extracted [8, 6, 10]
+    meta_llama_Llama_3_2_1B_Instruct/train: 8/590 (0s)
+    meta_llama_Llama_3_2_1B_Instruct/train: 168/590 (1s)
+    meta_llama_Llama_3_2_1B_Instruct/train: 328/590 (2s)
+    meta_llama_Llama_3_2_1B_Instruct/train: 488/590 (3s)
+    meta_llama_Llama_3_2_1B_Instruct/train: 590/590 (3s)
+    meta_llama_Llama_3_2_1B_Instruct/test: 8/584 (0s)
+    meta_llama_Llama_3_2_1B_Instruct/test: 168/584 (1s)
+    meta_llama_Llama_3_2_1B_Instruct/test: 328/584 (2s)
+    meta_llama_Llama_3_2_1B_Instruct/test: 488/584 (2s)
+    meta_llama_Llama_3_2_1B_Instruct/test: 584/584 (3s)
+    [test] final   AUC 0.828 (strat 0.815) det 0.26 FPR 0.03
+    [test] mean    AUC 0.949 (strat 0.948) det 0.78 FPR 0.08
+    [test] maxpos  AUC 0.931 (strat 0.943) det 0.42 FPR 0.02
+    [test] oracle  AUC 0.994 (strat 0.992) det 0.92 FPR 0.03
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 8/1113 (0s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 168/1113 (1s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 328/1113 (2s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 488/1113 (2s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 648/1113 (3s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 808/1113 (4s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 968/1113 (5s)
+    meta_llama_Llama_3_2_1B_Instruct/enhanced: 1113/1113 (6s)
+    [enhanced] final   AUC 0.835 (strat 0.819) det 0.26 FPR 0.03
+    [enhanced] mean    AUC 0.944 (strat 0.927) det 0.74 FPR 0.08
+    [enhanced] maxpos  AUC 0.926 (strat 0.922) det 0.38 FPR 0.02
+    [enhanced] oracle  AUC 0.993 (strat 0.992) det 0.91 FPR 0.03
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  wrote /home/ubuntu/aase/results/gates/b2/meta_llama_Llama_3_2_1B_Instruct.json | oracle-vs-deployable gap +0.045
+  google/gemma-3-1b-it: AAG layer_index 10 of 26; layers extracted [10, 6, 14]
+    google_gemma_3_1b_it/train: 8/590 (0s)
+    google_gemma_3_1b_it/train: 168/590 (1s)
+    google_gemma_3_1b_it/train: 328/590 (2s)
+    google_gemma_3_1b_it/train: 488/590 (3s)
+    google_gemma_3_1b_it/train: 590/590 (4s)
+    google_gemma_3_1b_it/test: 8/584 (0s)
+    google_gemma_3_1b_it/test: 168/584 (1s)
+    google_gemma_3_1b_it/test: 328/584 (2s)
+    google_gemma_3_1b_it/test: 488/584 (4s)
+    google_gemma_3_1b_it/test: 584/584 (4s)
+    [test] final   AUC 0.546 (strat 0.573) det 0.06 FPR 0.05
+    [test] mean    AUC 0.845 (strat 0.821) det 0.33 FPR 0.10
+    [test] maxpos  AUC 0.824 (strat 0.835) det 1.00 FPR 0.97
+    [test] oracle  AUC 0.796 (strat 0.813) det 0.23 FPR 0.00
+    google_gemma_3_1b_it/enhanced: 8/1113 (0s)
+    google_gemma_3_1b_it/enhanced: 168/1113 (1s)
+    google_gemma_3_1b_it/enhanced: 328/1113 (2s)
+    google_gemma_3_1b_it/enhanced: 488/1113 (4s)
+    google_gemma_3_1b_it/enhanced: 648/1113 (5s)
+    google_gemma_3_1b_it/enhanced: 808/1113 (6s)
+    google_gemma_3_1b_it/enhanced: 968/1113 (7s)
+    google_gemma_3_1b_it/enhanced: 1113/1113 (9s)
+    [enhanced] final   AUC 0.555 (strat 0.553) det 0.05 FPR 0.05
+    [enhanced] mean    AUC 0.849 (strat 0.853) det 0.33 FPR 0.10
+    [enhanced] maxpos  AUC 0.804 (strat 0.805) det 1.00 FPR 0.97
+    [enhanced] oracle  AUC 0.850 (strat 0.855) det 0.34 FPR 0.00
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  wrote /home/ubuntu/aase/results/gates/b2/google_gemma_3_1b_it.json | oracle-vs-deployable gap -0.049
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  2.10it/s]
+  google/gemma-2-2b-it: AAG layer_index 14 of 26; layers extracted [14, 10, 18]
+    google_gemma_2_2b_it/train: 8/590 (0s)
+    google_gemma_2_2b_it/train: 168/590 (1s)
+    google_gemma_2_2b_it/train: 328/590 (3s)
+    google_gemma_2_2b_it/train: 488/590 (4s)
+    google_gemma_2_2b_it/train: 590/590 (5s)
+    google_gemma_2_2b_it/test: 8/584 (0s)
+    google_gemma_2_2b_it/test: 168/584 (1s)
+    google_gemma_2_2b_it/test: 328/584 (3s)
+    google_gemma_2_2b_it/test: 488/584 (4s)
+    google_gemma_2_2b_it/test: 584/584 (5s)
+    [test] final   AUC 0.774 (strat 0.747) det 0.25 FPR 0.12
+    [test] mean    AUC 0.964 (strat 0.966) det 0.87 FPR 0.10
+    [test] maxpos  AUC 0.951 (strat 0.960) det 0.72 FPR 0.03
+    [test] oracle  AUC 0.992 (strat 0.990) det 0.78 FPR 0.02
+    google_gemma_2_2b_it/enhanced: 8/1113 (0s)
+    google_gemma_2_2b_it/enhanced: 168/1113 (2s)
+    google_gemma_2_2b_it/enhanced: 328/1113 (3s)
+    google_gemma_2_2b_it/enhanced: 488/1113 (4s)
+    google_gemma_2_2b_it/enhanced: 648/1113 (6s)
+    google_gemma_2_2b_it/enhanced: 808/1113 (7s)
+    google_gemma_2_2b_it/enhanced: 968/1113 (9s)
+    google_gemma_2_2b_it/enhanced: 1113/1113 (10s)
+    [enhanced] final   AUC 0.753 (strat 0.729) det 0.23 FPR 0.12
+    [enhanced] mean    AUC 0.963 (strat 0.963) det 0.87 FPR 0.10
+    [enhanced] maxpos  AUC 0.939 (strat 0.941) det 0.66 FPR 0.03
+    [enhanced] oracle  AUC 0.990 (strat 0.991) det 0.74 FPR 0.02
+  wrote /home/ubuntu/aase/results/gates/b2/google_gemma_2_2b_it.json | oracle-vs-deployable gap +0.028
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.87it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.69it/s]
+  meta-llama/Llama-3.2-3B-Instruct: AAG layer_index 15 of 28; layers extracted [15, 11, 19]
+    meta_llama_Llama_3_2_3B_Instruct/train: 8/590 (0s)
+    meta_llama_Llama_3_2_3B_Instruct/train: 168/590 (1s)
+    meta_llama_Llama_3_2_3B_Instruct/train: 328/590 (3s)
+    meta_llama_Llama_3_2_3B_Instruct/train: 488/590 (4s)
+    meta_llama_Llama_3_2_3B_Instruct/train: 590/590 (5s)
+    meta_llama_Llama_3_2_3B_Instruct/test: 8/584 (0s)
+    meta_llama_Llama_3_2_3B_Instruct/test: 168/584 (1s)
+    meta_llama_Llama_3_2_3B_Instruct/test: 328/584 (3s)
+    meta_llama_Llama_3_2_3B_Instruct/test: 488/584 (4s)
+    meta_llama_Llama_3_2_3B_Instruct/test: 584/584 (5s)
+    [test] final   AUC 0.840 (strat 0.814) det 0.31 FPR 0.02
+    [test] mean    AUC 0.818 (strat 0.817) det 0.52 FPR 0.19
+    [test] maxpos  AUC 0.747 (strat 0.796) det 0.66 FPR 0.20
+    [test] oracle  AUC 0.987 (strat 0.987) det 0.93 FPR 0.03
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 8/1113 (0s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 168/1113 (2s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 328/1113 (3s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 488/1113 (4s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 648/1113 (6s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 808/1113 (7s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 968/1113 (9s)
+    meta_llama_Llama_3_2_3B_Instruct/enhanced: 1113/1113 (11s)
+    [enhanced] final   AUC 0.865 (strat 0.868) det 0.33 FPR 0.02
+    [enhanced] mean    AUC 0.807 (strat 0.791) det 0.48 FPR 0.19
+    [enhanced] maxpos  AUC 0.765 (strat 0.785) det 0.70 FPR 0.20
+    [enhanced] oracle  AUC 0.986 (strat 0.985) det 0.91 FPR 0.03
+  wrote /home/ubuntu/aase/results/gates/b2/meta_llama_Llama_3_2_3B_Instruct.json | oracle-vs-deployable gap +0.148
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.19it/s]
+  google/gemma-3-4b-it: AAG layer_index 13 of 34; layers extracted [13, 8, 18]
+    google_gemma_3_4b_it/train: 8/590 (0s)
+    google_gemma_3_4b_it/train: 168/590 (2s)
+    google_gemma_3_4b_it/train: 328/590 (4s)
+    google_gemma_3_4b_it/train: 488/590 (6s)
+    google_gemma_3_4b_it/train: 590/590 (8s)
+    google_gemma_3_4b_it/test: 8/584 (0s)
+    google_gemma_3_4b_it/test: 168/584 (2s)
+    google_gemma_3_4b_it/test: 328/584 (4s)
+    google_gemma_3_4b_it/test: 488/584 (6s)
+    google_gemma_3_4b_it/test: 584/584 (8s)
+    [test] final   AUC 0.796 (strat 0.778) det 0.06 FPR 0.00
+    [test] mean    AUC 0.758 (strat 0.730) det 0.03 FPR 0.02
+    [test] maxpos  AUC 0.635 (strat 0.690) det 1.00 FPR 0.98
+    [test] oracle  AUC 0.774 (strat 0.789) det 0.24 FPR 0.03
+    google_gemma_3_4b_it/enhanced: 8/1113 (0s)
+    google_gemma_3_4b_it/enhanced: 168/1113 (2s)
+    google_gemma_3_4b_it/enhanced: 328/1113 (4s)
+    google_gemma_3_4b_it/enhanced: 488/1113 (6s)
+    google_gemma_3_4b_it/enhanced: 648/1113 (8s)
+    google_gemma_3_4b_it/enhanced: 808/1113 (10s)
+    google_gemma_3_4b_it/enhanced: 968/1113 (12s)
+    google_gemma_3_4b_it/enhanced: 1113/1113 (15s)
+    [enhanced] final   AUC 0.903 (strat 0.929) det 0.23 FPR 0.00
+    [enhanced] mean    AUC 0.786 (strat 0.755) det 0.02 FPR 0.02
+    [enhanced] maxpos  AUC 0.699 (strat 0.722) det 1.00 FPR 0.98
+    [enhanced] oracle  AUC 0.687 (strat 0.683) det 0.11 FPR 0.03
+  wrote /home/ubuntu/aase/results/gates/b2/google_gemma_3_4b_it.json | oracle-vs-deployable gap -0.022
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.14it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.13it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.14it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.63it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.40it/s]
+  meta-llama/Llama-3.1-8B-Instruct: AAG layer_index 17 of 32; layers extracted [17, 12, 22]
+    meta_llama_Llama_3_1_8B_Instruct/train: 8/590 (0s)
+    meta_llama_Llama_3_1_8B_Instruct/train: 168/590 (2s)
+    meta_llama_Llama_3_1_8B_Instruct/train: 328/590 (5s)
+    meta_llama_Llama_3_1_8B_Instruct/train: 488/590 (7s)
+    meta_llama_Llama_3_1_8B_Instruct/train: 590/590 (9s)
+    meta_llama_Llama_3_1_8B_Instruct/test: 8/584 (0s)
+    meta_llama_Llama_3_1_8B_Instruct/test: 168/584 (2s)
+    meta_llama_Llama_3_1_8B_Instruct/test: 328/584 (5s)
+    meta_llama_Llama_3_1_8B_Instruct/test: 488/584 (7s)
+    meta_llama_Llama_3_1_8B_Instruct/test: 584/584 (10s)
+    [test] final   AUC 0.853 (strat 0.841) det 0.42 FPR 0.05
+    [test] mean    AUC 0.858 (strat 0.840) det 0.65 FPR 0.14
+    [test] maxpos  AUC 0.822 (strat 0.870) det 0.61 FPR 0.14
+    [test] oracle  AUC 0.987 (strat 0.987) det 0.92 FPR 0.05
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 8/1113 (0s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 168/1113 (3s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 328/1113 (5s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 488/1113 (8s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 648/1113 (10s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 808/1113 (13s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 968/1113 (15s)
+    meta_llama_Llama_3_1_8B_Instruct/enhanced: 1113/1113 (19s)
+    [enhanced] final   AUC 0.915 (strat 0.931) det 0.64 FPR 0.05
+    [enhanced] mean    AUC 0.870 (strat 0.847) det 0.67 FPR 0.14
+    [enhanced] maxpos  AUC 0.836 (strat 0.851) det 0.62 FPR 0.14
+    [enhanced] oracle  AUC 0.986 (strat 0.986) det 0.91 FPR 0.05
+  wrote /home/ubuntu/aase/results/gates/b2/meta_llama_Llama_3_1_8B_Instruct.json | oracle-vs-deployable gap +0.129
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.13it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.11it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.11it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.24it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.19it/s]
+  google/gemma-2-9b-it: AAG layer_index 23 of 42; layers extracted [23, 17, 29]
+    google_gemma_2_9b_it/train: 8/590 (0s)
+    google_gemma_2_9b_it/train: 168/590 (4s)
+    google_gemma_2_9b_it/train: 328/590 (7s)
+    google_gemma_2_9b_it/train: 488/590 (10s)
+    google_gemma_2_9b_it/train: 590/590 (14s)
+    google_gemma_2_9b_it/test: 8/584 (0s)
+    google_gemma_2_9b_it/test: 168/584 (4s)
+    google_gemma_2_9b_it/test: 328/584 (7s)
+    google_gemma_2_9b_it/test: 488/584 (11s)
+    google_gemma_2_9b_it/test: 584/584 (14s)
+    [test] final   AUC 0.849 (strat 0.846) det 0.40 FPR 0.03
+    [test] mean    AUC 0.970 (strat 0.969) det 0.90 FPR 0.12
+    [test] maxpos  AUC 0.975 (strat 0.978) det 0.78 FPR 0.03
+    [test] oracle  AUC 0.997 (strat 0.997) det 0.92 FPR 0.02
+    google_gemma_2_9b_it/enhanced: 8/1113 (0s)
+    google_gemma_2_9b_it/enhanced: 168/1113 (4s)
+    google_gemma_2_9b_it/enhanced: 328/1113 (8s)
+    google_gemma_2_9b_it/enhanced: 488/1113 (11s)
+    google_gemma_2_9b_it/enhanced: 648/1113 (15s)
+    google_gemma_2_9b_it/enhanced: 808/1113 (19s)
+    google_gemma_2_9b_it/enhanced: 968/1113 (23s)
+    google_gemma_2_9b_it/enhanced: 1113/1113 (27s)
+    [enhanced] final   AUC 0.899 (strat 0.881) det 0.53 FPR 0.03
+    [enhanced] mean    AUC 0.984 (strat 0.980) det 0.95 FPR 0.12
+    [enhanced] maxpos  AUC 0.975 (strat 0.974) det 0.74 FPR 0.03
+    [enhanced] oracle  AUC 0.995 (strat 0.995) det 0.87 FPR 0.02
+  wrote /home/ubuntu/aase/results/gates/b2/google_gemma_2_9b_it.json | oracle-vs-deployable gap +0.022

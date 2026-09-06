@@ -1,0 +1,118 @@
+% Section 2 -- Related work.
+% CITATION POLICY for this section: every \cite key below resolves to an entry in refs.bib. Entries carried over from
+% the author's existing bibliography are treated as verified; entries added for this paper are marked in refs.bib as
+% needing verification of venue/year/authors before submission. Anything the author knows to exist but that could not
+% be cited from a verified record is marked with \open{} rather than invented. See the list at the end of this file.
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Probing internal representations}
+
+The premise that high-level properties of a model's input are linearly recoverable from its activations predates its
+safety application. Structural probes recover syntax from contextual embeddings \cite{hewitt2019structural}, and the
+methodological literature on probing classifiers set out early what a probe result does and does not license
+\cite{belinkov2022probing}---in particular that a probe's success measures decodability, not use. That distinction is
+the ancestor of this paper's concerns, and the reason we insist on baselines and controls rather than on AUC alone.
+
+For properties closer to safety, models have been shown to encode calibration-like signals about their own outputs
+\cite{kadavath2022language} and to represent the truth or falsity of statements linearly enough to read off
+\cite{azaria2023internal, marks2023geometry}. Representation engineering generalised this into a programme for reading
+and steering high-level concepts \cite{zou2023representation}, and activation addition demonstrated behavioural
+control from directions obtained without optimisation \cite{turner2023activation}. Related interpretability work
+located and edited factual associations directly in weights \cite{meng2022locating}.
+
+\subsection{Activation signals used for safety}
+
+Closest to the present work, SafeSwitch monitors internal activations to detect unsafe generations and steer away from
+them \cite{han2025safeswitch}, and ConceptGuard builds guardrails from interpretable jailbreak concepts
+\cite{conceptguard2025}. Both share this paper's premise---that a signal already present in the forward pass can be
+used for safety at negligible cost---and both raise the evaluation question this paper is about: what has to be
+controlled before such a number can be believed.
+
+Three further lines bound what a probe result can be taken to mean. Probes have been shown to be sensitive to
+evaluation awareness and to input format, and at least one study length-matches its conditions for exactly the reason
+we do \cite{evalawareness2026}. Monitors degrade as the distribution they were fitted on ages
+\cite{staleness2026}, which is the temporal counterpart of the extraction-convention effects reported here. And an
+attack literature constructs inputs whose activations evade probe detection while the behaviour persists
+\cite{bailey2025obfuscated}, which is the
+adversarial counterpart of our distributional negative result in Section~\ref{sec:obfuscation}: we show a probe fails
+on encodings chosen without reference to it, and that line shows it fails on encodings chosen against it. Work on detecting
+high-stakes interactions with activation probes \cite{mckenzie2025probes} sits alongside both, and is the closest
+published analogue to the minimal-data question we ask.
+
+\subsection{Probes in production}
+\label{sec:production}
+
+The minimal-data question is worth asking because the maximal-data version has already been answered affirmatively at
+frontier scale. Two January 2026 reports describe probe-based monitoring in production: Constitutional
+Classifiers++ at Anthropic \cite{cunningham2026classifiers} and a production probe stack for Gemini at Google
+DeepMind \cite{gdm2026probes}. Read together they converge on an architecture---probe-first cascades, in which a cheap
+activation-space detector triages and a more expensive classifier adjudicates what it flags---while differing in
+nearly every implementation choice: all-layers versus middle-layer reads, exchange-level versus input-level scoring,
+and CBRN versus cyber threat models. That two independent teams converged on the shape while diverging on the details
+is the practical case for treating those details as first-class experimental variables, which is what this paper does.
+
+One result in the DeepMind report bears directly on our thesis. Their probes degrade under a short-to-long context
+distribution shift: a detector fitted on short inputs does not hold up when the input it must score is long
+\cite{gdm2026probes}. That is the frontier-scale form of the observation in Section~\ref{sec:read}---that the text a
+probe is read from, and where in it the read happens, can matter more than how the probe was trained---and it is
+evidence that extraction convention is not an artifact of the minimal-data regime we study.
+
+\subsection{Guard models}
+
+The deployed alternative to a probe is a separate classifier. Llama Guard established the pattern of an
+instruction-tuned model applying an explicit hazard taxonomy to inputs and outputs \cite{inan2023llama}; ShieldGemma
+\cite{zeng2024shieldgemma} and WildGuard \cite{han2024wildguard} extend it with different taxonomies and training
+mixtures. Section~\ref{sec:guard} compares against Llama Guard~3 directly and finds it more accurate than the probe on
+every metric, which is why this paper's positive claims are about cost structure and about evaluation methodology
+rather than about beating a guard model.
+
+\subsection{Prompt injection}
+
+Indirect prompt injection---instructions smuggled into content the model retrieves rather than into the user's
+turn---was characterised as a systemic risk for tool-integrated applications by Greshake et al.
+\cite{greshake2023youve}, formalised and benchmarked by Liu et al. \cite{liu2024formalizing}, and given standard
+evaluation harnesses by InjecAgent \cite{zhan2024injecagent} and AgentDojo \cite{debenedetti2024agentdojo}. Defences
+divide broadly into training-time approaches that teach the model to privilege the user's instruction
+\cite{wallace2024instruction}, architectural approaches that constrain what injected text can reach
+\cite{debenedetti2025camel}, and detection approaches, of which the probe studied in Section~\ref{sec:read} is one.
+Our contribution to this line is not a new defence but an observation about how the detection variety is measured: the
+signal's position inside the scaffold matters more than the layer, and the standard benchmark's small pool of
+injection strings makes a case-level split measure recognition rather than generalisation.
+
+\subsection{Benchmarks and their validity}
+
+We use HarmBench \cite{mazeika2024harmbench} for harmful behaviours, XSTest \cite{rottger2024xstest} for
+exaggerated-safety false positives, JailbreakBench \cite{chao2024jailbreakbench} for on-topic benign twins,
+InjecAgent \cite{zhan2024injecagent} and AgentDojo \cite{debenedetti2024agentdojo} for agent injection, and AILuminate
+\cite{mlcommons2025ailuminate} for the obfuscation study. XSTest and JailbreakBench are used together deliberately:
+Section~\ref{sec:data} explains why a single pooled benign set conceals the failure mode this paper is most concerned
+with.
+
+The methodological findings in this paper belong to an older tradition than the probing literature. Construct
+validity---whether a measurement instrument measures the construct it names, rather than something correlated with
+it---is the standard frame for our Section~\ref{sec:learn} result, and the classical statement of it is Messick's
+\cite{messick1995validity}. The critique that benchmarks are routinely treated as valid measures of
+capacities they were never shown to measure has been made directly of machine-learning benchmarks
+\cite{raji2021benchmark}, and a recent audit applies it to agent-safety benchmarks specifically
+\cite{agentsafetyaudit2026}. Our contribution to this line is narrow and empirical: we exhibit an evaluation set that
+cannot certify the semantic claim attached to it, and we show what it costs to find that out.
+
+\subsection{Positioning}
+
+The papers above establish that safety-relevant properties are decodable from activations and that probes built on
+that fact can be made to work. This paper takes the next question seriously: under what evaluation conditions is a
+reported probe number evidence of the claim attached to it. Its two positive results are repairs to extraction
+conventions rather than new probe architectures, and its negative results concern what minimal-data probes turn out to
+have learned when the obvious confounds are controlled.
+
+% =====================================================================================================
+% LITERATURE SEARCH -- CLOSED 2026-09-05. The author's search resolved all six open items; citations are in
+% refs.bib. Two classes of residual work remain, both proof-stage and neither affecting this text:
+%   (a) entries marked NEEDS-TITLE / NEEDS-AUTHORS / NEEDS-URL in refs.bib, where the search supplied an
+%       identifier but not a complete record. The \cite keys are stable, so completing them will not touch
+%       any section file.
+%   (b) RESOLVED 2026-09-05: the three [verify] citations were confirmed by the author (Bailey et al. ICML 2025,
+%       Messick 1995 Am. Psychol. 50(9) 741-749, Raji et al. NeurIPS 2021 D&B). Only Bailey's final venue string
+%       needs a look at the arXiv page at proof stage.
+% =====================================================================================================

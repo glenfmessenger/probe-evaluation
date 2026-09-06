@@ -1,0 +1,80 @@
+# AASE evaluation configuration — the single source of truth for Phase 1 runs.
+# The evaluation decisions behind these settings (benign sets, HarmBench subset, InjecAgent normalisation,
+# InjecAgent-free AAG training, attack settings) are recorded with rationale in DECISIONS.md.
+# Paths are relative to the repo root unless absolute; ~ and $VARS are expanded.
+# Load with: from aase_eval import load_config; cfg = load_config()
+# Override the file with AASE_EVAL_CONFIG=/path/to/other.yaml or --config.
+
+models:                       # the paper's seven (Table tab:benchmark order)
+  - google/gemma-2-9b-it
+  - google/gemma-2-2b-it
+  - google/gemma-3-1b-it
+  - google/gemma-3-4b-it
+  - meta-llama/Llama-3.1-8B-Instruct
+  - meta-llama/Llama-3.2-1B-Instruct
+  - meta-llama/Llama-3.2-3B-Instruct
+
+datasets:
+  # InjecAgent clone (uiuc-kang-lab/InjecAgent @ f19c9f2c79a41046eb13c03c51a24c567a8ffa07); on the VM
+  # point this at a fresh clone, or copy runtime/aag/InjecAgent.
+  injecagent_dir: runtime/aag/InjecAgent
+  # HarmBench git submodule (centerforaisafety/HarmBench @ 8e1604d1171fe8a48d8febecd22f600e462bdcdd)
+  harmbench_dir: third_party/harmbench
+  # Benign counterpart candidates for AF false-positive measurement (see manifest/third_party.csv)
+  jbb_benign_csv: third_party/benign_sets/jbb_benign_behaviors.csv
+  xstest_csv: third_party/benign_sets/xstest_v2_prompts.csv
+  # MLCommons AILuminate v1.0 DEMO prompt set (1,200 prompts, 12 hazard categories), copied from the GPU VM
+  ailuminate_csv: runtime/ailuminate_demo_en_us.csv
+
+injecagent:                   # AAG evaluation set (real data only)
+  dir: runtime/aag/InjecAgent
+  settings: [base, enhanced]  # InjecAgent attack settings evaluated (DECISIONS.md #5): both -> 2 x 1,054 = 2,108 positives,
+                              # every positive tagged with its setting, detection reported per setting and overall
+  max_injections: null        # null = all 1,054 paired test cases
+  benign_source: aag_benign_eval      # aag_benign_eval (120 pinned cases, default) | injecagent_user17 (the 17 raw user cases)
+  benign_set_path: datasets/aag_benign_eval.jsonl
+  benign_subsets: null                # null = all subsets; or a list of [injecagent_user, agentdojo, authored]
+  benign_sample_count: null           # null = all cases of the chosen source
+  benign_placeholder_fill: "" # what replaces "<Attacker Instruction>" in the benign tool response
+  strip_wrapping_quotes: true # upstream wraps all 1,054 injected Tool Responses in "..." (escaping inner quotes) but no benign template; undo it (label cue)
+  sample_seed: 0
+  prompt_template: "User: {user_instruction}\nTool Result: {tool_response}\nAssistant:"
+
+harmbench:                    # AF evaluation set
+  subset: all                 # all (400) | val (80) | test (320)
+  functional_categories: [standard, contextual]   # copyright (100) excluded: not a harmful-content request
+  prepend_context: true       # contextual behaviors get their ContextString prepended
+  benign_sets: [xstest_safe, jbb_benign]   # DECISIONS.md #1: XSTest 250 safe prompts primary, JBB benign 100 secondary; FPR reported per set
+  max_harmful: null
+  max_benign: null
+
+ailuminate:                   # AF obfuscation robustness (paper tab:obfuscation): detection rate per encoding on all 1,200 prompts
+  models: [google/gemma-2-9b-it]   # the paper's model for this table; add more to run the leg on them too
+  encodings: [none, base64, rot13, leetspeak]
+  max_prompts: null           # null = all 1,200 (x4 encodings = 4,800 scored prompts per model)
+  benign_sets: [xstest_safe, jbb_benign]   # benign-encoded control: same encodings, FPR per encoding (350 x 4 = 1,400 records)
+
+llama_guard_comparison:       # paper tab:guard_comparison, rerun on real sets (see DECISIONS.md)
+  llama_guard_model: meta-llama/Llama-Guard-3-8B
+  aase_models: [meta-llama/Llama-3.2-3B-Instruct]   # the paper pairing; add more to compare per model
+  benign_sets: [xstest_safe, jbb_benign]            # same benign sets as AF; harmful = the harmbench section above (300)
+  max_per_class: null
+  n_runs: 3                   # latency repetitions per prompt
+
+aag_training:                 # used by aase_vllm/scripts/train_probes_vllm.py
+  # InjecAgent attacker instructions are the SAME 62 strings that appear in every one of the 1,054 test cases,
+  # so training on them contaminates the InjecAgent evaluation. Default: do not use them for training.
+  use_injecagent: false
+  layer_pct: 0.55
+  gemma3_layer_pct: 0.40
+
+probes:
+  dir: aase_vllm/pretrained        # where train_probes_vllm.py writes and benchmark_vllm.py reads {af,aag,apc}/<model>.{npy,json}
+  # layer/threshold per probe are read from the per-model metadata json written at training time;
+  # overrides below take precedence when set (model name -> {aag: {layer_index, threshold}, af: {...}})
+  overrides: {}
+
+output:
+  results_dir: results        # benchmark_vllm.py writes <results_dir>/<run_name>/<model_safe>.json
+  run_name: phase1
+  record_prompt_text: true    # store the scored prompt text with every per-case score (needed for audit + ROC)

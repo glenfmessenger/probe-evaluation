@@ -1,0 +1,138 @@
+source,source_tag,sha256,identical_to,note
+files (15)/README.md,files15,fbe604c92cf02fd234d54f06380fd8fcab2480a82a5e6d46b75ebf8b8777ed25,package/aase/README.md,flattened export of a zip member
+files (15)/__init__.py,files15,2d144cce6d18311e220d34b42aa8f2b823021a16b736c9dd705cfc6b1165d5d9,package/aase/__init__.py,flattened export of a zip member
+files (15)/aag.py,files15,f996d50327eb153a6cc9454c15a9620f8ca4029b20564f3f407cba79219be50f,package/aase/probes/aag.py,flattened export of a zip member
+files (15)/aase_llmd_entrypoint.py,files15,b741c63fdd61e16db09cc7213376220a0f0cb72067c8c3ac97ad2a58ba58effb,package/aase/integrations/aase_llmd_entrypoint.py,flattened export of a zip member
+files (15)/af.py,files15,ed8a88e0840ec464b70f25ed43ee6e9add4af7314102e0a1ad75dd1411c55709,package/aase/probes/af.py,flattened export of a zip member
+files (15)/ahd.py,files15,5cc0f495a14df71830747c8d9efcb5ca896858e5554b8cf4fef920986075a2d7,package/aase/probes/ahd.py,flattened export of a zip member
+files (15)/apc.py,files15,b8d85e8a565d9a4267f0378788625931e939be1d78db0c272265e0a55780ac80,package/aase/probes/apc.py,flattened export of a zip member
+files (15)/calibrate_model.py,files15,968136d338f38fcd81a6dee3f4cfbff237186b85a3f9c7ae0b095905352c53df,package/aase/scripts/calibrate_model.py,flattened export of a zip member
+files (15)/extraction.py,files15,922236292c023f32dad3664fbfbb077fb93ea072e8b4faee543a08a0204344b8,package/aase/core/extraction.py,flattened export of a zip member
+files (15)/fix_numpy.sh,files15,c9541233e85b701542b1d86d64171d628c05cc347a4810fdf0a3fbb7638b3dfb,package/aase/scripts/fix_numpy.sh,flattened export of a zip member
+files (15)/generate_pretrained.py,files15,6e9feac08943915236f9df07a418b9acb474e4f6f3ae940a50c1dd32e6f01faa,package/aase/scripts/generate_pretrained.py,flattened export of a zip member
+files (15)/llmd.py,files15,107cd80a2d1cb9f42b1c4810b6243648d2bdc19f513ce9b818c78b55ce8eb6c4,package/aase/integrations/llmd.py,flattened export of a zip member
+files (15)/probe.py,files15,e3cbff03cbebf14f04717bc2eb3ea0a0126af5d3eeda16fa7be56df6f3ce23e0,package/aase/core/probe.py,flattened export of a zip member
+files (15)/probe_llmd.py,files15,e339b85df1f2ba357301266fc12ee4ac2433665baf89ac2e49754ac9ef88cdcc,package/aase/scripts/probe_llmd.py,flattened export of a zip member
+files (15)/setup.py,files15,f7e1a97bb6adab75aefbf02519d88ede991d969c5a8b22f377ece1e028eedfba,package/aase/setup.py,flattened export of a zip member
+files (15)/stack.py,files15,406f194ca4dc38c0dd218a8f6859a4d85fbc18bfb45828442ed19e63af0253b9,package/aase/stack.py,flattened export of a zip member
+files (15)/test_aase_llmd.py,files15,cfa25123ddba7b4878010a9f26256b499cf9a94c8b6923c134ebee0c16a452d8,package/aase/tests/test_aase_llmd.py,flattened export of a zip member
+files (15)/test_aase_vllm.py,files15,c2c7f1460a5565d53bf574a7975be2c242fe7abaec949569255436d154ff7a33,package/aase/tests/test_aase_vllm.py,flattened export of a zip member
+files (15)/test_llmd_local.py,files15,86f4e7802bb58e3437408c765540e055b1c6adff373eef1d72e760280238a90b,package/aase/scripts/test_llmd_local.py,flattened export of a zip member
+files (15)/test_vllm_hooks.py,files15,51cb178363c9e4c7cc4d03a7cd0f980ee50a86cf1a5014945efe39c982b79897,package/aase/scripts/test_vllm_hooks.py,flattened export of a zip member
+files (15)/test_vllm_hooks_minimal.py,files15,3ccced5838866f545e1beb1666d6c10b5eb800706a2ae565174766979feafc83,package/aase/scripts/test_vllm_hooks_minimal.py,flattened export of a zip member
+files (15)/transformers.py,files15,99e6b9e1b2b2fc1d8240a979b50cbe364a6724fd9289ba63ae370a0f9e6922a9,package/aase/integrations/transformers.py,flattened export of a zip member
+files (15)/vector.py,files15,208d46ab0abce41bf8bdefaada60f7398463d7090d0a36cf581bab142477e555,package/aase/core/vector.py,flattened export of a zip member
+files (15)/vllm.py,files15,4cdef2170c9e6866a6bfd9098e447129c7366ecb778e5ea440ed62f15575b52a,package/aase/integrations/vllm.py,flattened export of a zip member
+files (15)/mnt/user-data/outputs/aase/probes/__init__.py,files15,601f29d59c5548b4687e92df63681dadde90f26bc0b9d52109156dc132b926dc,package/aase/probes/__init__.py,mnt/user-data/outputs mirror of a zip member
+files (15)/mnt/user-data/outputs/aase/core/__init__.py,files15,74b33615d0aee64fa536ded33cee783991ebd72723bcc72320716073e22f921d,package/aase/core/__init__.py,mnt/user-data/outputs mirror of a zip member
+files (15)/mnt/user-data/outputs/aase/tests/__init__.py,files15,1a997de7e3cb252970ff38ace1a8d4a315a9b983800e3afb91624c0fa84da17a,package/aase/tests/__init__.py,mnt/user-data/outputs mirror of a zip member
+files (15)/mnt/user-data/outputs/aase/integrations/__init__.py,files15,49ca88faf2a6b27486ef0ac2a42d191d9b01461819f4588bcdac6fd1609a3b8f,package/aase/integrations/__init__.py,mnt/user-data/outputs mirror of a zip member
+files (15)/mnt/user-data/outputs/aase/scripts/__init__.py,files15,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,package/aase/scripts/__init__.py,mnt/user-data/outputs mirror of a zip member
+files (15)/mnt/user-data/outputs/aase/pretrained/README.md,files15,53e34c2ae15ef93b4c2ace4ad65cf4c5552ccbc3a3162b7f2966d801fdc4f0ff,package/aase/pretrained/README.md,mnt/user-data/outputs mirror of a zip member
+aase-vllm-0.1.1/README.md,vllm011,d09b8d79d7e603822c8d49cb522779d8f4e3921c1cc3a869dc568abcef57fc0f,aase_vllm/README.md,identical to aase 2 copy
+aase-vllm-0.1.1/__init__.py,vllm011,c44239170467cd8d414740671016907eec92eb6c8f04782724f416049ee7d1ac,aase_vllm/__init__.py,identical to aase 2 copy
+aase-vllm-0.1.1/core/__init__.py,vllm011,74b33615d0aee64fa536ded33cee783991ebd72723bcc72320716073e22f921d,aase_vllm/core/__init__.py,identical to aase 2 copy
+aase-vllm-0.1.1/core/extraction.py,vllm011,922236292c023f32dad3664fbfbb077fb93ea072e8b4faee543a08a0204344b8,aase_vllm/core/extraction.py,identical to aase 2 copy
+aase-vllm-0.1.1/core/probe.py,vllm011,e3cbff03cbebf14f04717bc2eb3ea0a0126af5d3eeda16fa7be56df6f3ce23e0,aase_vllm/core/probe.py,identical to aase 2 copy
+aase-vllm-0.1.1/core/vector.py,vllm011,208d46ab0abce41bf8bdefaada60f7398463d7090d0a36cf581bab142477e555,aase_vllm/core/vector.py,identical to aase 2 copy
+aase-vllm-0.1.1/integrations/__init__.py,vllm011,eb220bebafe15c0c8158dfebf319cf2792a91bfc7f1e0275f1c8a7446d738043,aase_vllm/integrations/__init__.py,identical to aase 2 copy
+aase-vllm-0.1.1/integrations/vllm.py,vllm011,3210b65273a2966eec4c1151e7ab9e7cf001b03519a458dc6f43b440067eef34,aase_vllm/integrations/vllm.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/__init__.py,vllm011,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,aase_vllm/scripts/__init__.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/benchmark_vllm.py,vllm011,e2b33bc3be40a1754b5ba1ccbe8bc7cb4daee02d153625a1b9e6216424ee5dc7,aase_vllm/scripts/benchmark_vllm.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/compare_llama_guard_vllm.py,vllm011,17d028f045b50fea316c065b890268c019372f7da2099086b90e88c292c2410c,aase_vllm/scripts/compare_llama_guard_vllm.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/test_vllm_hooks.py,vllm011,51cb178363c9e4c7cc4d03a7cd0f980ee50a86cf1a5014945efe39c982b79897,aase_vllm/scripts/test_vllm_hooks.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/train_probes_vllm.py,vllm011,c81b0657c7461992d8539e67fa72c74242680d764441daaeb4bb7cc1f39a0239,aase_vllm/scripts/train_probes_vllm.py,identical to aase 2 copy
+aase-vllm-0.1.1/scripts/tune_thresholds_vllm.py,vllm011,ebca4a4da95cd3cf9f35a087f6f89378bbc0c45e2c1651bcff7b786457f58f22,aase_vllm/scripts/tune_thresholds_vllm.py,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/README.md,vllm011,53e34c2ae15ef93b4c2ace4ad65cf4c5552ccbc3a3162b7f2966d801fdc4f0ff,aase_vllm/pretrained/README.md,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_2_2b_it.json,vllm011,241ebcf578fa2c6503c4a2fa84c155c14e7f3dcc53068ca532031c3bf1da3c0f,aase_vllm/pretrained/apc/financial/google_gemma_2_2b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_2_2b_it.npy,vllm011,9fcba22cb9f279d4175eab38cd1a5bebe699c3f082def33f03e14437304c8a4b,aase_vllm/pretrained/apc/financial/google_gemma_2_2b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_2_9b_it.json,vllm011,745d102f37c1cbc79736207fac812b49b903ea66572e55b6184b18adffa93567,aase_vllm/pretrained/apc/financial/google_gemma_2_9b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_2_9b_it.npy,vllm011,0743ff2bcb1d7771b6de5d1a3b47fdead68a4129ed9af03db239d60bb450b66a,aase_vllm/pretrained/apc/financial/google_gemma_2_9b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_3_1b_it.json,vllm011,d89eb8bf7fc9106f6940697fcddc056e6fa70fb9d56b6ead4dbe2a56c74a6cd0,aase_vllm/pretrained/apc/financial/google_gemma_3_1b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_3_1b_it.npy,vllm011,aa3cf29153bb2d31fdfca13eb6fec1370c35bc8356a1234ffaec583906ff506d,aase_vllm/pretrained/apc/financial/google_gemma_3_1b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_3_4b_it.json,vllm011,8a8b7050471b361377d83043be5663bc96b02c4a210bc7fe9397249d938ab846,aase_vllm/pretrained/apc/financial/google_gemma_3_4b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/google_gemma_3_4b_it.npy,vllm011,d5a1a275a21aad5ad643be4da4209e865b15dcd722535a09e11298887dcc2cdc,aase_vllm/pretrained/apc/financial/google_gemma_3_4b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.1_8B_Instruct.json,vllm011,906bd9a7510d04e46b1196c9117c97bb8d3b191f38b3a256ca7d8b8d2af61e72,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.1_8B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.1_8B_Instruct.npy,vllm011,21d6ec8116d161cc9dfd1e6deb6d45eedf7c573b64fa403112661e7a1d2680b5,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.1_8B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.2_1B_Instruct.json,vllm011,ad38d2d265c97e1653c4a2cf868ec4c5ecb5484a8f8edcc2a7a05bf24db70800,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.2_1B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.2_1B_Instruct.npy,vllm011,2811e0303d3e8a9e44e564dfe4bea803c9a7e2e6f629a0626e17f2c79ce9cd62,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.2_1B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.2_3B_Instruct.json,vllm011,dfd42a3c4fc0493e940f608a22158b03f7a47cc91e4dc3532f1016ce7f82b6d4,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.2_3B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/financial/meta_llama_Llama_3.2_3B_Instruct.npy,vllm011,1ef8024d7e160fe34f4096ada1ebc30b8c19ee9dcf3116059310764c588bf476,aase_vllm/pretrained/apc/financial/meta_llama_Llama_3.2_3B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_2_2b_it.json,vllm011,f498eee60c6a839c453e5cc2183f445015fc398a0255e91de944f1ce483750f5,aase_vllm/pretrained/apc/medical/google_gemma_2_2b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_2_2b_it.npy,vllm011,894998531e5be8d5fdf2df5ab92c513324e5207581680b1b9cfc39d53071dbc7,aase_vllm/pretrained/apc/medical/google_gemma_2_2b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_2_9b_it.json,vllm011,99fbc824cd0ccab41cce316da6dad80b4e7cf237c306c34149297f546ff417cb,aase_vllm/pretrained/apc/medical/google_gemma_2_9b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_2_9b_it.npy,vllm011,4add5ad45601e37a50b417d572cc66138a2628b5e3fd15c986fced45a8c7304f,aase_vllm/pretrained/apc/medical/google_gemma_2_9b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_3_1b_it.json,vllm011,3012d4fe8825ec68cef7d1d77cee42b031bf09f3f3b4c50d454699db005a0656,aase_vllm/pretrained/apc/medical/google_gemma_3_1b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_3_1b_it.npy,vllm011,278d4c4c5f7ed6f807da32e3b6e09d53c6d2fdac1f2b0b478b3cc9023b0c771c,aase_vllm/pretrained/apc/medical/google_gemma_3_1b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_3_4b_it.json,vllm011,8def4d287667e47b027d19454ac2a8d888c988fbacdcf60d9e5958357a81cf3a,aase_vllm/pretrained/apc/medical/google_gemma_3_4b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/google_gemma_3_4b_it.npy,vllm011,1856cfe116b9c544d5b51d3770e5262749f4e548576fe96b4fc4a0492011ff4d,aase_vllm/pretrained/apc/medical/google_gemma_3_4b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.1_8B_Instruct.json,vllm011,5cd34594765a8f7e2ff3cec78b68a18fa2346d352c0389eef389a273bc6d89f9,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.1_8B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.1_8B_Instruct.npy,vllm011,f06aa3508a8eb29acfbbdaad6bacc07d9a1b6e1884c3d9d2bc0132a42a7aa18d,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.1_8B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.2_1B_Instruct.json,vllm011,2213da5c5fac0519de75a683cd54fbfddee2e868a26a4e6ead52f1815df28931,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.2_1B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.2_1B_Instruct.npy,vllm011,6a5737556097d3c9e743b87fd0794b0adf82073ce00c01629d84d65ed05be6ab,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.2_1B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.2_3B_Instruct.json,vllm011,5947f1cf095cc1b18966a2638b87994b2a2283e0f3a4da55257135fdf40a8f01,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.2_3B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/medical/meta_llama_Llama_3.2_3B_Instruct.npy,vllm011,a5c958436507eb420b992b119f30062154483f59b525af3368fbd7b300010bec,aase_vllm/pretrained/apc/medical/meta_llama_Llama_3.2_3B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_2_2b_it.json,vllm011,1d6c96f616709d3545c1e848b4018cd4f4710f3a80cab7230e86dc668b5c244f,aase_vllm/pretrained/apc/legal/google_gemma_2_2b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_2_2b_it.npy,vllm011,e785b52b0d93117371b0d3785521df76e8f2def6bb390dc264c00b284f4fc62d,aase_vllm/pretrained/apc/legal/google_gemma_2_2b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_2_9b_it.json,vllm011,aef11b62fe993ede887c48e1feb3b622d587ddc7fed5f9e9022bb0ebd9a8c837,aase_vllm/pretrained/apc/legal/google_gemma_2_9b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_2_9b_it.npy,vllm011,1444332dc5242da4250d7017a0190c67ab0ebf462fa23acb88fd6d2f9d2ac18b,aase_vllm/pretrained/apc/legal/google_gemma_2_9b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_3_1b_it.json,vllm011,312a4bf0eae5f70d266923649899ed5c5f3090dad1534609b32b1ffbd422a8c1,aase_vllm/pretrained/apc/legal/google_gemma_3_1b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_3_1b_it.npy,vllm011,ce36b4a8494a46691330b32087c05dd70fa7a6a8dbaf99af8e383fd55049577f,aase_vllm/pretrained/apc/legal/google_gemma_3_1b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_3_4b_it.json,vllm011,7065482deed462e9ec585f5480109b5a421471659c73655071a257aa04b3fd58,aase_vllm/pretrained/apc/legal/google_gemma_3_4b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/google_gemma_3_4b_it.npy,vllm011,6beb42f068cb3fa60fba64d57c5803153df662ac7e8b504048cd2af03c1b26f3,aase_vllm/pretrained/apc/legal/google_gemma_3_4b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.1_8B_Instruct.json,vllm011,17e9631d5dc7cac56eaf2620d46c3f142bd8b41048eb52ab8f90264b1a56c6da,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.1_8B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.1_8B_Instruct.npy,vllm011,6e9f4870285c7a42e9cd35210254458b42359b7defa805a9115e12deeb073556,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.1_8B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.2_1B_Instruct.json,vllm011,efde99ac92966034686c602d5bcda25d14c4c8a88497d0a4244f9fc84a3a0c8d,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.2_1B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.2_1B_Instruct.npy,vllm011,75c418350b45e5a0e094ff303525ffa17c7b6c459e10df841686275c8a550090,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.2_1B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.2_3B_Instruct.json,vllm011,72691d15ef497250e2e5582af5995894cff7fbe5dbf22704979ef0bff187ede4,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.2_3B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/apc/legal/meta_llama_Llama_3.2_3B_Instruct.npy,vllm011,ddb16477d2d88c150a5a515f9f8e3435c7fd62035e3adeaa3175044c8b906496,aase_vllm/pretrained/apc/legal/meta_llama_Llama_3.2_3B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_2_2b_it.json,vllm011,6dbdd6c2541c7e7bba07dc89a7bca17e4d56930da626c8110fbf8f3598427943,aase_vllm/pretrained/aag/google_gemma_2_2b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_2_2b_it.npy,vllm011,51cac928d09fadf06e88a901c8bcf0bd9a837250280aa7f6dfad2586d19eaa68,aase_vllm/pretrained/aag/google_gemma_2_2b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_2_9b_it.json,vllm011,1757b29ee7b67651b2c29e8064f83418de1b2ce46c9796669a7876ee630d57f9,aase_vllm/pretrained/aag/google_gemma_2_9b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_2_9b_it.npy,vllm011,2f88475981c032c4fc0ae6dc45f4a6291384735e148c6898a39e8f65f793d0e6,aase_vllm/pretrained/aag/google_gemma_2_9b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_3_1b_it.json,vllm011,380bb0c7f4c2c64e344f8aa4c1df52c469b35257dba445345446875935288712,aase_vllm/pretrained/aag/google_gemma_3_1b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_3_1b_it.npy,vllm011,29c5a2a38354f57731d7f46b38cd059dd046c6c514619d502c537ca31c857a97,aase_vllm/pretrained/aag/google_gemma_3_1b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_3_4b_it.json,vllm011,d14bb3f2842255a05f620f815c1ca058aa336b17a9f58afca7b873ced87e198c,aase_vllm/pretrained/aag/google_gemma_3_4b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/google_gemma_3_4b_it.npy,vllm011,448e0bc278cc8778c25a5936f868aa698c524c2766298f72a29609d7d8d330d2,aase_vllm/pretrained/aag/google_gemma_3_4b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.1_8B_Instruct.json,vllm011,bff48da5a6c5b25fcefe7ca18adc934d7506b22dafa8a1542e33d6471ea847d4,aase_vllm/pretrained/aag/meta_llama_Llama_3.1_8B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.1_8B_Instruct.npy,vllm011,d7d50588c74fa9dc4154560895100e2547ec9e0a1ba15b94322c3b76c1890ee0,aase_vllm/pretrained/aag/meta_llama_Llama_3.1_8B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.2_1B_Instruct.json,vllm011,206740826300a77bee448a6093901c8e5606e8e6cfad97ddb51d80810b5a0f92,aase_vllm/pretrained/aag/meta_llama_Llama_3.2_1B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.2_1B_Instruct.npy,vllm011,828fefb7ad1db8d605abadf0f7ab1745d05824491b20dc523fe24a787462b2f1,aase_vllm/pretrained/aag/meta_llama_Llama_3.2_1B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.2_3B_Instruct.json,vllm011,286ebd8331e3e440afbc26a8a053a42c3986b0131012a0d99e83a62200ba6d9a,aase_vllm/pretrained/aag/meta_llama_Llama_3.2_3B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/aag/meta_llama_Llama_3.2_3B_Instruct.npy,vllm011,62baead10726c5ea2c350c0bfb9a820f434ebff5bb7d488ba095ee7bff8c1d1c,aase_vllm/pretrained/aag/meta_llama_Llama_3.2_3B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_2_2b_it.json,vllm011,50da706b43a9d2526cb019064ed49684435e6af835701c5579ce5d324dded7f1,aase_vllm/pretrained/af/google_gemma_2_2b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_2_2b_it.npy,vllm011,ba771eaa269e246eac549aec981fc9d819c4e696e3980d95d552b3491440c677,aase_vllm/pretrained/af/google_gemma_2_2b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_2_9b_it.json,vllm011,706375b1c38dbcd9c7c50e21379a232620a860798adf2331a705118e73533e5f,aase_vllm/pretrained/af/google_gemma_2_9b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_2_9b_it.npy,vllm011,92ff6c6d557694ae5e598ee8a37b8a9bd2c4f2f9a4388a962dae8b83fd2c6b16,aase_vllm/pretrained/af/google_gemma_2_9b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_3_1b_it.json,vllm011,fc5ff9f64870d4cdc1d42ccf38949d794fd2d899da3afac546e13298790a1b3c,aase_vllm/pretrained/af/google_gemma_3_1b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_3_1b_it.npy,vllm011,679e4800f6acc2bc91aac8cc9b3620e999c992a4a4b1d1593ad501ea38859f2d,aase_vllm/pretrained/af/google_gemma_3_1b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_3_4b_it.json,vllm011,5bde07495930258438c653e7029a630e5f753f9ea3fa164fb11817bc1930190f,aase_vllm/pretrained/af/google_gemma_3_4b_it.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/google_gemma_3_4b_it.npy,vllm011,c1ac571d6ae00412b40d43ab050ecb5ce4318ec8e7e1cc6061a5896ed3526df6,aase_vllm/pretrained/af/google_gemma_3_4b_it.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.1_8B_Instruct.json,vllm011,a8d0aa46c0cd7b84878c7ade0c798e885f20c59ee4177732efe3d8175376b8ff,aase_vllm/pretrained/af/meta_llama_Llama_3.1_8B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.1_8B_Instruct.npy,vllm011,e8222e12efdcc34e3952fe7de857b33cd49286912cafee64e4e95acb8c34c09c,aase_vllm/pretrained/af/meta_llama_Llama_3.1_8B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.2_1B_Instruct.json,vllm011,f0e5fc0012b09b9752ef3fddd3ea6b589c9f8e14318ac5e36540231be6413c28,aase_vllm/pretrained/af/meta_llama_Llama_3.2_1B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.2_1B_Instruct.npy,vllm011,fe59db6c0647362313de29c0e2a598acaef53d6ebc9df7420e05598e845d1812,aase_vllm/pretrained/af/meta_llama_Llama_3.2_1B_Instruct.npy,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.2_3B_Instruct.json,vllm011,12d8febd846993ca1e24029c0cb9ce366b20e20a82ef7533fdcb5bf837062dac,aase_vllm/pretrained/af/meta_llama_Llama_3.2_3B_Instruct.json,identical to aase 2 copy
+aase-vllm-0.1.1/pretrained/af/meta_llama_Llama_3.2_3B_Instruct.npy,vllm011,628770abbef02b7565a590d0bf61a53790e7e10b61fed43bafd2489dc154ba19,aase_vllm/pretrained/af/meta_llama_Llama_3.2_3B_Instruct.npy,identical to aase 2 copy
+af_benchmark_ailuminate.py,loose,6293522a1fb8810740b0502a967c1ca1ecf38b24833cbc25fead52ec5c9e1163,runtime/af_benchmark_ailuminate.py,identical to canonical copy
+af_benchmark_e2e.py,loose,689ce8e5018493af4128d86c96223ea585cf15e231adf8038884749990694f01,runtime/af_benchmark_e2e.py,identical to canonical copy
+af_benchmark_three_way.py,loose,74435b69d6734d689b8848d5343bff023ab90a72410d92cf8d1bba80141ce467,runtime/af_benchmark_three_way.py,identical to canonical copy
+agent_gating_poc_v2.py,loose,b4093a4a4551ced2cb701a7bab9afdcc0d68b6182ec2fdce8bc9f40374f334e4,runtime/aag/agent_gating_poc_v2.py,identical to canonical copy
+agent_gating_poc_v5.py,loose,b09d33f4b2d10609f676f75d71eed362b1fc307792b0d780a6a9e2f986a891b0,runtime/aag/agent_gating_poc_v5.py,identical to canonical copy
+ahd_layer_sweep_4b.py,loose,0a946dd3622b9d42bd49058c0970d39bfbfefdb5876d15cf8f5f44d57e959d0a,runtime/ahd/ahd_layer_sweep_4b.py,identical to canonical copy
+apc_poc.py,loose,1303fa4e17d344f78971b54301df13a0459585a96771d5554506a2f8b264e255,runtime/apc/apc_poc.py,identical to canonical copy
+apc_poc_v2.py,loose,b8c78f24d4b3f4deeedcb5e13e198721db5a4dacaac99e1d3d9a55bf2b4a3a9f,runtime/apc/apc_poc_v2.py,identical to canonical copy
+eval_harmbench.py,loose,1cfcbef00d1f1faa76d4007e98eb6765161b3f4b5425002cdc7c2cfea5dda22b,package/eval_harmbench.py,identical to canonical copy
+fix_aag_final.py,loose,60fd6249de171e6b54f309181a174ca02e56267a865faf2e66b7a4442219032b,package/fix_aag_final.py,identical to canonical copy
+ihe_analyze.py,loose,a0d5886480851c6b5d9bf79bfc8c362b1411363c307ff4d3ab8875a0a466fb8e,runtime/ihe/ihe_analyze.py,identical to canonical copy
+injecagent_benchmark_v4.py,loose,991176abb0ab55832f100b707040114e3a790b01cbf3969914416b3bfe4b912a,runtime/aag/injecagent_benchmark_v4.py,identical to canonical copy
+phase1_live_agent_v2.py,loose,9007d1c1303c2b75363ee6a1358b7b992659b77ea68cf8661b1bc9b83e104645,runtime/aag/phase1_live_agent_v2.py,identical to canonical copy
+phase1_live_agent_v4.py,loose,c201a91ec8ed1ac050beda6c67afc726fabde37d8dd5e97961c0aa48573078d5,runtime/aag/phase1_live_agent_v4.py,identical to canonical copy
+phase1_live_agent_v5.py,loose,63e928c46ba3a9033ca1192371f086ddd3b9fe5a672ce60d2efb27d84d04b0ee,runtime/aag/phase1_live_agent_v5.py,identical to canonical copy
+pretrain_gemma3_fixed.py,loose,df27204b40cd5210898cfe6bc5a269e60c463e22a4431ae0c9c47a6cfcd31f36,release/aase-release/scripts/pretrain_gemma3_fixed.py,identical to canonical copy
+recalibrate_probes.py,loose,d73a06e88ebff9c8f48f404fdae422c847166f1a61a6120534a795b10b9712e4,package/recalibrate_probes.py,identical to canonical copy
+recalibrate_v2.py,loose,0ecd65868b7b91d88dc7f3e418c5ff8d392c8cf265774206578b703d0bbe7953,release/aase-release/scripts/recalibrate_v2.py,identical to canonical copy
+retrain_aag_all_models.py,loose,b5ed3868f769a600eed43353d90d26de7173594438678aa5322a7090d693ccb2,package/retrain_aag_all_models.py,identical to canonical copy
+retrain_aag_injecagent.py,loose,b21506d65113a4395af0a98b5e8ed32906de5819d121d58d2bbe98ee7fb0b8aa,package/retrain_aag_injecagent.py,identical to canonical copy
+tune_aag_threshold.py,loose,55d083b96b0b0689a458bc943a1110bbd3a93e84abbe4d88fe9b75a4849782fd,package/tune_aag_threshold.py,identical to canonical copy
+tune_all_thresholds.py,loose,15b6e9284341165c015e873b6d40b6b71dc77b946a341a8da8a95dbd80be2bf9,package/tune_all_thresholds.py,identical to canonical copy

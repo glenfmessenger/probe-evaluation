@@ -1,0 +1,49 @@
+=== 2026-09-03T17:33:28Z R1 train-aag google/gemma-2-2b-it START
+/dev/vda1       497G   38G  459G   8% /
+2026-09-03T17:34:29Z R1 google/gemma-2-2b-it exit=0
+== check train-aag google/gemma-2-2b-it
+  ok: run_provenance git=513d60befaf7 vllm=0.13.0
+  ok: train-aag google/gemma-2-2b-it: layer 14 sep 2.87σ acc 1.000 auc 1.000 thr 0.3996
+== PASS
+2026-09-03T17:34:30Z R1 google/gemma-2-2b-it pushed 8bbe404
+=== 2026-09-03T17:34:30Z R1 train-aag meta-llama/Llama-3.2-1B-Instruct START
+/dev/vda1       497G   43G  454G   9% /
+2026-09-03T17:35:08Z R1 meta-llama/Llama-3.2-1B-Instruct exit=0
+== check train-aag meta-llama/Llama-3.2-1B-Instruct
+  ok: run_provenance git=8bbe40456faf vllm=0.13.0
+  ok: train-aag meta-llama/Llama-3.2-1B-Instruct: layer 8 sep 2.16σ acc 0.993 auc 0.993 thr 0.4723
+== PASS
+2026-09-03T17:35:10Z R1 meta-llama/Llama-3.2-1B-Instruct pushed d1a0790
+=== 2026-09-03T17:35:10Z R1 train-aag meta-llama/Llama-3.2-3B-Instruct START
+/dev/vda1       497G   46G  451G  10% /
+2026-09-03T17:35:46Z R1 meta-llama/Llama-3.2-3B-Instruct exit=0
+== check train-aag meta-llama/Llama-3.2-3B-Instruct
+  ok: run_provenance git=d1a07909c705 vllm=0.13.0
+  ok: train-aag meta-llama/Llama-3.2-3B-Instruct: layer 15 sep 2.79σ acc 1.000 auc 1.000 thr 0.5264
+== PASS
+2026-09-03T17:35:47Z R1 meta-llama/Llama-3.2-3B-Instruct pushed 56e922b
+=== 2026-09-03T17:35:47Z R1 train-aag google/gemma-3-4b-it START
+/dev/vda1       497G   52G  445G  11% /
+2026-09-03T17:37:08Z R1 google/gemma-3-4b-it exit=0
+== check train-aag google/gemma-3-4b-it
+  ok: run_provenance git=56e922b36055 vllm=0.13.0
+  ok: train-aag google/gemma-3-4b-it: layer 13 sep 0.80σ acc 0.720 auc 0.720 thr 0.3575
+== PASS
+2026-09-03T17:37:09Z R1 google/gemma-3-4b-it pushed fe12228
+=== 2026-09-03T17:37:09Z R1 train-aag meta-llama/Llama-3.1-8B-Instruct START
+/dev/vda1       497G   60G  437G  12% /
+2026-09-03T17:38:00Z R1 meta-llama/Llama-3.1-8B-Instruct exit=0
+== check train-aag meta-llama/Llama-3.1-8B-Instruct
+  ok: run_provenance git=fe12228c119a vllm=0.13.0
+  ok: train-aag meta-llama/Llama-3.1-8B-Instruct: layer 17 sep 3.34σ acc 1.000 auc 1.000 thr 0.2827
+== PASS
+2026-09-03T17:38:01Z R1 meta-llama/Llama-3.1-8B-Instruct pushed a44e0a1
+=== 2026-09-03T17:38:01Z R1 train-aag google/gemma-2-9b-it START
+/dev/vda1       497G   75G  422G  15% /
+2026-09-03T17:39:07Z R1 google/gemma-2-9b-it exit=0
+== check train-aag google/gemma-2-9b-it
+  ok: run_provenance git=a44e0a1142d4 vllm=0.13.0
+  ok: train-aag google/gemma-2-9b-it: layer 23 sep 3.76σ acc 1.000 auc 1.000 thr 0.3558
+== PASS
+2026-09-03T17:39:09Z R1 google/gemma-2-9b-it pushed 0b26c8a
+=== 2026-09-03T17:39:09Z R1 ALL LEGS DONE

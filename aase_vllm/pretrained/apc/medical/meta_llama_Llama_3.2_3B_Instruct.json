@@ -1,0 +1,16 @@
+{
+  "probe_type": "apc",
+  "policy": "medical",
+  "model_name": "meta-llama/Llama-3.2-3B-Instruct",
+  "layer_index": 7,
+  "layer_pct": 0.25,
+  "backend": "vllm",
+  "separation_sigma": 5.894705098461952,
+  "accuracy": 1.0,
+  "threshold": -0.06895740330219269,
+  "positive_mean": 0.1765989363193512,
+  "negative_mean": -0.3145137429237366,
+  "auc": 1.0,
+  "n_positive": 15,
+  "n_negative": 15
+}

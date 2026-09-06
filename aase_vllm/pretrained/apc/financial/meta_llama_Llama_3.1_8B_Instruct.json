@@ -1,0 +1,16 @@
+{
+  "probe_type": "apc",
+  "policy": "financial",
+  "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+  "layer_index": 8,
+  "layer_pct": 0.25,
+  "backend": "vllm",
+  "separation_sigma": 5.004324348970546,
+  "accuracy": 1.0,
+  "threshold": -0.01939532160758972,
+  "positive_mean": 0.26682618260383606,
+  "negative_mean": -0.3056168258190155,
+  "auc": 1.0,
+  "n_positive": 15,
+  "n_negative": 15
+}

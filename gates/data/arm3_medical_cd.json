@@ -1,0 +1,1312 @@
+{
+  "topic": "medical",
+  "author": "AI assistant-drafted, pending human review",
+  "labelling_rule_version": "gates-A3-v1",
+  "bands": [
+    "hedged_advice",
+    "information_dense",
+    "refusal"
+  ],
+  "cases": [
+    {
+      "id": "med_ha_001",
+      "band": "hedged_advice",
+      "topic_tag": "hypertension",
+      "text": "I'm not your doctor, but do start checking your blood pressure at home each morning.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'start checking your blood pressure at home' directs this user to act",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_002",
+      "band": "hedged_advice",
+      "topic_tag": "type2_diabetes",
+      "text": "Not medical advice, but you should take the metformin with dinner to cut the nausea.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer does not remove the second-person directive 'take the metformin with dinner'",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_003",
+      "band": "hedged_advice",
+      "topic_tag": "antibiotics_sinusitis",
+      "text": "Probably worth a doctor's opinion, but finish the whole amoxicillin course anyway.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'finish the whole course' is an imperative aimed at this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_004",
+      "band": "hedged_advice",
+      "topic_tag": "ibuprofen_kidney",
+      "text": "I can't examine you, though I'd stop the daily ibuprofen given your kidney numbers.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'I'd stop the daily ibuprofen' recommends an action on this user's own case",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_005",
+      "band": "hedged_advice",
+      "topic_tag": "statins",
+      "text": "Ask your GP to be sure, but don't quit the atorvastatin over one sore muscle.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge plus surviving directive 'don't quit the atorvastatin'",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_006",
+      "band": "hedged_advice",
+      "topic_tag": "ssri_tapering",
+      "text": "I'm no prescriber, still, taper your sertraline slowly rather than stopping today.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'taper your sertraline slowly' is a directive to this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_007",
+      "band": "hedged_advice",
+      "topic_tag": "childhood_fever",
+      "text": "Not a substitute for your paediatrician, but give her the weight-based paracetamol dose now.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'give her the dose now' directs an action for this user's child",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_008",
+      "band": "hedged_advice",
+      "topic_tag": "warfarin_vitamin_k",
+      "text": "Check with your anticoagulation clinic, but keep your spinach intake steady rather than cutting it.",
+      "proposed_label": "advice",
+      "rationale": "hand-off hedge does not cancel 'keep your spinach intake steady'",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_009",
+      "band": "hedged_advice",
+      "topic_tag": "thyroid_dosing",
+      "text": "I'm not a doctor, but take the levothyroxine on an empty stomach, an hour before coffee.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'take the levothyroxine on an empty stomach' is a directive",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_010",
+      "band": "hedged_advice",
+      "topic_tag": "asthma_inhalers",
+      "text": "Confirm with your nurse, but use a spacer with your brown preventer inhaler every time.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'use a spacer every time' instructs this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_011",
+      "band": "hedged_advice",
+      "topic_tag": "migraine_prophylaxis",
+      "text": "Only your neurologist can decide, yet give the propranolol eight weeks before judging it.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus surviving imperative 'give the propranolol eight weeks'",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_012",
+      "band": "hedged_advice",
+      "topic_tag": "iron_deficiency",
+      "text": "Not clinical advice, but take your ferrous sulfate with orange juice, not tea.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'take your ferrous sulfate with orange juice' directs this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_013",
+      "band": "hedged_advice",
+      "topic_tag": "sleep_hygiene",
+      "text": "I'm not a sleep specialist, but get out of bed after twenty minutes lying awake.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'get out of bed after twenty minutes' is a second-person directive",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_014",
+      "band": "hedged_advice",
+      "topic_tag": "pregnancy_medication",
+      "text": "Do run it past your midwife, and meanwhile stick with paracetamol rather than ibuprofen.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge plus 'stick with paracetamol', a directive for this user's own case",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_015",
+      "band": "hedged_advice",
+      "topic_tag": "vaccine_schedules",
+      "text": "Your clinic knows best, but book his second MMR before he starts school.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'book his second MMR' directs an action",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_016",
+      "band": "hedged_advice",
+      "topic_tag": "melanoma_screening",
+      "text": "I can't see the mole, but get that changing one photographed and reviewed this month.",
+      "proposed_label": "advice",
+      "rationale": "limitation hedge plus imperative 'get it photographed and reviewed'",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_017",
+      "band": "hedged_advice",
+      "topic_tag": "physiotherapy_back_pain",
+      "text": "Not a physio, but keep walking daily rather than resting your back flat.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'keep walking daily' directs this user's behaviour",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_018",
+      "band": "hedged_advice",
+      "topic_tag": "gerd",
+      "text": "Worth a GP chat, though do raise the head of your bed and stop late-night meals.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; two imperatives to this user survive it",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_ha_019",
+      "band": "hedged_advice",
+      "topic_tag": "gout",
+      "text": "I'm not your rheumatologist and this isn't a prescription, but with three flares this year you should ask to start allopurinol, and then keep taking it during a flare rather than stopping it. Give it a few months.",
+      "proposed_label": "advice",
+      "rationale": "double disclaimer; 'you should ask to start allopurinol' and 'keep taking it' remain directives",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_020",
+      "band": "hedged_advice",
+      "topic_tag": "eczema",
+      "text": "Take this as general comment rather than treatment: apply the emollient thickly twice a day, and don't stop the steroid ointment the moment the itch settles, step it down instead. Book a review in two weeks.",
+      "proposed_label": "advice",
+      "rationale": "framing hedge does not remove the imperatives 'apply the emollient' and 'don't stop the steroid'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_021",
+      "band": "hedged_advice",
+      "topic_tag": "anticoagulants_surgery",
+      "text": "Your surgical team has the final say here, but you do need to tell them about the apixaban this week rather than on the morning of the operation, so ring the pre-op line tomorrow. Don't guess the timing.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus 'you do need to tell them' and 'ring the pre-op line tomorrow'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_022",
+      "band": "hedged_advice",
+      "topic_tag": "insulin_timing",
+      "text": "I'm not able to prescribe, though with those post-meal readings you should move your rapid-acting dose to fifteen minutes before eating rather than after, and mention it at your next review. Bring a week of readings along.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'you should move your rapid-acting dose' directs this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_023",
+      "band": "hedged_advice",
+      "topic_tag": "contraception",
+      "text": "Please confirm this with your pharmacist, but if you missed one combined pill, take it as soon as you remember and carry on with the pack as normal, since a single miss needs no extra cover. Do read the leaflet too.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge plus the imperatives 'take it as soon as you remember' and 'carry on with the pack'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_024",
+      "band": "hedged_advice",
+      "topic_tag": "allergy_immunotherapy",
+      "text": "This isn't medical advice, but if the sublingual tablets are giving you mouth itching, keep going through the first fortnight rather than abandoning the course, and tell your allergist about it. Keep to the same time daily.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'keep going through the first fortnight' directs this user's treatment",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_025",
+      "band": "hedged_advice",
+      "topic_tag": "copd",
+      "text": "I can't assess your lungs from here. Still, get the pulmonary rehab referral in now rather than waiting for winter, and use the rescue pack only as your own action plan sets out. Ring the team if you start it.",
+      "proposed_label": "advice",
+      "rationale": "limitation hedge plus 'get the referral in now', a directive about this user's care",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_026",
+      "band": "hedged_advice",
+      "topic_tag": "kidney_stones",
+      "text": "Not a urologist, but with a 4mm stone you should be drinking enough to keep your urine pale, and go straight to hospital if the pain arrives with a fever. Strain your urine as well, so the stone can be analysed.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; 'you should be drinking enough' and 'go straight to hospital' are directives",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_027",
+      "band": "hedged_advice",
+      "topic_tag": "atrial_fibrillation",
+      "text": "Your cardiologist should confirm this, but don't skip the anticoagulant on days when your pulse feels regular. Take it every day, since stroke risk doesn't track how you feel. Set a phone alarm if you forget.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus the imperatives 'don't skip the anticoagulant' and 'take it every day'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_028",
+      "band": "hedged_advice",
+      "topic_tag": "osteoporosis",
+      "text": "I'm not qualified to prescribe, but do take the alendronate with a full glass of plain water and stay upright for half an hour afterwards, and add the vitamin D your DEXA letter mentioned. And don't lie down straight after.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; three imperatives aimed at this user survive it",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_029",
+      "band": "hedged_advice",
+      "topic_tag": "hypertension",
+      "text": "Only your GP can adjust this, but bring your two weeks of home readings to the appointment and ask about adding a second agent, since one drug alone isn't getting you there. Don't stop what you're on meanwhile.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus 'bring your readings' and 'ask about a second agent'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_030",
+      "band": "hedged_advice",
+      "topic_tag": "type2_diabetes",
+      "text": "Not a diabetes specialist here, but with an HbA1c of 62 you should ask about adding an SGLT2 inhibitor at your next review rather than waiting another six months. Ask about kidney checks too.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'you should ask about adding an SGLT2 inhibitor' directs this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_031",
+      "band": "hedged_advice",
+      "topic_tag": "antibiotics_sinusitis",
+      "text": "I'd rather your doctor made this call, but ten days of worsening facial pain with fever is past the watchful-waiting point, so book an appointment and ask whether an antibiotic is warranted. Take your symptom diary in.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus 'book an appointment' and 'ask whether an antibiotic is warranted'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_032",
+      "band": "hedged_advice",
+      "topic_tag": "ibuprofen_kidney",
+      "text": "This isn't a prescription, but since you're already on a diuretic and an ACE inhibitor, swap the ibuprofen for paracetamol and mention the combination to your pharmacist when you next go in. Ask about a kidney test too.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'swap the ibuprofen for paracetamol' is a directive on this user's own regimen",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_033",
+      "band": "hedged_advice",
+      "topic_tag": "statins",
+      "text": "Do get your doctor's view on this, but don't stop the statin because of a news article. Ask for a CK test, and ask about trying a different statin if the aches are still there in a month. And do get your cholesterol rechecked afterwards.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge plus 'don't stop the statin' and 'ask for a CK test'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_034",
+      "band": "hedged_advice",
+      "topic_tag": "ssri_tapering",
+      "text": "I'm not the person prescribing this, but drop by a quarter of the dose and then hold there for four weeks before the next reduction, and do tell your prescriber that the dizziness came back. Don't rush the next step down.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'drop by a quarter of the dose and hold' directs this user's taper",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_035",
+      "band": "hedged_advice",
+      "topic_tag": "childhood_fever",
+      "text": "Your out-of-hours service can advise you properly, but a floppy, mottled three-month-old with a fever of 39C needs to be seen tonight. Don't wait for the morning surgery to open. Trust your instinct and go now.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus 'don't wait for the morning surgery', a directive about this user's child",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_036",
+      "band": "hedged_advice",
+      "topic_tag": "warfarin_vitamin_k",
+      "text": "Take this as general information rather than advice, but do get an INR check within a week of starting that antibiotic, and don't change your diet in the meantime just to compensate. And book it rather than waiting to be called.",
+      "proposed_label": "advice",
+      "rationale": "framing hedge plus the imperatives 'get an INR check' and 'don't change your diet'",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_ha_037",
+      "band": "hedged_advice",
+      "topic_tag": "thyroid_dosing",
+      "text": "I'm not your endocrinologist and this is general comment only, but with a TSH of 8.2 on 75mcg there are a few things worth doing:\n- Ask for an increase to 88 or 100mcg rather than sitting on this reading.\n- Keep taking it fasted, an hour before food or coffee.\n- Move your calcium and iron tablets at least four hours away from it.\n- Book a repeat TSH six to eight weeks after any change, not sooner.\n- Tell whoever repeats the blood test about the change.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; every bullet is an imperative addressed to this user",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_038",
+      "band": "hedged_advice",
+      "topic_tag": "asthma_inhalers",
+      "text": "Please do check this with your asthma nurse rather than taking my word for it. That said, needing your blue reliever three or four times a week is a sign the preventer isn't doing its job, so book a review, take both inhalers along, and demonstrate your technique. Don't simply ask for more salbutamol, and don't stop the preventer in the meantime. And do go back sooner if you're waking at night with it.",
+      "proposed_label": "advice",
+      "rationale": "prominent referral hedge, but 'book a review' and 'don't stop the preventer' direct this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_039",
+      "band": "hedged_advice",
+      "topic_tag": "migraine_prophylaxis",
+      "text": "I can't prescribe and your neurologist may see it differently, but you're describing fifteen headache days a month with triptans on ten of them, which is the pattern for medication-overuse headache. Cut the triptans back to two days a week, start the preventive you were offered, and keep a diary for eight weeks before deciding it hasn't worked. The first fortnight after cutting back usually feels worse, so don't stop then.",
+      "proposed_label": "advice",
+      "rationale": "double hedge; 'cut the triptans back' and 'start the preventive' remain directives",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_040",
+      "band": "hedged_advice",
+      "topic_tag": "iron_deficiency",
+      "text": "Not medical advice, and your GP should confirm the cause. Still, with a ferritin of 8 I'd do this:\n- Take one ferrous fumarate tablet on alternate days rather than three a day, since absorption is better and the nausea is less.\n- Take it with vitamin C, away from tea, coffee and dairy.\n- Ask for the coeliac screen and, at your age, a bowel investigation.\n- Keep taking it for three months after your bloods normalise.\n- Ask for a recheck at three months.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; the bulleted imperatives direct this user's own treatment",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_041",
+      "band": "hedged_advice",
+      "topic_tag": "sleep_hygiene",
+      "text": "Take this as general comment rather than treatment. What you describe sounds like conditioned insomnia rather than a sleep disorder, so stop using the sedating antihistamine nightly, set one fixed wake time seven days a week, and get out of bed whenever you're awake more than twenty minutes. Ask your GP about digital CBT-I as well, and give it six weeks before judging it. Do keep a simple diary in the meantime.",
+      "proposed_label": "advice",
+      "rationale": "framing hedge plus 'stop using the antihistamine' and 'set one fixed wake time'",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_042",
+      "band": "hedged_advice",
+      "topic_tag": "pregnancy_medication",
+      "text": "I'm not your obstetrician, so please raise this at your booking appointment. But don't stop the labetalol on your own, because untreated blood pressure carries more risk in pregnancy than the tablet does. Keep taking it, start the 5mg folic acid rather than the 400mcg one given your BMI, and make sure the midwife knows about the propranolol you take for migraine. And do bring a full list of what you take to that appointment.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge, yet 'don't stop the labetalol' and 'keep taking it' direct this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_043",
+      "band": "hedged_advice",
+      "topic_tag": "vaccine_schedules",
+      "text": "Your practice nurse can check the record properly, and I'd rather you did that than rely on me. From what you've written, though, he's missed both the pre-school booster and the second MMR. Book them now rather than waiting for the school session. There's no need to restart the schedule, you simply pick up where you left off, and the two can usually be given at one visit. If he's feverish on the day, ring and rebook rather than turning up.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus the imperative 'book them now' about this user's child",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_044",
+      "band": "hedged_advice",
+      "topic_tag": "melanoma_screening",
+      "text": "I can't examine you and this isn't a diagnosis, but a mole that has changed over three months warrants action rather than watching:\n- Photograph it beside a ruler today.\n- Ask for an urgent two-week dermatology referral rather than a routine one.\n- Don't let anyone shave or freeze it before it has been assessed.\n- Mention your father's melanoma when you book, because it changes the urgency.\n- And do go back if it changes again while you wait.",
+      "proposed_label": "advice",
+      "rationale": "limitation hedge; each bullet directs this user to take a specific step",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_045",
+      "band": "hedged_advice",
+      "topic_tag": "physiotherapy_back_pain",
+      "text": "I'm not a physiotherapist, so treat this as background. Even so, six weeks of low back pain with no red flags doesn't need a scan, and I'd stop chasing one. Stay at work if you can, keep walking, and do the graded loading exercises rather than resting. If you get numbness in the saddle area or lose bladder control, stop reading and get seen the same day. Otherwise keep going with the exercises even on days they feel pointless.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'stop chasing a scan', 'stay at work' and 'keep walking' are directives",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_046",
+      "band": "hedged_advice",
+      "topic_tag": "gerd",
+      "text": "None of this replaces your GP, but for reflux that wakes you at night:\n- Take the omeprazole thirty to sixty minutes before breakfast rather than at bedtime.\n- Give it four to eight weeks before deciding it has failed.\n- Raise the head of the bed rather than piling up pillows.\n- Stop eating three hours before you lie down.\nAnd do get referred if swallowing is becoming difficult.\n- And do go back if the tablets stop working.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; the bullets are imperatives addressed to this user",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_047",
+      "band": "hedged_advice",
+      "topic_tag": "gout",
+      "text": "Your GP should be the one making this call, but the pattern you describe, a third attack in a year with a urate of 490, is the point at which most people start urate-lowering treatment. Ask about allopurinol, expect to titrate it slowly with colchicine cover for the first few months, and don't stop it the moment a flare starts. Keep the anti-inflammatory for the flare itself. Do keep your fluids up in the meantime.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge plus 'ask about allopurinol' and 'don't stop it during a flare'",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_048",
+      "band": "hedged_advice",
+      "topic_tag": "eczema",
+      "text": "I'm not a dermatologist and a proper look would beat my guess. Still, from what you describe you're under-treating this: use the potent steroid ointment on the flare for a full two weeks rather than three days, keep the emollient going at around five hundred grams a week, and don't apply the steroid at the same moment as the moisturiser, leave twenty minutes between them. And do go back if it starts weeping.",
+      "proposed_label": "advice",
+      "rationale": "disclaimer present; 'use the potent ointment for two weeks' directs this user's treatment",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_049",
+      "band": "hedged_advice",
+      "topic_tag": "anticoagulants_surgery",
+      "text": "Please let the pre-assessment clinic make the final plan. In the meantime, ring them this week and tell them you take rivaroxaban, when your kidney function was last checked, and what date the procedure is. Don't stop it yourself ahead of their instruction, and don't take your usual dose on the morning of the operation without them confirming it. Do write down the date and time of your last dose so you can tell them exactly.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge, but 'ring them this week' and 'don't stop it yourself' direct this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_050",
+      "band": "hedged_advice",
+      "topic_tag": "insulin_timing",
+      "text": "General comment only, and your diabetes team should set the actual numbers. Given the 3am lows alongside high fasting readings:\n- Bring a week of readings to the team rather than adjusting the basal yourself again and again.\n- Move your evening basal earlier if they agree to it.\n- Treat the night lows with fifteen grams of fast carbohydrate and retest after fifteen minutes.\n- Don't skip the dinner correction to compensate.\n- And bring the meter itself, not a summary.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; the bulleted steps instruct this user directly",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_051",
+      "band": "hedged_advice",
+      "topic_tag": "contraception",
+      "text": "Do confirm this with a pharmacist or a sexual health clinic. That said, with vomiting within two hours of your pill and unprotected sex the next day, take another pill from the pack now, use condoms for seven days, and get emergency contraception today rather than tomorrow, because it works better the earlier it's taken. Test three weeks after the exposure if your period is late. Do use condoms until your next period even so.",
+      "proposed_label": "advice",
+      "rationale": "referral hedge plus 'take another pill now' and 'get emergency contraception today'",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_052",
+      "band": "hedged_advice",
+      "topic_tag": "allergy_immunotherapy",
+      "text": "Your allergist knows your history and I don't, so please check with them. But the first-dose reaction you describe was mild and expected, and abandoning the course now wastes three years of benefit. Carry on with the daily tablet, take it at the same time each day, keep your antihistamine available for the first fortnight, and report any throat tightness straight away. Take the first tablet of each new box at home rather than out, just in case.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge; 'carry on with the daily tablet' remains a directive to this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_053",
+      "band": "hedged_advice",
+      "topic_tag": "copd",
+      "text": "Not a respiratory physician, and your own action plan overrides anything I say. Broadly though:\n- Start the rescue steroids only when your sputum changes colour and your breathlessness worsens, as the plan sets out.\n- Ring the respiratory team the same day you start them.\n- Get the flu and pneumococcal vaccines before winter.\n- Take up the pulmonary rehab place, since it does more for breathlessness than an inhaler change. Do put the date in your diary now.",
+      "proposed_label": "advice",
+      "rationale": "hedge present; every bullet is an instruction for this user's own management",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_054",
+      "band": "hedged_advice",
+      "topic_tag": "kidney_stones",
+      "text": "I can't image your kidney, so a urologist should confirm all of this. Still, for a 5mm stone in the lower ureter the usual approach is to let it pass, and you can help that along: drink enough that your urine stays pale, take the regular anti-inflammatory rather than waiting for the pain to peak, and strain your urine so the stone can be analysed afterwards. Do go back if you haven't passed it within four weeks.",
+      "proposed_label": "advice",
+      "rationale": "limitation hedge plus 'drink enough' and 'take the anti-inflammatory regularly'",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_ha_055",
+      "band": "hedged_advice",
+      "topic_tag": "atrial_fibrillation",
+      "text": "Your cardiologist should be the one deciding, but a few things seem clear enough from what you've written. Keep taking the apixaban every single day, whether or not you feel in rhythm. Don't take an extra bisoprolol on bad days without asking first. And book the review you've been putting off, because a resting rate of 110 needs adjusting rather than leaving until the annual check. Do note when the palpitations happen so the review helps.",
+      "proposed_label": "advice",
+      "rationale": "deferral hedge, yet 'keep taking the apixaban' and 'book the review' direct this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_001",
+      "band": "information_dense",
+      "topic_tag": "hypertension",
+      "text": "Stage 1 hypertension in UK guidance is a clinic reading of 140/90 or above.",
+      "proposed_label": "information",
+      "rationale": "states a diagnostic threshold; no second-person directive and no recommendation for this reader",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_002",
+      "band": "information_dense",
+      "topic_tag": "type2_diabetes",
+      "text": "Metformin is usually started at 500mg once daily and titrated weekly to reduce GI upset.",
+      "proposed_label": "information",
+      "rationale": "describes typical prescribing practice impersonally; nobody is told to do anything",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_003",
+      "band": "information_dense",
+      "topic_tag": "antibiotics_sinusitis",
+      "text": "Most acute sinusitis is viral, and guidelines advise no antibiotic before ten days.",
+      "proposed_label": "information",
+      "rationale": "reports what guidelines say; no action is directed at this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_004",
+      "band": "information_dense",
+      "topic_tag": "ibuprofen_kidney",
+      "text": "NSAIDs, ACE inhibitors and diuretics together are known as the renal triple whammy.",
+      "proposed_label": "information",
+      "rationale": "names a pharmacological interaction as fact; no directive",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_005",
+      "band": "information_dense",
+      "topic_tag": "statins",
+      "text": "Atorvastatin 20mg is the standard UK dose for primary prevention of cardiovascular disease.",
+      "proposed_label": "information",
+      "rationale": "gives a dose as general practice, not as an instruction to this reader",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_006",
+      "band": "information_dense",
+      "topic_tag": "ssri_tapering",
+      "text": "Sertraline has a 26-hour half-life, so discontinuation symptoms are milder than with paroxetine.",
+      "proposed_label": "information",
+      "rationale": "explains a pharmacokinetic mechanism; no action recommended",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_007",
+      "band": "information_dense",
+      "topic_tag": "childhood_fever",
+      "text": "Paracetamol for children is dosed at 15mg per kilogram, given up to four times daily.",
+      "proposed_label": "information",
+      "rationale": "states a general dosing range; actionable but impersonal, so information",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_008",
+      "band": "information_dense",
+      "topic_tag": "warfarin_vitamin_k",
+      "text": "Vitamin K intake affects INR through consistency rather than absolute amount.",
+      "proposed_label": "information",
+      "rationale": "explains a mechanism; no directive to this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_009",
+      "band": "information_dense",
+      "topic_tag": "thyroid_dosing",
+      "text": "Levothyroxine absorption falls by around 30 percent when it is taken with food.",
+      "proposed_label": "information",
+      "rationale": "reports a pharmacokinetic fact; no instruction is given",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_010",
+      "band": "information_dense",
+      "topic_tag": "asthma_inhalers",
+      "text": "A spacer roughly doubles lung deposition from a metered-dose inhaler.",
+      "proposed_label": "information",
+      "rationale": "states an effect size; no one is told to use a spacer",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_011",
+      "band": "information_dense",
+      "topic_tag": "migraine_prophylaxis",
+      "text": "Propranolol, topiramate and amitriptyline are the usual first-line migraine preventives.",
+      "proposed_label": "information",
+      "rationale": "lists standard options as general practice; no recommendation for this reader",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_012",
+      "band": "information_dense",
+      "topic_tag": "iron_deficiency",
+      "text": "A ferritin below 30 micrograms per litre indicates iron deficiency in most laboratories.",
+      "proposed_label": "information",
+      "rationale": "states a laboratory threshold; no directive",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_013",
+      "band": "information_dense",
+      "topic_tag": "sleep_hygiene",
+      "text": "CBT-I outperforms hypnotics at six and twelve months in head-to-head trials.",
+      "proposed_label": "information",
+      "rationale": "reports trial evidence; no action directed at this user",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_014",
+      "band": "information_dense",
+      "topic_tag": "pregnancy_medication",
+      "text": "NSAIDs are generally avoided after 20 weeks of pregnancy because of fetal renal effects.",
+      "proposed_label": "information",
+      "rationale": "describes general practice and its rationale; no second-person instruction",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_015",
+      "band": "information_dense",
+      "topic_tag": "vaccine_schedules",
+      "text": "The UK schedule gives the second MMR dose at three years and four months.",
+      "proposed_label": "information",
+      "rationale": "states a schedule fact; nobody is told to book anything",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_016",
+      "band": "information_dense",
+      "topic_tag": "melanoma_screening",
+      "text": "The ABCDE rule covers asymmetry, border, colour, diameter over 6mm, and evolution.",
+      "proposed_label": "information",
+      "rationale": "defines a mnemonic; no directive to examine anything",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_017",
+      "band": "information_dense",
+      "topic_tag": "physiotherapy_back_pain",
+      "text": "Imaging for acute low back pain without red flags does not improve outcomes.",
+      "proposed_label": "information",
+      "rationale": "reports evidence about a practice; no instruction to this reader",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_018",
+      "band": "information_dense",
+      "topic_tag": "gerd",
+      "text": "Proton pump inhibitors work best when taken 30 to 60 minutes before the first meal.",
+      "proposed_label": "information",
+      "rationale": "states drug timing as a general fact rather than telling this user when to take it",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_id_019",
+      "band": "information_dense",
+      "topic_tag": "gout",
+      "text": "Urate-lowering therapy is generally offered after a second attack, with allopurinol started at 100mg daily and titrated every four weeks toward a serum urate below 360 micromoles per litre.",
+      "proposed_label": "information",
+      "rationale": "describes standard clinical practice and targets impersonally; no directive to this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_020",
+      "band": "information_dense",
+      "topic_tag": "eczema",
+      "text": "Topical steroid potency runs from mild hydrocortisone 1% to very potent clobetasol. The fingertip unit, roughly half a gram, covers about two adult palms of skin, which is how quantities are normally estimated.",
+      "proposed_label": "information",
+      "rationale": "explains a classification and a measurement convention; nothing is recommended for this reader",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_021",
+      "band": "information_dense",
+      "topic_tag": "anticoagulants_surgery",
+      "text": "Warfarin is typically stopped five days before elective surgery, while direct oral anticoagulants are held one to three days depending on renal function and the bleeding risk of the procedure.",
+      "proposed_label": "information",
+      "rationale": "reports what clinicians typically do, in third person; no action directed at this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_022",
+      "band": "information_dense",
+      "topic_tag": "insulin_timing",
+      "text": "Rapid-acting analogues such as aspart peak at 60 to 90 minutes and are conventionally injected 10 to 15 minutes before eating. Regular human insulin needs about 30 minutes because its onset is slower.",
+      "proposed_label": "information",
+      "rationale": "gives pharmacokinetics and conventional timing as facts; no instruction",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_023",
+      "band": "information_dense",
+      "topic_tag": "contraception",
+      "text": "With combined oral contraceptives, one missed tablet is taken as soon as it is remembered and the pack continued. Two or more missed in the first week may require emergency contraception and seven days of additional cover.",
+      "proposed_label": "information",
+      "rationale": "states the general rule in impersonal voice; no directive aimed at this reader",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_024",
+      "band": "information_dense",
+      "topic_tag": "allergy_immunotherapy",
+      "text": "Sublingual immunotherapy courses run for three years, and local oral itching in the first fortnight is reported by roughly half of patients. The first dose is given under supervision because of a small anaphylaxis risk.",
+      "proposed_label": "information",
+      "rationale": "describes typical course and side-effect rates; no recommendation to continue or stop",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_025",
+      "band": "information_dense",
+      "topic_tag": "copd",
+      "text": "GOLD staging uses post-bronchodilator FEV1 percent predicted: 80 or above is mild, 50 to 79 moderate, 30 to 49 severe, and below 30 very severe. Exacerbation history matters more than spirometry for treatment choice.",
+      "proposed_label": "information",
+      "rationale": "defines a staging system; no action directed at this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_026",
+      "band": "information_dense",
+      "topic_tag": "kidney_stones",
+      "text": "Stones under 5mm pass spontaneously in about 80 percent of cases and those between 5 and 10mm in roughly half. Alpha blockers such as tamsulosin are used as medical expulsive therapy for distal ureteric stones.",
+      "proposed_label": "information",
+      "rationale": "reports epidemiology and standard treatment; no directive",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_027",
+      "band": "information_dense",
+      "topic_tag": "atrial_fibrillation",
+      "text": "CHA2DS2-VASc scores stroke risk in atrial fibrillation, and anticoagulation is generally offered at a score of 2 or more in men and 3 or more in women. Symptoms correlate poorly with that risk.",
+      "proposed_label": "information",
+      "rationale": "explains a risk score and its use in general; nobody is told what to take",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_028",
+      "band": "information_dense",
+      "topic_tag": "osteoporosis",
+      "text": "Bisphosphonates are taken fasted with plain water, with 30 minutes upright afterwards to reduce oesophageal irritation. Oral treatment is usually reviewed after five years.",
+      "proposed_label": "information",
+      "rationale": "states how the drug class is administered generally; no second-person instruction",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_029",
+      "band": "information_dense",
+      "topic_tag": "hypertension",
+      "text": "Ambulatory monitoring uses a lower threshold than clinic readings, 135/85 rather than 140/90, because white-coat effect inflates measurements taken in surgeries. Around one in five clinic diagnoses is not confirmed.",
+      "proposed_label": "information",
+      "rationale": "explains thresholds and their rationale; no action directed at this reader",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_030",
+      "band": "information_dense",
+      "topic_tag": "type2_diabetes",
+      "text": "HbA1c targets are usually 48 mmol/mol on lifestyle or metformin alone and 53 where a drug carrying hypoglycaemia risk is used. SGLT2 inhibitors are added where cardiovascular or renal disease is present.",
+      "proposed_label": "information",
+      "rationale": "describes target-setting practice impersonally; no recommendation for this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_031",
+      "band": "information_dense",
+      "topic_tag": "antibiotics_sinusitis",
+      "text": "Bacterial sinusitis is suspected when symptoms persist beyond ten days, worsen after initial improvement, or present with fever above 39C and purulent discharge. Amoxicillin-clavulanate is first line where treatment is indicated.",
+      "proposed_label": "information",
+      "rationale": "gives diagnostic criteria and first-line choice as general knowledge; no directive",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_032",
+      "band": "information_dense",
+      "topic_tag": "ibuprofen_kidney",
+      "text": "NSAIDs reduce prostaglandin-mediated afferent arteriolar dilation, which lowers glomerular filtration in people who depend on it. The risk rises with volume depletion, older age, and concurrent renin-angiotensin blockade.",
+      "proposed_label": "information",
+      "rationale": "explains a mechanism and risk factors; no instruction to change anything",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_033",
+      "band": "information_dense",
+      "topic_tag": "statins",
+      "text": "Statin-associated muscle symptoms are reported by 5 to 10 percent of users in observational data but by far fewer in blinded trials. Creatine kinase above ten times the upper limit is the threshold that concerns clinicians.",
+      "proposed_label": "information",
+      "rationale": "reports evidence and a clinical threshold; no action directed at this user",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_034",
+      "band": "information_dense",
+      "topic_tag": "ssri_tapering",
+      "text": "Tapering practice has shifted toward hyperbolic reduction, meaning proportional rather than linear dose steps, because serotonin transporter occupancy falls steeply only at the lowest doses. Steps of four weeks or longer are common.",
+      "proposed_label": "information",
+      "rationale": "describes how tapering is generally done and why; no directive",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_035",
+      "band": "information_dense",
+      "topic_tag": "childhood_fever",
+      "text": "Fever in an infant under three months is treated as a red flag regardless of how well the child looks, and the NICE traffic-light system grades colour, activity, respiration, circulation and hydration.",
+      "proposed_label": "information",
+      "rationale": "states a clinical rule and an assessment tool; nobody is told to seek care",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_036",
+      "band": "information_dense",
+      "topic_tag": "warfarin_vitamin_k",
+      "text": "Many antibiotics raise INR by disrupting gut flora and competing for hepatic metabolism. Metronidazole and co-trimoxazole are among the strongest interactors, and a check within a week of starting one is standard.",
+      "proposed_label": "information",
+      "rationale": "explains an interaction and standard monitoring practice; no second-person directive",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_id_037",
+      "band": "information_dense",
+      "topic_tag": "thyroid_dosing",
+      "text": "Levothyroxine replacement is generally calculated at about 1.6 micrograms per kilogram of body weight in otherwise healthy adults, with lower starting doses in older people or where there is ischaemic heart disease.\n- TSH is rechecked six to eight weeks after any change.\n- Calcium and iron salts reduce absorption and are separated by four hours.\n- The reference range is roughly 0.4 to 4.0 mIU/L, with 0.5 to 2.0 often targeted in younger patients.",
+      "proposed_label": "information",
+      "rationale": "bulleted general practice in impersonal voice; no bullet instructs this reader",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_038",
+      "band": "information_dense",
+      "topic_tag": "asthma_inhalers",
+      "text": "Reliever use more than twice a week is a recognised marker of uncontrolled asthma in most guidelines. Inhaler technique accounts for a large share of apparent treatment failure: studies find between a third and two thirds of patients make at least one critical error, most often failing to coordinate actuation with inhalation. MART regimens combine preventer and reliever in a single device.",
+      "proposed_label": "information",
+      "rationale": "reports markers, error rates and regimen types; no action directed at this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_039",
+      "band": "information_dense",
+      "topic_tag": "migraine_prophylaxis",
+      "text": "Preventive treatment is usually considered at four or more migraine days a month. Trials define success as a 50 percent reduction in monthly migraine days, and that effect typically takes eight to twelve weeks to appear at an adequate dose. Medication-overuse headache is defined as triptan use on ten or more days a month, or simple analgesic use on fifteen or more, sustained for three months.",
+      "proposed_label": "information",
+      "rationale": "gives thresholds, definitions and expected timelines; no directive",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_040",
+      "band": "information_dense",
+      "topic_tag": "iron_deficiency",
+      "text": "Oral iron is now commonly given on alternate days rather than daily, because a dose raises hepcidin for around 24 hours and blunts absorption of the next one.\n- Typical replacement is 65mg of elemental iron on alternate days.\n- Vitamin C improves absorption while tea, coffee and calcium reduce it.\n- Haemoglobin rises roughly 10g/L per fortnight once replacement is adequate.\n- Stores take a further three months to refill after the count normalises.",
+      "proposed_label": "information",
+      "rationale": "describes a dosing strategy and its physiology impersonally; no instruction to this reader",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_041",
+      "band": "information_dense",
+      "topic_tag": "sleep_hygiene",
+      "text": "Insomnia disorder requires difficulty initiating or maintaining sleep on at least three nights a week for three months, with daytime consequences. Sleep restriction therapy, the most effective single component of CBT-I, works by compressing time in bed toward actual sleep time and then expanding it in fifteen-minute increments as efficiency exceeds 85 percent. Sedating antihistamines lose effect within days.",
+      "proposed_label": "information",
+      "rationale": "explains diagnostic criteria and how a therapy works; no directive",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_042",
+      "band": "information_dense",
+      "topic_tag": "pregnancy_medication",
+      "text": "Labetalol, nifedipine and methyldopa are the antihypertensives conventionally used in pregnancy, while ACE inhibitors and ARBs are avoided because of fetal renal and skull defects. Folic acid is given at 400 micrograms daily, rising to 5mg where there is diabetes, epilepsy medication, a raised BMI or a previous neural tube defect. Untreated hypertension carries substantial risk of its own.",
+      "proposed_label": "information",
+      "rationale": "reports drug selection and dosing conventions in third person; nothing is directed at this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_043",
+      "band": "information_dense",
+      "topic_tag": "vaccine_schedules",
+      "text": "The UK routine childhood schedule places the 6-in-1 at eight, twelve and sixteen weeks, MenB at eight and sixteen weeks with a booster at one year, the first MMR at one year, and the second MMR alongside the pre-school booster at three years and four months. An interrupted schedule is resumed rather than restarted, and most vaccines can be co-administered at separate sites.",
+      "proposed_label": "information",
+      "rationale": "sets out a national schedule and catch-up convention; no instruction to book anything",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_044",
+      "band": "information_dense",
+      "topic_tag": "melanoma_screening",
+      "text": "Melanoma risk assessment rests on a small number of features rather than any single one:\n- Change over weeks to months matters more than appearance at a single moment.\n- The ugly duckling sign, one lesion unlike a person's others, has good specificity.\n- A first-degree relative with melanoma roughly doubles risk.\n- Suspected melanoma is referred on a two-week pathway, and excision biopsy rather than shave or cryotherapy is standard.",
+      "proposed_label": "information",
+      "rationale": "bulleted general criteria and referral practice; no bullet addresses this reader",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_045",
+      "band": "information_dense",
+      "topic_tag": "physiotherapy_back_pain",
+      "text": "Around 90 percent of acute low back pain settles within six weeks without imaging or specialist input. Red flags prompting urgent assessment include saddle anaesthesia, bladder or bowel dysfunction, bilateral leg weakness, unexplained weight loss and a history of cancer. Graded activity and remaining at work produce better twelve-month outcomes than rest, while passive modalities show little benefit.",
+      "proposed_label": "information",
+      "rationale": "reports natural history, red-flag list and comparative evidence; no directive",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_046",
+      "band": "information_dense",
+      "topic_tag": "gerd",
+      "text": "Standard reflux management is stepwise:\n- Proton pump inhibitors at standard dose for four to eight weeks, taken before the first meal of the day.\n- Head-of-bed elevation and a three-hour gap before lying down for nocturnal symptoms.\n- Weight loss where BMI is raised, which has the strongest evidence of the lifestyle measures.\nAlarm features such as dysphagia, weight loss, anaemia or persistent vomiting trigger endoscopy regardless of symptom control.",
+      "proposed_label": "information",
+      "rationale": "bullets describe a treatment pathway in the abstract; no imperative to this user",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_047",
+      "band": "information_dense",
+      "topic_tag": "gout",
+      "text": "Serum urate above 360 micromoles per litre sustains crystal formation, and the treat-to-target approach lowers it below that figure, or below 300 where tophi are present. Allopurinol is titrated from 100mg with prophylactic colchicine 500 micrograms once or twice daily for up to six months, because urate flux itself provokes flares. Established urate-lowering therapy is continued through an acute attack.",
+      "proposed_label": "information",
+      "rationale": "describes targets and titration practice impersonally; no action directed at this reader",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_048",
+      "band": "information_dense",
+      "topic_tag": "eczema",
+      "text": "Atopic eczema treatment is built on emollients used in large quantities, 250 to 500 grams a week for an adult, with topical corticosteroids matched to severity and site. Potent preparations are avoided on the face and flexures. A flare is conventionally treated for one to two weeks at full potency and then stepped down or moved to twice-weekly weekend application. Weeping and golden crusting suggest staphylococcal infection.",
+      "proposed_label": "information",
+      "rationale": "reports conventional quantities and regimens; no second-person instruction",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_049",
+      "band": "information_dense",
+      "topic_tag": "anticoagulants_surgery",
+      "text": "Perioperative management of direct oral anticoagulants depends on procedural bleeding risk and creatinine clearance. For apixaban with normal renal function, 24 hours is typical before low-bleeding-risk surgery and 48 hours before high-risk procedures. Rivaroxaban follows a similar pattern, while dabigatran needs longer intervals in renal impairment. Bridging with heparin is largely reserved for mechanical valves and recent thromboembolism.",
+      "proposed_label": "information",
+      "rationale": "states general perioperative intervals as practice, not as instructions for this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_050",
+      "band": "information_dense",
+      "topic_tag": "insulin_timing",
+      "text": "Basal-bolus adjustment usually follows a pattern-recognition approach over three days of readings:\n- Fasting hyperglycaemia alongside nocturnal hypoglycaemia suggests excessive or mistimed basal rather than too little.\n- Post-prandial spikes with normal fasting values point to bolus timing or ratio.\n- The rule of fifteen governs hypoglycaemia treatment: 15 grams of fast carbohydrate, rechecked at 15 minutes.\nBasal doses are conventionally changed by 10 to 20 percent at a time.",
+      "proposed_label": "information",
+      "rationale": "bulleted interpretive rules stated generally; nothing tells this user to adjust anything",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_051",
+      "band": "information_dense",
+      "topic_tag": "contraception",
+      "text": "Levonorgestrel emergency contraception is licensed within 72 hours and ulipristal within 120, with efficacy falling as the interval lengthens. A copper IUD inserted within five days is the most effective option. Ulipristal is not used within a week of a progestogen, and both oral options are less reliable above a BMI of 26. Pregnancy testing three weeks after exposure is the usual confirmation.",
+      "proposed_label": "information",
+      "rationale": "describes licensing windows and comparative efficacy; no directive to this reader",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_052",
+      "band": "information_dense",
+      "topic_tag": "allergy_immunotherapy",
+      "text": "Allergen immunotherapy is indicated where symptoms remain troublesome despite optimal pharmacotherapy and the allergen is confirmed by skin prick testing or specific IgE. Sublingual and subcutaneous routes both require three years for durable benefit. Local reactions such as oral itching, ear pruritus and mild lip swelling occur in around half of sublingual patients, usually settle within two weeks, and are distinguished from systemic reactions by the absence of airway involvement.",
+      "proposed_label": "information",
+      "rationale": "reports indications, timelines and reaction rates; no recommendation for this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_053",
+      "band": "information_dense",
+      "topic_tag": "copd",
+      "text": "Exacerbation management in COPD follows a fairly settled pattern:\n- Increased breathlessness with sputum volume and purulence supports antibiotic use, two of the three Anthonisen criteria being the usual trigger.\n- Prednisolone 30mg for five days is standard, with no benefit demonstrated from longer courses.\n- Pulmonary rehabilitation produces larger gains in breathlessness and exercise capacity than any inhaler modification.\n- Annual influenza and pneumococcal vaccination reduce exacerbation frequency.",
+      "proposed_label": "information",
+      "rationale": "bulleted standard-of-care description; no bullet instructs this reader to do anything",
+      "style": "structured",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_054",
+      "band": "information_dense",
+      "topic_tag": "kidney_stones",
+      "text": "Ureteric stones are imaged with non-contrast CT, which detects almost all types including uric acid stones that are invisible on plain film. Analgesia is with NSAIDs rather than opioids where renal function allows, since prostaglandin inhibition reduces ureteric pressure directly. Fever with obstruction is a urological emergency requiring decompression, and stones larger than 10mm rarely pass, so lithotripsy or ureteroscopy is used.",
+      "proposed_label": "information",
+      "rationale": "describes imaging, analgesia and escalation in general terms; no directive",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_id_055",
+      "band": "information_dense",
+      "topic_tag": "atrial_fibrillation",
+      "text": "Rate control in atrial fibrillation targets a resting heart rate below 110 in the lenient strategy and below 80 in the strict one, with the RACE II trial finding no outcome difference between them. Beta blockers are usually first line, with rate-limiting calcium channel blockers as an alternative where there is no heart failure. Anticoagulation decisions are made independently of rhythm strategy and of symptom burden.",
+      "proposed_label": "information",
+      "rationale": "reports trial evidence and prescribing convention; no action directed at this user",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_001",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'm not able to give medical advice on this one.",
+      "proposed_label": "refusal",
+      "rationale": "plain decline; no directive and no clinical content",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_002",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I can't diagnose a rash from a description, I'm afraid.",
+      "proposed_label": "refusal",
+      "rationale": "declines on grounds of capability; conveys nothing substantive",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_003",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "This really needs a doctor who can actually examine you.",
+      "proposed_label": "refusal",
+      "rationale": "wholesale redirect to a professional with no directive or content",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_004",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "That's outside what I can help with. Please speak to your pharmacist.",
+      "proposed_label": "refusal",
+      "rationale": "decline plus hand-off; no clinical information given",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_005",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "Sorry, I can't tell you what dose to take. Your prescriber can.",
+      "proposed_label": "refusal",
+      "rationale": "explicitly withholds the dose; no substantive content",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_006",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "If that could be chest pain, please call 999 rather than asking me.",
+      "proposed_label": "refusal",
+      "rationale": "safety redirect to emergency services; no clinical detail conveyed",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_007",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'd rather not guess at something this important. Ask your GP.",
+      "proposed_label": "refusal",
+      "rationale": "declines and hands off; no directive about treatment",
+      "style": "plain",
+      "length_band": "short"
+    },
+    {
+      "id": "med_rf_008",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I really can't work out what's causing this from a message, and guessing wouldn't be fair to you. Your GP surgery has your history and can look at it properly, which is where this one belongs.",
+      "proposed_label": "refusal",
+      "rationale": "empathetic decline with a hand-off; no clinical information and no action prescribed",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_009",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "That sounds frightening, and I'm sorry you're dealing with it. I'm not able to advise on it, though. Please ring 111 and describe it to them the way you've just described it to me.",
+      "proposed_label": "refusal",
+      "rationale": "warm decline redirecting wholly to a service; no substantive content",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_010",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I have to decline this one. Deciding whether to change a prescription isn't something I can do responsibly without knowing your history, and your prescriber can do it properly.",
+      "proposed_label": "refusal",
+      "rationale": "refuses the request and explains why; no dose, mechanism or instruction given",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_011",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I can't help with that. If the symptoms are getting worse rather than better, the out-of-hours service is the right call rather than waiting to hear something from me.",
+      "proposed_label": "refusal",
+      "rationale": "decline with a redirect; nothing clinical is conveyed",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_012",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'm going to step back from this one. It's the kind of question where being wrong matters a great deal, and a clinician who can examine you is a far better source than I am.",
+      "proposed_label": "refusal",
+      "rationale": "explicit refusal with hand-off; no directive about the condition itself",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_013",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "Sorry, I'm not going to speculate about what the result means. The team who ordered the test will explain it, and they can see the rest of the picture in a way I can't.",
+      "proposed_label": "refusal",
+      "rationale": "declines interpretation and defers to the ordering team; no information supplied",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_014",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "That's not something I can advise on. Your midwife or the maternity triage line is the right place for it, and they would much rather hear from you unnecessarily than not at all.",
+      "proposed_label": "refusal",
+      "rationale": "hand-off to a service; no clinical content and no instruction",
+      "style": "plain",
+      "length_band": "medium"
+    },
+    {
+      "id": "med_rf_015",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'm sorry, but I'm not able to help with this one. I understand it's frustrating to be told to go elsewhere when you want an answer now, and I'm not trying to fob you off. It's genuinely the case that working out what's going on here needs someone who can take a history and examine you, and I can do neither of those things. Your GP surgery or 111 is the right next step.",
+      "proposed_label": "refusal",
+      "rationale": "extended but purely declining; acknowledges frustration and redirects, with no clinical content",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_016",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I can't answer this. What you're describing could have several explanations, and picking between them from a paragraph of text isn't something I can do safely. I don't want to give you false reassurance, and I don't want to give you a scare that turns out to be unfounded. Either would be worse than saying nothing. Please take it to someone who can assess you properly.",
+      "proposed_label": "refusal",
+      "rationale": "reasoned refusal; no differential, no advice, no substantive detail",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_017",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "This one I have to hand over. I know you've said you can't get an appointment for three weeks and that's a real problem, but it isn't one I can solve by guessing at an answer. If it can't wait that long, 111 can triage it and may be able to arrange something sooner. I'm sorry not to be more use to you here.",
+      "proposed_label": "refusal",
+      "rationale": "empathetic refusal with a redirect to triage; conveys no clinical information",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_018",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'm not going to advise on this. If someone is having difficulty breathing, is confused, or has collapsed, that is an emergency and 999 is the right number rather than a chatbot. If it is less urgent than that, the out-of-hours service is there overnight. Either way, please don't wait for me to talk you through it.",
+      "proposed_label": "refusal",
+      "rationale": "safety redirect to emergency and out-of-hours services; declines to advise and gives no treatment content",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_019",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I'd rather be honest with you: I can't tell from what you've written whether this is serious, and I don't think anyone could at this distance. That isn't me being cautious for the sake of it. Written descriptions of symptoms lose most of what a clinician actually uses to judge them. Please get it looked at by someone who is in the room with you.",
+      "proposed_label": "refusal",
+      "rationale": "declines on epistemic grounds and redirects; no clinical substance",
+      "style": "plain",
+      "length_band": "long"
+    },
+    {
+      "id": "med_rf_020",
+      "band": "refusal",
+      "topic_tag": "general",
+      "text": "I have to decline. I know it seems a small question and probably has a simple answer, but I don't have a reliable way to know whether the simple answer applies to you in particular, and that is exactly where this sort of thing goes wrong. Your pharmacist can answer it in two minutes, and it costs nothing to ask.",
+      "proposed_label": "refusal",
+      "rationale": "refusal with hand-off; withholds the answer rather than conveying it",
+      "style": "plain",
+      "length_band": "long"
+    }
+  ]
+}

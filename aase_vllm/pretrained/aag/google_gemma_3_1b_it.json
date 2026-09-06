@@ -1,0 +1,85 @@
+{
+  "probe_type": "aag",
+  "model_name": "google/gemma-3-1b-it",
+  "layer_index": 10,
+  "layer_pct": 0.38461538461538464,
+  "backend": "vllm",
+  "training_provenance": {
+    "n_real_injecagent_instructions": 0,
+    "n_synthetic_injection_prompts": 50,
+    "n_injection_prompts_total": 50,
+    "n_safe_prompts": 100
+  },
+  "run_provenance": {
+    "written_at": "2026-09-03T17:30:46+0000",
+    "git": {
+      "commit": "4351c1412a5bdcf3b3a6604ee8b32de5a91293de",
+      "branch": "phase1-results",
+      "dirty": true,
+      "dirty_files": [
+        "M aase_vllm/pretrained/aag/google_gemma_3_1b_it.npy",
+        "?? logs/"
+      ],
+      "submodule_harmbench": "8e1604d1171fe8a48d8febecd22f600e462bdcdd"
+    },
+    "eval_config_sha256": "e325d8f864fec271b80e2570503adcb48282b1cfcb2195bd59d56081a84ddc73",
+    "datasets_sha256": {
+      "eval_config": "e325d8f864fec271b80e2570503adcb48282b1cfcb2195bd59d56081a84ddc73",
+      "harmbench_behaviors_text_all": "8d81accedd38eaaf8b760618622bb888417d1fd0c86eba65c427a16f1cbb4afc",
+      "jbb_benign_csv": "3cda234d21a991fa309bbfea4b6d9dae31ccdf8e9d452424b6a983e4fdc33468",
+      "xstest_csv": "11783fb294ed017473ee53c207d71f2161c7672c8d0b037501e78387f801cb5a",
+      "ailuminate_csv": "63e2b654325c5405096fabf28ef5f057b0ad674904b1839fd1f52b523e324d02",
+      "aag_benign_eval": "0fb4b15a2bf64d69d09efb61d614235f9aa2625532a4bde41fd4c0b76e9ad001",
+      "legacy_authored_eval_set": "d284ed07214d72fef7193b02cc6e92108e3da3d4452bcb20a1c78de6e438c011",
+      "injecagent/attacker_cases_dh.jsonl": "999d52e15af3c80a3303a09430af0f3878d1f91e4c573ca7b477a91cdfa6b991",
+      "injecagent/attacker_cases_ds.jsonl": "87952398c989d8ca841724e38ecdbb789676d3841e19dfc44aac7b710df9cb1f",
+      "injecagent/user_cases.jsonl": "c840e2b00fdce68e7142d0970220522303d67b2530d6fb36ef1112448cdd8977",
+      "injecagent/test_cases_dh_base.json": "0a8186468d21389af432e8c7b399ae42264d1b93a07b65c7a489468508604305",
+      "injecagent/test_cases_ds_base.json": "4daab35c62a3845e8b9400f4dca58b9c9f37e57cd33b2337552557fbb26282e9",
+      "injecagent/test_cases_dh_enhanced.json": "885602716b72c18af80695ce6c2e1f242fa03163bc90b0788b0c5e4ab6216d50",
+      "injecagent/test_cases_ds_enhanced.json": "7bc510868df032511053fc40e8470e68a041fb7148d055112093594bf73ab0ce"
+    },
+    "packages": {
+      "numpy": "2.2.6",
+      "pyyaml": "6.0.3",
+      "torch": "2.9.0",
+      "transformers": "4.57.6",
+      "vllm": "0.13.0",
+      "bitsandbytes": "0.50.2",
+      "safetensors": "0.8.0",
+      "accelerate": "1.14.0",
+      "huggingface_hub": "0.36.2",
+      "triton": "3.5.0",
+      "xformers": null,
+      "flashinfer-python": "0.5.3"
+    },
+    "python": "3.11.16",
+    "platform": "Linux-6.8.0-1046-nvidia-x86_64-with-glibc2.35",
+    "hostname": "129-146-96-65",
+    "cuda": {
+      "available": true,
+      "torch_cuda_version": "12.8",
+      "device_name": "NVIDIA A100-SXM4-40GB",
+      "device_count": 1
+    },
+    "argv": [
+      "aase_vllm/scripts/train_probes_vllm.py",
+      "--model",
+      "google/gemma-3-1b-it",
+      "--probe",
+      "aag"
+    ],
+    "env": {
+      "VLLM_ALLOW_INSECURE_SERIALIZATION": "1"
+    },
+    "script": "train_probes_vllm.py"
+  },
+  "separation_sigma": 1.2392412424087524,
+  "accuracy": 0.7266666666666667,
+  "threshold": 0.20135661959648132,
+  "positive_mean": 0.12811397016048431,
+  "negative_mean": -0.1107681468129158,
+  "auc": 0.7266666666666667,
+  "n_positive": 50,
+  "n_negative": 100
+}

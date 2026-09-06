@@ -1,0 +1,16 @@
+{
+  "probe_type": "apc",
+  "policy": "financial",
+  "model_name": "google/gemma-3-4b-it",
+  "layer_index": 8,
+  "layer_pct": 0.25,
+  "backend": "vllm",
+  "separation_sigma": 2.5973989247616767,
+  "accuracy": 0.9,
+  "threshold": -0.4963732957839966,
+  "positive_mean": -0.30572760105133057,
+  "negative_mean": -0.6870189905166626,
+  "auc": 0.9955555555555555,
+  "n_positive": 15,
+  "n_negative": 15
+}

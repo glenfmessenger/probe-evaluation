@@ -1,0 +1,163 @@
+% Section 5 -- Extraction conventions. The umbrella result: template mode, read position, tensor identity.
+% Scoping rule: the templating claim is made for harmful-content probing ONLY (Section 5.4).
+\section{Extraction Conventions}
+\label{sec:extraction}
+
+A probe is usually described by its training set, its layer, and its threshold. Those three choices are what papers
+report. This section is about three choices that papers do not report---which text the activation is read from, which
+token position it is read at, and which tensor at that layer is read---and shows that on these tasks they dominate the
+ones that are reported.
+
+We use \emph{extraction convention} as the umbrella term for the three. Figure~\ref{fig:extraction} previews the two
+that are repairable, on every model.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_extraction}
+\caption{The extraction convention, not the probe, decides the outcome. Each line joins one model's score under two
+reads of the same activation, with everything else held fixed. \textbf{A}: harmful-content probes read at the final
+token of the bare prompt versus of the prompt in the model's own chat template; length-stratified AUC rises by
+$+0.296$ to $+0.544$, to $0.923$--$0.983$, on all seven models. \textbf{B}: prompt-injection probes read at the final
+token versus averaged over the tool-response span, on the grouped split in which no injection string in the test half
+was seen in training; the four models with learnable signal move from $0.58$--$0.86$ to $0.94$--$0.97$. Neither change
+touches the probe or its training data.}
+\label{fig:extraction}
+\end{figure*}
+
+\subsection{Template mode: reading the prompt as the model will see it}
+\label{sec:template}
+
+An instruction-tuned model never sees a bare user prompt in deployment. It sees that prompt wrapped in a chat
+template that marks the turn boundary and cues the model that a response is expected. A probe can be read either way,
+and the choice is rarely stated.
+
+Table~\ref{tab:extraction_convention} holds everything else fixed---the same $300$ harmful prompts, the same $350$
+benign prompts, the same layer, the same tensor, the same threshold rule---and varies only whether the final-token
+activation is taken from the bare prompt or from the templated one. Three probes are shown per model: the shipped
+probe as distributed, a probe trained on on-topic benign twins, and a probe trained on the off-topic negatives the
+shipped probes were originally fitted with.
+
+\input{tables/tab_extraction_convention}
+
+The templated read is better on every model. For the probe trained on on-topic twins, length-stratified AUC rises by
+between $+0.296$ and $+0.544$, with a mean of $+0.368$, and there is no model on which it falls. The effect is largest
+precisely where the bare read was worst: on Llama-3.2-3B the same direction moves from $0.437$ to $0.980$.
+
+The false-positive picture moves with it, and this is the part that matters for deployment. Reported against on-topic
+benign prompts at an operating point matched to each model's shipped-probe XSTest false-positive rate, the templated
+read reduces the JailbreakBench false-positive rate to between $0.00$ and $0.07$ for six of seven models, against
+$0.30$--$0.99$ for the shipped bare-read probes. Threshold-free, AUC against on-topic benign prompts rises from
+$0.46$--$0.67$ to $0.87$--$0.93$. Table~\ref{tab:af_verdict} evaluates this against the pre-registered criteria: six
+of seven models pass all three. The seventh, Llama-3.2-1B, is not evaluable on the false-positive criterion rather
+than failing it, because that criterion is defined relative to the shipped probe's XSTest false-positive rate and for
+this model in templated mode that rate is $0.76$, which anchors the matched operating point at a value where the
+comparison is mechanically degenerate. It passes the other two criteria.
+
+\input{tables/tab_af_verdict}
+
+Table~\ref{tab:af_lexical} confirms the result is not a lexical artifact. The strongest cheap text baseline we could
+construct reaches $\aucstar{} = 0.710$ overall and $0.637$ against on-topic benign prompts; the templated probe beats
+it by between $+0.213$ and $+0.272$. The same table carries the warning that motivates the length control: the
+strongest \emph{unstratified} feature is character length, at $0.903$.
+
+\input{tables/tab_af_lexical}
+
+\subsection{Read position: where in a long input the signal lives}
+\label{sec:read}
+
+Harmful-content probing reads a short prompt, so the final token is a reasonable place to look. Agent-injection
+detection reads a scaffold in which the injected instruction sits inside a tool response, and there the final token
+is the wrong place by construction: across the $1{,}054$ cases the injection ends at a median $85\,\%$ of the
+tool-response span and never at its end, so a final-token read is separated from the signal by the tail of the tool
+output and the turn boundary.
+
+We compare four reads at the same layer. \emph{final} is the final prompt token. \emph{mean} averages the activation
+over the tool-response span. \emph{maxpos} takes the maximum projection over positions in that span. \emph{oracle} is
+read at the token where the injected instruction ends; it uses label knowledge, is never deployable, and is included
+as a diagnostic upper bound---if even the oracle is weak, the limitation is in the representation rather than in the
+choice of position. For benign cases, which have no injection, the oracle position is drawn from the empirical
+distribution of injection-end positions in the training half, so that read position itself carries no label
+information.
+
+\input{tables/tab_aag_designs}
+
+Averaging over the tool-response span recovers most of what the final-token read misses. On the four models with
+learnable signal, mean-over-tool-response reading reaches $0.94$--$0.97$ against $0.58$--$0.86$ for the final-token
+read trained on identical data. Both figures are quoted from the grouped split, and the full seven-model picture is in
+Table~\ref{tab:aag_designs} rather than summarised away: on the remaining three models the task is not learnable by
+any of the four reads.
+
+The right-hand block of Table~\ref{tab:aag_designs} is the result we rest on. Because the corpus crosses only $62$
+injection strings with $17$ user instructions, a case-level split leaves every test-half injection string present in
+training, and any number computed on it measures recognition. Assigning whole injection strings to one side removes
+that: the mean AUC change across models is between $-0.016$ and $+0.005$ for every read. The improvement is
+generalisation to injections never seen, not memorisation.
+
+The oracle reaches $0.96$--$0.99$ on five models, and the gap between it and the best deployable read is $+0.02$ to
+$+0.15$ on those five and negative on two. Most of the available signal is therefore already reachable without label
+knowledge, which is the useful form of the result: a deployable read captures nearly what a read placed by an oracle
+does. A three-layer check around each model's fixed layer moves the oracle by at most $0.09$ and does not change the
+ordering of the reads; we report it as a note and do not move the headline layer, since a layer selected on the
+evaluation half would not be held out.
+
+Refusal separation shows the probe is not redundant with model behaviour here. The models refuse only $3$--$25\,\%$ of
+injection prompts and follow the injected instruction in $2$--$5\,\%$ of generations, so there is little behavioural
+signal for the probe to be re-detecting---in contrast to harmful-content probing, where the overlap with refusal is
+substantial (Section~\ref{sec:learn}).
+
+\subsection{Tensor identity: which activation the probe was actually trained on}
+\label{sec:tensor}
+
+The third convention is the least visible and the easiest to get wrong. A common way to capture activations is a
+forward hook on a decoder layer taking the first element of its output. In HuggingFace Transformers that element is
+the post-block residual stream. In vLLM, whose Gemma-2, Llama and Qwen-2 decoder layers return
+\texttt{(mlp\_branch, residual)} because the residual addition is deferred to the next layer's fused normalisation,
+the same line of code captures the MLP-branch output instead. The two are different tensors, and a probe fitted
+through one and evaluated through the other is not the same probe.
+
+The return convention itself is not a discovery of ours. It is documented in the tooling community---in project
+writeups on capturing activations from vLLM \cite{nnsight2026hooks}, in a vLLM issue thread on the layer return
+signature \cite{vllmissue12099}, and implicitly in the existence of dedicated inspection libraries that exist partly
+to paper over it \cite{vllmlens}. What has not been quantified is the silent research consequence, and that is our
+contribution here.
+
+We encountered it by scoring an identical probe on identical prompts through two independent implementations and
+finding a correlation of only $0.74$ where reimplementation noise should have given essentially $1.0$.
+Table~\ref{tab:tensor_identity} resolves it: read as the MLP-branch output, the same probe reproduces the original
+scores at $r = 0.9998$.
+
+\input{tables/tab_tensor_identity}
+
+The failure mode is the dangerous kind, because nothing breaks. Training and evaluation used the same hook, so results
+obtained this way remain internally valid and look entirely plausible; only their description is wrong, and a reader
+has no way to tell. A reimplementation that agrees with the original to two decimal places may still be reading a
+different tensor, and at $r = 0.74$ the disagreement is large enough to change conclusions while small enough to be
+mistaken for numerical noise. ``Layer $\ell$ activation'' is therefore underspecified as a description of a probe.
+
+The structural remedy is an interface that makes the captured tensor explicit rather than incidental to a hook's
+position in a call stack; an RFC we co-authored proposes one for vLLM \cite{vllmrfc36998}. Every number in this paper is computed in
+the MLP-branch space, which is where the probes under study live.
+
+\subsection{Scope of the templating claim}
+\label{sec:scope}
+
+The claim in Section~\ref{sec:template} is made for harmful-content probing only.
+
+``Templated'' is not one operation. For a short user prompt it wraps the text in a user turn, which is exactly what
+the model sees at deployment; the templated read is the ecologically valid one and the bare read is the artifact. For
+an agent scaffold it wraps an entire multi-turn transcript inside a single user turn, which corresponds to nothing
+the model sees in use. For a policy-compliance case it wraps a model \emph{response} as though the model had received
+it as input, which is stranger still.
+
+We therefore report the other two tasks in both modes as observations and draw no hypothesis test from them.
+Table~\ref{tab:aag_modes} gives the agent-scaffold comparison: templating helps the final-token read on three models
+by $+0.04$ to $+0.15$, is neutral on two, and hurts one by $-0.14$, while the mean-span and oracle reads barely move.
+That is a different pattern from the uniform, large improvement in Table~\ref{tab:extraction_convention}, and it is
+consistent with the two operations being different rather than with a single effect of ``using the chat template''.
+
+\input{tables/tab_aag_modes}
+
+The general form of the recommendation is not ``apply the chat template''. It is that the extraction convention is a
+free parameter which current practice leaves unreported, that its effect on these tasks is larger than the effects
+papers do report, and that a probe result is uninterpretable without it. Text form, token position, and tensor
+identity should be stated as routinely as the layer index.

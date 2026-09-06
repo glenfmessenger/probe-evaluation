@@ -1,0 +1,15 @@
+{
+  "probe_type": "af",
+  "model_name": "google/gemma-2-9b-it",
+  "layer_index": 21,
+  "layer_pct": 0.5,
+  "backend": "vllm",
+  "separation_sigma": 7.184467343596488,
+  "accuracy": 1.0,
+  "threshold": 0.037874117493629456,
+  "positive_mean": 0.23293785750865936,
+  "negative_mean": -0.15718962252140045,
+  "auc": 1.0,
+  "n_positive": 20,
+  "n_negative": 20
+}

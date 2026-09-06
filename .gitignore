@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.egg-info/
+.pytest_cache/
+# never commit model weights or HF caches
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.pth
+hf_cache/
+.venv/
+logs_env_install.log
+results/phase2/activations/
+results/gates/activations/
+# LaTeX build artifacts
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+# IEEE template files. NOT redistributable, so they are deliberately not committed: obtain ieeeaccess.cls and
+# IEEEtran.bst from the IEEE Access author portal (the "LaTeX template" download) and place both in paper/.
+# `make check` fails with these instructions until they are present, so that error message stays the onboarding path
+# for anyone cloning the repository.
+paper/ieeeaccess.cls
+paper/IEEEtran.bst
+paper/build-smoke/
+paper/aase-successor-PREVIEW.pdf

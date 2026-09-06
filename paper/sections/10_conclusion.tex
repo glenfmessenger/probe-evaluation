@@ -1,0 +1,15 @@
+% Section 10 -- Conclusion. Author's draft of 2026-09-05. The closing sentence is the thesis sentence and must remain
+% identical to the one in the abstract and the introduction; tools/check_refs.py counts its occurrences.
+\section{Conclusion}
+\label{sec:conclusion}
+
+We evaluated minimal-data activation probes for LLM safety across seven models and three tasks under a pre-registered
+protocol, and found that reported outcomes are dominated by extraction convention and evaluation design. Two
+conventions repair apparent failures without changing probe or training data: reading prompts through the model's chat
+template, and pooling activations over the threat-bearing span rather than the final token. Rigorous evaluation equally
+retires claims weaker evaluation supports: an estimator identical to its baseline, obfuscation robustness manufactured
+by training on encodings, and a compliance task whose short-text evaluations cannot certify semantic claims for any
+classifier. Two directions follow directly: an adversarial evaluation of span-pooled injection probes, since
+distributional detection is not robustness; and a discourse-level compliance evaluation on naturally occurring
+multi-sentence responses, the instrument our construct-validity finding shows is required. Minimal-data activation
+probes can work; whether they do is decided by conventions most papers never report.
