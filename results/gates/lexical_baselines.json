@@ -208,6 +208,9 @@
    "note": "v2 is built so second-person marking is uninformative overall and inverted on the incongruent cells; a lexical-cue detector scores ~0.5 and ~0.0 respectively"
   }
  },
+ "source": [
+  "results/gates/b1/*.json"
+ ],
  "definitions": {
   "second_person": "\\b(you|your|yours|you're|you'll|you've)\\b",
   "harm_lexicon": "\\b(bomb|explosiv\\w*|weapon\\w*|firearm\\w*|gun|ammunition|poison\\w*|toxin\\w*|ricin|sarin|anthrax|nerve agent|malware|ransomware|virus|keylogger|exploit\\w*|payload|botnet|phish\\w*|hack\\w*|crack\\w*|breach\u2026",

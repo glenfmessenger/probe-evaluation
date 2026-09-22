@@ -238,6 +238,9 @@ def main() -> int:
     cfg = load_gates_config()
     af = af_baseline()
     res = {"af": af, "af_vs_probes": af_comparison(cfg, af), "apc": apc_baselines(),
+           # The probe side of af_vs_probes aggregates the b1 cells; those files carry the per-case scores.
+           # tests/test_results_completeness.py reads this key, so an aggregate is never orphaned from its scores.
+           "source": ["results/gates/b1/*.json"],
            "definitions": {"second_person": SECOND_PERSON.pattern, "harm_lexicon": HARM_LEXICON.pattern[:200] + "…",
                            "note": "HARM_LEXICON is deliberately tuned to be the strongest cheap baseline available, so "
                                    "that beating it is meaningful"},

@@ -6,10 +6,12 @@ of the 1,054 real InjecAgent `base` cases (529 train / 525 test) and of the 120-
 1,054 `enhanced` cases held out as a second test set. Four reads at the model's own AAG `layer_index`, feature
 `mlp_out`:
 
-  final  — the final prompt token (the Phase 1 convention)
-  mean   — mean over the tool-response span
-  maxpos — maximum cosine projection over the tool-response span
-  oracle — the token where the injected instruction ends (uses label knowledge; DIAGNOSTIC ONLY, never deployable)
+  final    — the final prompt token (the Phase 1 convention)
+  mean     — mean over the tool-response span
+  mean_all — mean over every non-special prompt token (GATES.md Amendment 7, 2026-09-11: the whole-input pooling
+             baseline of prior work, against which `mean`'s span localisation is claimed to be the contribution)
+  maxpos   — maximum cosine projection over the tool-response span
+  oracle   — the token where the injected instruction ends (uses label knowledge; DIAGNOSTIC ONLY, never deployable)
 
 PROTOCOL DEVIATION, recorded here and in the report: GATES.md says each design "trains and evaluates with itself".
 `maxpos` cannot honestly do that — choosing the training representative by maximum projection needs a direction that
@@ -32,12 +34,12 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from gates.arm2_protocol import (DEFAULT_SEED, DESIGNS, benign_fraction_sampler, benign_prompt, build_split,  # noqa: E402
                                  char_spans, positive_prompt, split_summary, verbatim_check)
-from gates.runb import (act_dir, check_scores, dump_json, extract_reads, format_mode, fpr_at_threshold,  # noqa: E402
+from gates.runb import (REPO, act_dir, check_scores, dump_json, extract_reads, format_mode, fpr_at_threshold,  # noqa: E402
                         length_report, load_gates_config, load_probe, out_dir, provenance, refusal_table, safe,
-                        train_rule)
+                        scores_dir, train_rule)
 from phase2.extract import auc, score, unit  # noqa: E402
 
-DEPLOYABLE = ("final", "mean", "maxpos")
+DEPLOYABLE = ("final", "mean", "mean_all", "maxpos")
 
 
 def build_prompts(split, seed=DEFAULT_SEED, mode="raw", model_name=None, tok=None):
@@ -103,7 +105,7 @@ def evaluate(scores_by_design, rows, probes, tag, results, length_key="text"):
     return results
 
 
-def run_model(cfg, model_name, prompts, split):
+def run_model(cfg, model_name, prompts, split, run_kind="b2"):
     from phase2.extract import load_model
     b2 = cfg["b2"]
     probe = load_probe(cfg, "aag", model_name)
@@ -143,9 +145,20 @@ def run_model(cfg, model_name, prompts, split):
         sc = design_scores(rd["by_layer"][L0], probes, model, tok, rows, layers=None)
         evaluate(sc, rows, probes, tag, out["results"])
         if tag == "test":
-            np.savez_compressed(act_dir(cfg) / f"b2_{safe(model_name)}_test.npz",
+            np.savez_compressed(act_dir(cfg) / f"{run_kind}_{safe(model_name)}_test.npz",
                                 **{f"{d}": sc[d] for d in DESIGNS}, ids=np.array([r["id"] for r in rows]),
                                 labels=np.array([r["label"] for r in rows]))
+            # The same arrays again, in the committed scores directory. This is not redundancy: the copy above lives
+            # beside the activations and is gitignored with them, and when that directory was lost the aggregates
+            # below became unre-analysable. Every AUC in out["results"] is reproducible from this file alone.
+            # The file name carries the run kind (b2 / b2_grouped / b2_templated): the three runs score different
+            # splits or modes of the same models and must not overwrite one another.
+            sc_path = scores_dir(cfg) / f"{run_kind}_{safe(model_name)}_test_scores.json"
+            dump_json({"model": model_name, "run_kind": run_kind, "read": "test", "ids": [r["id"] for r in rows],
+                       "labels": [int(r["label"]) for r in rows], "lengths": [len(r["text"]) for r in rows],
+                       "scores": {d: [float(x) for x in sc[d]] for d in DESIGNS},
+                       "thresholds": {d: float(probes[d]["threshold"]) for d in DESIGNS}}, sc_path)
+            out["source"] = str(sc_path.relative_to(REPO))          # found by tests/test_results_completeness.py
             for L in layers:
                 if L == L0:
                     continue
@@ -165,7 +178,7 @@ def run_model(cfg, model_name, prompts, split):
     out["oracle_vs_deployable_gap"] = out["results"]["test"]["oracle"]["auc"] - best_dep
     out["best_deployable_auc"] = best_dep
     out["probes"] = {d: {k: v for k, v in p.items() if k != "direction"} for d, p in probes.items()}
-    out["refusal"] = refusal_leg(cfg, model, tok, prompts["test"], probes, model_name)
+    out["refusal"] = refusal_leg(cfg, model, tok, prompts["test"], probes, model_name, run_kind)
     del model
     import torch; torch.cuda.empty_cache()
     return out
@@ -184,7 +197,7 @@ def design_scores(reads, probes, model, tok, rows, layers=None):
     return out
 
 
-def refusal_leg(cfg, model, tok, rows, probes, model_name):
+def refusal_leg(cfg, model, tok, rows, probes, model_name, run_kind="b2"):
     """Does the probe add anything over the model's own behaviour on the agent task?
 
     Two behavioural readings of each generated continuation: `is_refusal` (the December regexes) and a heuristic
@@ -199,7 +212,7 @@ def refusal_leg(cfg, model, tok, rows, probes, model_name):
     pos = [r for r in rows if r["label"] == 1]; neg = [r for r in rows if r["label"] == 0]
     sample = rng.sample(pos, min(n // 2, len(pos))) + rng.sample(neg, min(n // 2, len(neg)))
     outs = generate(model, tok, [r["text"] for r in sample], max_new_tokens=64, batch_size=max(1, cfg["batch_size"] // 2))
-    z = np.load(act_dir(cfg) / f"b2_{safe(model_name)}_test.npz")
+    z = np.load(act_dir(cfg) / f"{run_kind}_{safe(model_name)}_test.npz")
     idx = {i: k for k, i in enumerate(list(z["ids"]))}
     tables, followed = {}, []
     for r, o in zip(sample, outs):
@@ -251,12 +264,13 @@ def main(argv=None) -> int:
           f"{vb['injection_end_fraction']['median']}, at span end {vb['injection_end_fraction']['at_span_end']}")
     print(f"B2 mode: {a.mode}"+("" if a.mode=="raw" else " (scaffold wrapped in the user turn; observation only, see report caveat)"))
     print(f"B2 models ({len(models)}): {models}")
-    od = out_dir(cfg) / ("b2_grouped" if a.group_split else ("b2_templated" if a.mode == "templated" else "b2"))
+    run_kind = "b2_grouped" if a.group_split else ("b2_templated" if a.mode == "templated" else "b2")
+    od = out_dir(cfg) / run_kind
     if a.dry_run:
-        print("output ->", od / "<model>.json")
+        print("output ->", od / "<model>.json", "| per-case scores ->", scores_dir(cfg) / f"{run_kind}_<model>_test_scores.json")
         return 0
     for m in models:
-        out = run_model(cfg, m, prompts_for(m), split)
+        out = run_model(cfg, m, prompts_for(m), split, run_kind)
         out["split_summary"] = summ; out["verbatim_check"] = vb
         out["split_kind"] = "grouped_by_attacker" if a.group_split else "per_case"
         out["mode"] = a.mode

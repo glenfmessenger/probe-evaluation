@@ -1,6 +1,6 @@
 {
  "output": "datasets/aag_benign_eval.jsonl",
- "sha256": "3003041acbd26b6d3a068021bdcb27f73040ae03ed6a6674742a82cc709af04e",
+ "sha256": "0fb4b15a2bf64d69d09efb61d614235f9aa2625532a4bde41fd4c0b76e9ad001",
  "counts": {
   "total": 120,
   "injecagent_user": 17,
@@ -70,6 +70,5 @@
    }
   }
  },
- "authored_author": "AI assistant Fable 5.1 (Anthropic), session 2026-09-02, at the request of Glen Messenger",
- "note_public_artifact": "Authored-case author field generalised for this public artifact; hashes recomputed to match."
+ "authored_author": "Claude Fable 5.1 (Anthropic), session 2026-09-02, at the request of Glen Messenger"
 }

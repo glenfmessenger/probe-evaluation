@@ -1,9 +1,12 @@
-% Back matter -- data availability, AI-use disclosure, competing interests, acknowledgment.
+% Back matter -- data availability, competing interests, acknowledgment (which carries the AI-use disclosure).
+% The AI disclosure is a paragraph of the Acknowledgment, not a section of its own: IEEE's policy on
+% AI-generated content requires it to be disclosed IN THE ACKNOWLEDGMENTS. Its wording is the author's,
+% verbatim, and moving it did not change a word of it. Do not promote it back to a \section*.
 % ORDER IS RECONSTRUCTED, NOT COPIED: neither prior IEEE Access paper on disk has any of these sections. The
 % published AMS paper goes straight from its appendices to the biography and \EOD; the operator paper (Access-2026-
 % 39837) has no back matter at all, which is the omission that got it returned to draft. The competing-interests
 % wording is likewise reconstructed from the author's instruction, not copied from a prior paper.
-\section{Data and Code Availability}
+\section*{Data and Code Availability}
 \label{sec:avail}
 
 All code, datasets, trained probes, pre-registered thresholds, decision log, and provenance-stamped results are
@@ -13,12 +16,6 @@ drafts described in Section~\ref{sec:apc}; these are released as artifacts of th
 not valid evaluation sets. The IEEE template files are excluded per their license; the build documents how to obtain
 them.
 
-\section*{AI-Use Disclosure}
-
-An AI assistant (Claude Code, Anthropic) built the evaluation harness, executed the experiments under the author's
-pre-registered protocol, and drafted portions of the manuscript. The author designed the study, made all decisions and
-sign-offs, verified all results, and approved the final text.
-
 \section*{Competing Interests}
 
 The author is employed by Google Cloud, which offers AI/ML infrastructure services. This research was conducted
@@ -27,3 +24,7 @@ independently and does not represent official Google products or policies.
 \section*{Acknowledgment}
 
 The author thanks the maintainers of the open benchmarks and models used in this study.
+
+An AI assistant (Claude Code, Anthropic) built the evaluation harness, executed the experiments under the author's
+pre-registered protocol, and drafted portions of the manuscript. The author designed the study, made all decisions and
+sign-offs, verified all results, and approved the final text.

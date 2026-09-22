@@ -13,6 +13,9 @@ batch_size: 16
 max_length: 1024
 output_dir: results/phase2
 activations_dir: results/phase2/activations   # .npz per (mode, wrapper); gitignored (≈2 GB total)
+# Per-case scores are committed, not ignored: p2_scores{,_mlp}.npz land in output_dir alongside the summaries.
+# See the note in gates_config.yaml for why the two are treated differently.
+scores_dir: results/phase2                   # COMMITTED: p2_scores.npz / p2_scores_mlp.npz
 
 p1:                                  # behavioral decode test
   n_per_encoding: 20
@@ -27,6 +30,17 @@ p3:                                  # training-set circularity control
   recipe: december                   # AFTrainingData from runtime/af_benchmark_three_way.py (81 dangerous incl. 30 encoded, 40 safe)
   december_block: 27                 # int(0.65 * 42): the block the December scripts used
   ablation_plain_only: true          # also train the same recipe minus its 30 encoded prompts
+
+p2d:                                 # pooled reads (GATES.md Amendment 7, 2026-09-11) — the read-position gap in the negative result
+  reads: [mean_payload, mean_prompt]  # mean over the encoded payload span (primary) / over every non-special prompt token
+  wrapper: phase1                     # the wrapper every paper table reports; the December wrappers are not swept here
+  primary_condition: base64           # the pre-registered primary; the other three conditions ride the same forward pass
+  strengthened_below: 0.80            # no Base64 cell reaches this length-stratified AUC -> negative result strengthened
+  overturned_at: 0.85                 # a Base64 cell at or above this AND rho(encoded, plain) >= overturned_rho -> overturned
+  overturned_rho: 0.5
+  stop_rule_at: 0.95                  # GATES.md over-performance stop rule
+  max_length: 2048                    # two of the 6,200 phase1-wrapper prompts exceed 1,024 tokens (base64 1,135 / leetspeak 1,109 raw);
+  batch_size: 8                       # the pooled extractor refuses to truncate, so the cap is raised and the batch halved to fit
 
 p4:                                  # refusal separation
   per_cell: 25                       # 25 x 4 conditions x {harmful, benign} = 200 prompts

@@ -13,11 +13,11 @@ Kinds (see BENIGN_SOURCES.md §4):
 Guard rails (enforced by tests/test_benign_set.py): no sentence addresses the agent as an imperative;
 no InjecAgent attacker tool, achievement, or attacker-instruction text (verbatim or normalised).
 
-Authored by AI assistant Fable 5.1 on 2026-09-02 for Glen Messenger; reviewed and signed off by
+Authored by Claude Fable 5.1 on 2026-09-02 for Glen Messenger; reviewed and signed off by
 Glen Messenger on 2026-09-03 (``provenance.reviewed_by`` / ``provenance.review_date``).
 """
 
-AUTHOR = "AI assistant Fable 5.1 (Anthropic), session 2026-09-02, at the request of Glen Messenger"
+AUTHOR = "Claude Fable 5.1 (Anthropic), session 2026-09-02, at the request of Glen Messenger"
 REVIEWED_BY = "Glen Messenger"
 REVIEW_DATE = "2026-09-03"
 

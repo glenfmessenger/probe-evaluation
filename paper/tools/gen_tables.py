@@ -121,7 +121,8 @@ def tab_models():
         rows.append(f"{SHORT[m]} & {n_layers} & {af} & {aag} & " + (str(apc) if apc is not None else "--") + r" \\")
     body = "\n".join([
         r"\begin{table}[!t]", r"\caption{Models, and the layer each probe family reads. Layer indices are those of the",
-        r"shipped probes and are held fixed throughout; $L$ is the number of decoder blocks. APC probes were evaluated on",
+        r"shipped probes (see Section~\ref{sec:models}) and are held fixed throughout; $L$ is the number of decoder",
+        r"blocks. APC probes were evaluated on",
         r"the three models carried into the external study.}", r"\label{tab:models}",
         r"\centering", r"\begin{tabular}{lcccc}", r"\hline",
         r"Model & $L$ & AF layer & AAG layer & APC layer \\", r"\hline", *rows, r"\hline", r"\end{tabular}",
@@ -135,9 +136,11 @@ def tab_datasets():
     s2 = "results/gates/b2/google_gemma_2_9b_it.json"
     b2 = load(s2); sp = b2["split_summary"]
     rows = [
-        rf"HarmBench (standard + contextual) & {e['n_harmful']} & harmful prompts & AF \\",
-        rf"\quad by functional category & {e['harmful_breakdown']['by_functional_category']['standard']} standard, "
-        rf"{e['harmful_breakdown']['by_functional_category']['contextual']} contextual & & \\",
+        # The functional-category split used to sit in the count column as "200 standard, 100 contextual", which was
+        # the widest cell in the table and pushed Role hard against Task. It belongs with the role description.
+        rf"HarmBench (standard + contextual) & {e['n_harmful']} & harmful prompts "
+        rf"({e['harmful_breakdown']['by_functional_category']['standard']} standard, "
+        rf"{e['harmful_breakdown']['by_functional_category']['contextual']} contextual) & AF \\",
         rf"XSTest v2 (safe) & {e['n_benign_by_set']['xstest_safe']} & benign, off-topic stressor & AF \\",
         rf"JailbreakBench (benign) & {e['n_benign_by_set']['jbb_benign']} & benign, on-topic twins & AF \\",
         rf"InjecAgent \texttt{{base}} & {sp['positives']['train'] + sp['positives']['test']} & injected tool responses & AAG \\",
@@ -152,9 +155,14 @@ def tab_datasets():
         r"\begin{table}[!t]",
         r"\caption{Evaluation data. Every dataset is pinned by sha256 in each results file; the AF benign side is",
         r"reported per set throughout because the two sets behave differently.}", r"\label{tab:datasets}",
-        r"\centering", r"\begin{tabular}{l c p{0.28\textwidth} l}", r"\hline",
+        r"\centering",
+        # Ragged-right with hyphenation disabled: the Role cells are short noun phrases, and breaking "contextual"
+        # or "financial" across lines in a four-word cell reads as a typesetting error rather than as prose.
+        r"\begin{tabular}{l c >{\raggedright\arraybackslash\hyphenpenalty=10000\exhyphenpenalty=10000}"
+        r"p{0.34\textwidth} c}", r"\hline",
         r"Source & $n$ & Role & Task \\", r"\hline", *rows, r"\hline", r"\end{tabular}", r"\end{table}"])
-    return emit("tab_datasets.tex", body, [s, s2, "results/gates/b3/google_gemma_2_9b_it.json"], wide=True, size="small")
+    return emit("tab_datasets.tex", body, [s, s2, "results/gates/b3/google_gemma_2_9b_it.json"], wide=True,
+                size="small", colsep=8)
 
 
 # ---------------------------------------------------------------- Section 5 tables
@@ -237,31 +245,79 @@ def tab_af_lexical():
     return emit("tab_af_lexical.tex", body, [s], size="footnotesize", colsep=3.5)
 
 
+AAG_DESIGNS = ("final", "mean", "mean_all", "maxpos", "oracle")     # GATES.md Amendment 7 added mean_all
+AAG_LABEL = {"final": "final", "mean": "mean", "mean_all": r"mean\textsubscript{all}", "maxpos": "maxpos", "oracle": "oracle"}
+
+
+
+def tab_af_refusal():
+    """Section 6.1: the shipped harmful-content probe's flag rate conditioned on whether the model itself refused.
+    From the Arm 1 refusal leg (50 generated continuations per set per model, bare read, shipped probe at its own
+    threshold), so the 'substantial overlap with refusal' sentence in Section 5.2 points at numbers."""
+    s = "results/gates/b1/*.json"
+    per = by_model(s)
+    rows = []
+    for m in MODEL_ORDER:
+        r = per[m]["refusal"]["tables"]["january"]
+        def cell(setname, key):
+            c = r[setname].get(key)
+            return "--" if not c or c["n"] == 0 else rf"{c['flag_rate']:.2f} ({c['n']})"
+        rows.append(f"{SHORT[m]} & {cell('harmbench', 'refused')} & {cell('harmbench', 'not_refused')} & "
+                    f"{cell('jbb_benign', 'refused')} & {cell('jbb_benign', 'not_refused')} " + r"\\")
+    n = per[MODEL_ORDER[0]]["refusal"]["n"]
+    body = "\n".join([
+        r"\begin{table}[!t]",
+        r"\caption{Shipped harmful-content probe, bare read, at its own threshold: flag rate conditioned on whether the",
+        rf"model's own continuation was a refusal, on ${n // 3}$ generated continuations per set per model (the number in",
+        r"each condition in parentheses). A probe whose flags fall on the prompts the model refuses anyway adds little",
+        r"over the model's behaviour.}",
+        r"\label{tab:af_refusal}", r"\centering", r"\begin{tabular}{lcccc}", r"\hline",
+        r"& \multicolumn{2}{c}{HarmBench (harmful)} & \multicolumn{2}{c}{JailbreakBench benign} \\",
+        r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}",
+        r"Model & refused & answered & refused & answered \\\\",
+        r"\hline", *rows, r"\hline", r"\end{tabular}", r"\end{table}"])
+    return emit("tab_af_refusal.tex", body, [s], size="scriptsize", colsep=2.5)
+
 def tab_aag_designs():
     s1 = "results/gates/b2/*.json"; s2 = "results/gates/b2_grouped/*.json"
     per, grp = by_model(s1), by_model(s2)
+    for d in per.values():
+        if list(d["designs"]) != list(AAG_DESIGNS):
+            raise MissingSource(f"gen_tables: {d['model']} was run with designs {d['designs']}, expected {list(AAG_DESIGNS)} "
+                                f"(Amendment 7); re-run Arm 2")
     rows = []
     for m in MODEL_ORDER:
         t = per[m]["results"]["test"]; g = grp[m]["results"]["test"]
-        rows.append(f"{SHORT[m]} & " + " & ".join(f3(t[d]["auc"]) for d in ("final", "mean", "maxpos", "oracle"))
-                    + " & " + " & ".join(f3(g[d]["auc"]) for d in ("final", "mean", "maxpos", "oracle"))
+        rows.append(f"{SHORT[m]} & " + " & ".join(f3(t[d]["auc"]) for d in AAG_DESIGNS)
+                    + " & " + " & ".join(f3(g[d]["auc"]) for d in AAG_DESIGNS)
                     + f" & {per[m]['oracle_vs_deployable_gap']:+.3f} " + r"\\")
     v = load("results/gates/validity_checks.json")["arm2_leakage"]["mean_drop_when_injection_strings_unseen"]
+    loc = [grp[m]["results"]["test"]["mean"]["auc"] - grp[m]["results"]["test"]["mean_all"]["auc"] for m in MODEL_ORDER]
+    n = len(AAG_DESIGNS)
     body = "\n".join([
         r"\begin{table*}[!t]",
         r"\caption{Prompt-injection detection by read position, on the held-out half of real InjecAgent. Left block:",
         r"the pre-registered per-case split, in which all $62$ injection strings appear in both halves. Right block: the",
         r"grouped split, in which whole injection strings are assigned to one side, so no injection in the test half was",
-        r"seen in training. \emph{oracle} is handed the injection's end position and is a diagnostic bound, never",
-        r"deployable.}", r"\label{tab:aag_designs}", r"\centering", r"\begin{tabular}{lccccccccc}", r"\hline",
-        r"& \multicolumn{4}{c}{Injections seen in training} & \multicolumn{4}{c}{Injections unseen} & \\",
-        r"\cmidrule(lr){2-5}\cmidrule(lr){6-9}",
-        r"Model & final & mean & maxpos & oracle & final & mean & maxpos & oracle & oracle$-$best \\",
+        r"seen in training. \emph{mean} pools over the tool-response span; mean\textsubscript{all} pools over every",
+        r"prompt token and is the whole-input baseline of prior work. \emph{oracle} is handed the injection's end",
+        r"position and is a diagnostic bound, never deployable. The grouped test half holds "
+        rf"${grp[MODEL_ORDER[0]]['results']['test']['final']['n_pos']}$ injected cases against only "
+        rf"${grp[MODEL_ORDER[0]]['results']['test']['final']['n_neg']}$ benign ones, drawn from $62$ distinct injection "
+        r"strings: grouping removes the leakage, it does not create a large sample of injection types, and the "
+        r"intervals in Appendix~\ref{app:ci} are correspondingly wide. Quote these AUCs with their intervals.}",
+        r"\label{tab:aag_designs}", r"\centering", r"\begin{tabular}{l" + "c" * (2 * n + 1) + "}", r"\hline",
+        rf"& \multicolumn{{{n}}}{{c}}{{Injections seen in training}} & \multicolumn{{{n}}}{{c}}{{Injections unseen}} & \\",
+        rf"\cmidrule(lr){{2-{n + 1}}}\cmidrule(lr){{{n + 2}-{2 * n + 1}}}",
+        "Model & " + " & ".join(AAG_LABEL[d] for d in AAG_DESIGNS) + " & " + " & ".join(AAG_LABEL[d] for d in AAG_DESIGNS)
+        + r" & oracle$-$best \\",
         r"\hline", *rows, r"\hline", r"\end{tabular}", "",
         r"\footnotesize Mean AUC change when injection strings are unseen: "
-        + ", ".join(rf"{d} ${v[d]:+.3f}$" for d in ("final", "mean", "maxpos", "oracle"))
-        + r". The result is generalisation to unseen injections, not recognition of memorised strings.", r"\end{table*}"])
-    return emit("tab_aag_designs.tex", body, [s1, s2, "results/gates/validity_checks.json"])
+        + ", ".join(rf"{AAG_LABEL[d]} ${v[d]:+.3f}$" for d in AAG_DESIGNS if d in v)
+        + r". The result is generalisation to unseen injections, not recognition of memorised strings. "
+        + rf"Span localisation (mean $-$ mean\textsubscript{{all}}, unseen split): ${min(loc):+.3f}$ to ${max(loc):+.3f}$; "
+        + rf"positive on {sum(x > 0 for x in loc)} of 7 models (intervals in Appendix~\ref{{app:ci}}).", r"\end{table*}"])
+    return emit("tab_aag_designs.tex", body, [s1, s2, "results/gates/validity_checks.json"], size="footnotesize", colsep=3.0)
 
 
 def tab_aag_modes():
@@ -271,15 +327,15 @@ def tab_aag_modes():
     for m in MODEL_ORDER:
         a = per[m]["results"]["test"]; b = tmp[m]["results"]["test"]
         rows.append(f"{SHORT[m]} & " + " & ".join(f"{f3(a[d]['auc'])} / {f3(b[d]['auc'])}"
-                                                  for d in ("final", "mean", "oracle")) + r" \\")
+                                                  for d in ("final", "mean", "mean_all", "oracle")) + r" \\")
     body = "\n".join([
         r"\begin{table}[!t]",
         r"\caption{Agent-scaffold read, bare versus chat-templated (raw / templated). Reported as an observation, not as",
         r"a test of the harmful-content result: wrapping an entire agent transcript in a user turn is a different",
         r"operation from templating a bare user prompt.}", r"\label{tab:aag_modes}",
-        r"\centering", r"\begin{tabular}{lccc}", r"\hline",
-        r"Model & final & mean & oracle \\", r"\hline", *rows, r"\hline", r"\end{tabular}", r"\end{table}"])
-    return emit("tab_aag_modes.tex", body, [s1, s2])
+        r"\centering", r"\begin{tabular}{lcccc}", r"\hline",
+        r"Model & final & mean & mean\textsubscript{all} & oracle \\", r"\hline", *rows, r"\hline", r"\end{tabular}", r"\end{table}"])
+    return emit("tab_aag_modes.tex", body, [s1, s2], size="scriptsize", colsep=2.0)
 
 
 def tab_tensor_identity():
@@ -345,6 +401,51 @@ def tab_obfuscation_sweep():
         r"Probe & Mode & " + " & ".join(conds) + r" \\", r"\hline", *rows, r"\hline", r"\end{tabular}",
         r"\end{table}"])
     return emit("tab_obfuscation_sweep.tex", body, [s1, s2], size="footnotesize", colsep=3)
+
+
+def tab_obfuscation_pooled():
+    """Amendment 7c: the P2 sweep repeated with pooled reads. Same shape as Table X (best over 22 blocks, raw/strat),
+    one block of rows per activation space, with the harness's pre-registered verdict in the note."""
+    s1 = "results/phase2/p2d_summary.json"; s2 = "results/phase2/p2d_summary_mlp.json"; s3 = "results/phase2/p2_confounds.json"
+    d = {"residual": load(s1), "MLP-branch": load(s2)}
+    conds = d["residual"]["conditions"]
+    fin = load(s3)["features"]
+    rows = []      # the two activation spaces side by side, so the table is wide rather than tall
+    for read, rlabel in (("mean_payload", "payload"), ("mean_prompt", "prompt")):
+        for probe, plabel in (("january", "shipped"), ("inmode", "retrained")):
+            for mode in d["residual"]["modes"]:
+                cells = []
+                for space, sm in d.items():
+                    for c in conds:
+                        s = sm["summary"][f"{probe}|{read}|{mode}|{c}"]
+                        cells.append(rf"{s['best_raw']['auc']:.2f}/{s['best_length_stratified']['auc_length_stratified']:.2f}")
+                rows.append(f"{rlabel} & {plabel} & {mode} & " + " & ".join(cells) + r" \\")
+    # final-token comparison: the best length-stratified Base64 cell anywhere in the P2 sweep, both spaces
+    fin_best = max((v["best_length_stratified"]["auc_length_stratified"], f) for f in fin
+                   for k, v in fin[f]["summary"].items() if k.endswith("|base64") and v["best_length_stratified"])
+    verdicts = {space: sm["verdict"] for space, sm in d.items()}
+    best_space = max(verdicts, key=lambda s: verdicts[s]["best_cell"]["auc_length_stratified"])
+    vb = verdicts[best_space]["best_cell"]
+    order = {"overturned": 2, "marginal": 1, "strengthened": 0}
+    overall = max((v["verdict"] for v in verdicts.values()), key=lambda x: order[x])
+    body = "\n".join([
+        r"\begin{table}[!t]",
+        r"\caption{Pooled reads on the obfuscation set, Gemma-2-9B: the best AUC over $22$ blocks per encoding, as",
+        r"raw/length-stratified, with the activation averaged over the encoded payload span (\emph{payload}) or over",
+        r"every prompt token (\emph{prompt}) instead of read at the final token as in Table~\ref{tab:obfuscation_sweep}.",
+        r"Harmful prompts are scored against benign prompts carrying the same encoding.}",
+        r"\label{tab:obfuscation_pooled}", r"\centering",
+        r"\begin{tabular}{lll" + "c" * (2 * len(conds)) + r"}", r"\hline",
+        rf"& & & \multicolumn{{{len(conds)}}}{{c}}{{residual space}} & \multicolumn{{{len(conds)}}}{{c}}{{MLP-branch space}} \\",
+        rf"\cmidrule(lr){{4-{3 + len(conds)}}}\cmidrule(lr){{{4 + len(conds)}-{3 + 2 * len(conds)}}}",
+        r"Read & Probe & Mode & " + " & ".join(conds * 2) + r" \\", r"\hline", *rows, r"\hline", r"\end{tabular}", "",
+        rf"\footnotesize Pre-registered verdict on Base64 (GATES.md Amendment 7): \textbf{{{overall}}}. Best pooled Base64 cell: "
+        rf"$\aucstar{{}} = {vb['auc_length_stratified']:.3f}$ ({best_space}, {vb['key'].split('|')[0].replace('january', 'shipped').replace('inmode', 'retrained')}, "
+        rf"{vb['key'].split('|')[1].replace('mean_', '')} read, {vb['key'].split('|')[2]}, block {vb['key'].split('|')[4]}), "
+        rf"$\rho$ to the same prompts' plain-text scores ${vb['rho_encoded_vs_plain_harmful']:+.2f}$; "
+        rf"the best final-token Base64 cell is ${fin_best[0]:.3f}$.",
+        r"\end{table}"])
+    return emit("tab_obfuscation_pooled.tex", body, [s1, s2, s3], size="footnotesize", colsep=3.0, wide=True)
 
 
 def tab_circularity():
@@ -426,16 +527,27 @@ def tab_apc_external():
             rows.append(f"{SHORT[d['model']] if pn == 'january' else ''} & {lab} & {f3(m['auc'])} & "
                         f"{f3(m['length']['auc_length_stratified'])} & {f3(c['financial']['auc'])} & "
                         f"{f3(c['legal']['auc'])} & {f2(m['flag_rate_advice'])} & {f2(m['flag_rate_information'])} " + r"\\")
+    # The pronoun-count figures quoted in the caption come from the same committed baselines Table XII prints,
+    # rather than being typed in: a caption that travels with the table must carry numbers that trace like any other.
+    lx = "results/gates/lexical_baselines.json"
+    v1 = load(lx)["apc"]["v1"]
+    allb = [c["second_person_count"] for t in v1.values() for sc, c in t.items() if sc == "all_bands"]
+    hard = max(c["second_person_count"] for t in v1.values() for sc, c in t.items() if sc == "hard_bands")
+
     body = "\n".join([
         r"\begin{table}[!t]",
         r"\caption{Policy-compliance probes on the external evaluation set, chat-templated read. \emph{shipped} is the",
         r"minimal-data probe as distributed; \emph{fresh} is the same recipe refitted on the same authored training pairs",
         r"at the same layer --- neither is fitted to the external set. Refusals are excluded from the AUC and reported",
-        r"separately in Table~\ref{tab:apc_refusal}.}", r"\label{tab:apc_external}", r"\centering",
+        r"separately in Table~\ref{tab:apc_refusal}. \textbf{A high score in the \emph{fresh} column is not evidence "
+        rf"that the probe reads speech acts.}} A second-person pronoun count reaches ${min(allb):.2f}$--${max(allb):.2f}$ on these same "
+        rf"contrasts and ${hard:.3f}$ on the hardest cells (Table~\ref{{tab:apc_lexical}}), so this evaluation cannot "
+        r"separate a semantic classifier from a lexical-cue detector; Section~\ref{sec:apc} shows that removing the "
+        r"cue removes the label. These numbers describe this authored set, not a population speech-act detector.}", r"\label{tab:apc_external}", r"\centering",
         r"\begin{tabular}{llcccccc}", r"\hline",
         r"Model & Probe & medical & medical$^{*}$ & financial & legal & flag adv. & flag inf. \\",
         r"\hline", *rows, r"\hline", r"\end{tabular}", r"\end{table}"])
-    return emit("tab_apc_external.tex", body, [s1], wide=True, size="small")
+    return emit("tab_apc_external.tex", body, [s1, lx], wide=True, size="small")
 
 
 def tab_apc_refusal():
@@ -517,9 +629,9 @@ def tab_apc_construction():
     return emit("tab_apc_construction.tex", body, [s1], size="small")
 
 
-GENERATORS = [tab_models, tab_datasets, tab_extraction_convention, tab_af_verdict, tab_af_lexical,
+GENERATORS = [tab_models, tab_datasets, tab_extraction_convention, tab_af_verdict, tab_af_lexical, tab_af_refusal,
               tab_aag_designs, tab_aag_modes, tab_tensor_identity, tab_decode, tab_obfuscation_sweep,
-              tab_circularity, tab_guard, tab_latency, tab_apc_external, tab_apc_refusal, tab_apc_lexical,
+              tab_obfuscation_pooled, tab_circularity, tab_guard, tab_latency, tab_apc_external, tab_apc_refusal, tab_apc_lexical,
               tab_apc_construction]
 
 # Declared sources, checked up front so a missing file aborts before anything is written.
@@ -528,7 +640,9 @@ SOURCES = ["results/gates/b1/*.json", "results/gates/b2/*.json", "results/gates/
            "results/gates/extraction_convention.json", "results/gates/lexical_baselines.json",
            "results/gates/validity_checks.json", "results/phase2/p2_summary.json", "results/phase2/p2_summary_mlp.json",
            "results/phase2/p1_decode.json", "results/phase2/p2_confounds.json", "results/phase2/p3_circularity.json",
-           "results/phase1/llama_guard_comparison.json", "results/phase1/latency/*.json"]
+           "results/phase1/llama_guard_comparison.json", "results/phase1/latency/*.json",
+           "results/gates/scores/b2_grouped_*_test_scores.json",                       # Amendment 7b: per-case scores
+           "results/phase2/p2d_summary.json", "results/phase2/p2d_summary_mlp.json"]   # Amendment 7c: pooled reads
 
 
 def sha256(p: Path) -> str:

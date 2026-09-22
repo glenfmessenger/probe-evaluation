@@ -5,13 +5,13 @@
 reported per set throughout because the two sets behave differently.}
 \label{tab:datasets}
 \centering
+\setlength{\tabcolsep}{8pt}
 \small
-\begin{tabular}{l c p{0.28\textwidth} l}
+\begin{tabular}{l c >{\raggedright\arraybackslash\hyphenpenalty=10000\exhyphenpenalty=10000}p{0.34\textwidth} c}
 \toprule
 Source & $n$ & Role & Task \\
 \midrule
-HarmBench (standard + contextual) & 300 & harmful prompts & AF \\
-\quad by functional category & 200 standard, 100 contextual & & \\
+HarmBench (standard + contextual) & 300 & harmful prompts (200 standard, 100 contextual) & AF \\
 XSTest v2 (safe) & 250 & benign, off-topic stressor & AF \\
 JailbreakBench (benign) & 100 & benign, on-topic twins & AF \\
 InjecAgent \texttt{base} & 1054 & injected tool responses & AAG \\

@@ -12,11 +12,38 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{booktabs}
+\usepackage{array}      % >{...} column modifiers, used by Table II's Role column to stop mid-word hyphenation
 \usepackage{multirow}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \usepackage{enumitem}   % required by the contribution list in Section 1 (\begin{enumerate}[leftmargin=*])
+
+% ---------------------------------------------------------------------------------------------------------------
+% WORKAROUND for a defect in ieeeaccess.cls, not in this manuscript. The class's no-photo biography environments
+% (\renewenvironment{biographynophoto} and {IEEEbiographynophoto}) test \if@biographyTOCentrynotmade, but nothing
+% declares that switch: IEEEtran.cls, which the class loads, names it \if@IEEEbiographyTOCentrynotmade. Any paper
+% using a biography WITHOUT a photograph therefore dies with "Undefined control sequence". IEEE's own access.tex
+% does not hit it because its three biographies all carry photographs.
+% This declares the name the class expects, guarded so it does nothing if IEEE ships a corrected class.
+\makeatletter
+\expandafter\ifx\csname if@biographyTOCentrynotmade\endcsname\relax
+  \newif\if@biographyTOCentrynotmade
+  \@biographyTOCentrynotmadetrue
+\fi
+% Same slip, same environments: they \setcounter{biography} and \refstepcounter{biography}, but the counter
+% IEEEtran declares is `IEEEbiography'. Neither class declares `biography'.
+\@ifundefined{c@biography}{\newcounter{biography}}{}
+% Third defect, and this one is visible in the output rather than fatal. \@makecaption branches on
+% \ifdim\xfigwd>\columnwidth and, when true, sets the caption inside \begin{tabular}{@{}l@{}} -- an `l' column,
+% which does not wrap. Any wide figure whose caption runs past one line therefore overflows the page; ours ran
+% 2918pt and 2605pt past it. The class comments that branch "let caption wrap around", so the intent is clear and
+% the implementation contradicts it. The other branch sets the caption as an ordinary paragraph, which wraps to the
+% float's width correctly. \xfigwd is only ever assigned inside the class's own \Figure macro, which this paper
+% does not use, so defining it as zero-width here is stable and simply selects the branch that works.
+\def\xfigwd{0pt}
+\makeatother
+% ---------------------------------------------------------------------------------------------------------------
 
 % Task abbreviations. NOTE the terminology rule from PAPER_BRIEF: the probe families are named by what they do,
 % and "paired contrastive DATA CONSTRUCTION" is never called a distinct estimator (its identity with the ordinary
@@ -39,48 +66,48 @@
 % "Detecting Safety Training Modification in Language Models via Activation Analysis",
 % IEEE Access vol. 14, pp. 91723--91737, 2026 (source: AMS IEEE Resubmit/ams_paper_v0_23_ieee.tex).
 % ORCID and the funding statement both live in \tfootnote there, not in \address -- that is the accepted precedent.
-\history{\open{history line -- the published paper used ``Date of original submission <date>.''; fill at submission}}
+% THE BYLINE IS DELIBERATELY NOT THE INSTITUTIONAL ONE, AND THIS IS NOT AN OVERSIGHT TO CORRECT AT PROOF.
+% Google's publication approver ruled 2026-09-21 that, because the work does not represent Google's views, the paper
+% must carry a non-Google e-mail, and on 2026-09-22 that Google must not appear on the first page at all. The
+% employment and the potential conflict are disclosed at the end instead, which the approver expressly allowed:
+% Competing Interests names the employer and the independence of the work, and the biography names the role.
+% The corporate ZIP (94089) went with the affiliation; the city is kept because it is the author's own.
+% Both prior papers on file use the corporate address, so this WILL look like a copying error. It is not.
+% The template's own default (access.tex l.10), verbatim. IEEE production overwrites this field at acceptance,
+% so the xxxx placeholders are what a first submission is meant to carry. The published AMS paper's real dates
+% were right for a revised resubmission, which states its original submission date; this is not that case.
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
 \doi{10.1109/ACCESS.2026.DOI}
 
 \title{Diagnosing and Repairing Minimal-Data Activation Probes for LLM Safety}
 
 \author{\uppercase{Glen Messenger}\authorrefmark{1}}
-\address[1]{Google Cloud, Google LLC, Sunnyvale, CA 94089 USA (e-mail: gmessenger@google.com)}
-\tfootnote{The author is supported by Google LLC. ORCID: 0009-0009-1802-4725.}
+\address[1]{Independent Researcher, Sunnyvale, CA, USA (e-mail: glen.messenger@gmail.com)}
+\tfootnote{This work received no external funding. ORCID: 0009-0009-1802-4725.}
 
 \markboth%
 {Messenger: Diagnosing and Repairing Minimal-Data Activation Probes for LLM Safety}%
 {Messenger: Diagnosing and Repairing Minimal-Data Activation Probes for LLM Safety}
 
-\corresp{Corresponding author: Glen Messenger (e-mail: gmessenger@google.com).}
+\corresp{Corresponding author: Glen Messenger (e-mail: glen.messenger@gmail.com).}
 
 \begin{abstract}
-Linear probes on language-model activations are an appealing safety mechanism: they add microseconds and
-kilobytes to inference already being performed, and probe-based monitoring has recently entered production use at
-frontier labs. A practical question for settings without frontier-scale training data is how far this approach
-stretches in the minimal-data regime, where probes are trained on tens of contrastive examples. We evaluate this
-regime across seven open models from three architecture families, on harmful-content detection, prompt-injection
-detection, and policy compliance, and find that reported outcomes are dominated by two factors that have received
-little scrutiny: extraction convention and evaluation design. Probes that appear to fail --- flagging 30--94\% of
-topic-matched benign prompts, or scoring near chance on real prompt-injection benchmarks --- are substantially
-repaired by changing where the activation is read, not how the probe is trained: reading prompts through the model's
-chat template raises length-stratified harmful-content AUC by $+0.30$ to $+0.54$ on all seven models (to
-$0.92$--$0.98$, exceeding tuned lexical baselines by $+0.21$ to $+0.27$), and reading the mean over the tool-response
-span instead of the final token raises injection detection from $0.58$--$0.86$ to $0.94$--$0.97$ AUC on injections
-never seen in training. Conversely, we retire a proposed training method --- paired contrastive learning --- by
-showing its estimator is algebraically identical to standard contrastive training and its data construction
-contributes nothing measurable; we show that probes cannot linearly separate encoded-harmful from encoded-benign
-prompts at any layer, even for encodings the model demonstrably decodes, and that training on encoded examples
-manufactures perfect apparent detection while flagging all encoded benign inputs; and we show that for short authored
-text, directive force is lexically constituted, so short-text authored evaluations cannot certify semantic claims for
-any compliance classifier. Along the way we document exploitable label artifacts in the InjecAgent benchmark; prompt
-length as a pervasive confound, separating one standard benchmark's harmful and benign classes at AUC $0.95$ and
-inflating unstratified scores elsewhere ($0.90$ falling to $0.58$ under stratification); a tensor-identity hazard in
-vLLM activation hooks; the necessity of separating probe detections from the model's own refusals; and the invalidity
-of leave-one-out cross-validation on minimal-pair data. We distill these into a pre-registered evaluation protocol ---
-including three cases where pre-registered designs proved unable to answer their own questions --- and release all
-datasets, probes, and provenance-stamped results. Minimal-data activation probes can work; whether they do is decided
-by conventions most papers never report.
+Linear probes on language-model activations cost microseconds on inference already running and are in
+production use at frontier labs. We ask how far they stretch in the minimal-data regime, where probes are fitted on
+tens of examples. Across seven open models and three tasks---harmful-content detection, prompt injection, and policy
+compliance---outcomes are dominated by two rarely reported factors: extraction convention and evaluation design. Probes
+flagging up to $94\,\%$ of topic-matched benign prompts are repaired by changing where the activation is read, not the
+probe. Reading prompts through the chat template raises length-stratified harmful-content AUC by $+0.30$ to $+0.54$ on
+all seven models, to $0.92$--$0.98$, above tuned lexical baselines, for probes fitted with on-topic negatives; the
+probes as shipped regress on three. Reading the mean over the tool-response span instead of the final token
+raises injection detection from $0.58$--$0.85$ to $0.94$--$0.97$ AUC on unseen injections on the four models that clear
+a pre-registered threshold; one gets worse. The same rigour retires three claims: paired contrastive data
+construction, which adds nothing beyond the estimator; obfuscation robustness, where no layer separates
+encoded-harmful from encoded-benign prompts at any read position, even for encodings the model decodes, and training on
+encodings manufactures perfect apparent detection; and short-text policy compliance, where directive force is
+lexically constituted and such evaluations cannot certify semantic claims. A pre-registered protocol reporting its own
+three failed designs makes these conventions auditable; all artifacts are released. Minimal-data activation probes can
+work; whether they do is decided by conventions most papers never report.
 \end{abstract}
 
 % Index terms: DRAFT, alphabetical. Note the divergence flagged in the report -- the author's published paper
@@ -95,6 +122,7 @@ evaluation methodology, interpretability, large language models, prompt injectio
 \maketitle
 
 \input{tables/_provenance}
+\input{figures/_fig_obfuscation_numbers}   % numbers quoted by the Figure 2 caption, written by gen_figures.py
 
 \input{sections/01_introduction}
 \input{sections/02_related_work}
@@ -106,6 +134,7 @@ evaluation methodology, interpretability, large language models, prompt injectio
 \input{sections/08_guard_comparison}
 \input{sections/09_discussion}
 \input{sections/10_conclusion}
+\input{sections/98_appendix}
 \input{sections/99_backmatter}
 
 \bibliographystyle{IEEEtran}
@@ -114,13 +143,12 @@ evaluation methodology, interpretability, large language models, prompt injectio
 % Author biography, no photograph (not required for this submission).
 \begin{IEEEbiographynophoto}{Glen Messenger}
 is a product management lead at Google Cloud, working on AI infrastructure security and AI safety. His research
-focuses on representation engineering for LLM safety and inference security, with contributions spanning
-activation-based model verification, runtime safety enforcement, inference scheduling, and KV-cache compression; his
-work on detecting safety-training modification via activation analysis appears in IEEE Access. His open-source work
-includes the Activation Model Scanner (AMS) and k8s-aibom, a Kubernetes-native AI bill-of-materials framework. Prior
-to Google, he co-founded a B2B network security startup, and held senior security architecture roles in Finance and
-Government. He holds a CCIE certification and is a named inventor on patents spanning firewall management and AI
-inference security.
+focuses on representation engineering for LLM safety and inference security, with contributions in activation-based
+model verification and inference-layer threat modelling; his work on detecting safety-training modification via
+activation analysis appears in IEEE Access. His open-source work includes the Activation Model Scanner (AMS) and
+k8s-aibom, a Kubernetes-native AI bill-of-materials framework. Prior to Google, he co-founded a B2B network security
+startup and held senior security architecture roles in finance and government. He holds a CCIE certification and is a
+named inventor on patents spanning firewall management and AI inference security.
 \end{IEEEbiographynophoto}
 
 \EOD

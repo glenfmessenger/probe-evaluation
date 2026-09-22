@@ -47,9 +47,9 @@ Probes are trained on the train halves only; every reported number is on the hel
 separate so that a design which only works on the "hacking prompt" wrapper is visible as such rather than averaged in.
 Case-id overlap between halves is asserted to be zero.
 
-## The four extraction designs
+## The five extraction designs
 
-All four read the same layer as Phase 1 — each model's existing AAG probe `layer_index`, unchanged — and each design
+All five read the same layer as Phase 1 — each model's existing AAG probe `layer_index`, unchanged — and each design
 trains *and* evaluates with itself. No probe trained under one design is ever scored under another.
 
 | Design | Read position | Deployable? | What it tests |
@@ -58,6 +58,7 @@ trains *and* evaluates with itself. No probe trained under one design is ever sc
 | **(b) mean** | mean of hidden states over the token span covering `{tool_response}` | yes | whether the signal is present but diluted at the final position |
 | **(c) maxpos** | probe score at every token position in the tool-response span; case score = max | yes | whether the signal is localised but at a position we cannot know in advance |
 | **(d) oracle** | hidden state at the token where the injected instruction **ends** | **no — uses label knowledge** | the diagnostic upper bound: if this is weak, no deployable position will work |
+| **(e) mean_all** | mean of hidden states over **every** non-special prompt token (BOS excluded) | yes | *added by GATES.md Amendment 7, 2026-09-11:* the whole-input mean-pooling baseline of prior work; (b) minus (e) is the measured value of localising the read to the tool-response span |
 
 Notes that keep each design honest:
 
@@ -65,6 +66,9 @@ Notes that keep each design honest:
   varies with tool-response length. Its threshold is therefore recalibrated on the train half, and the AUC, not the
   detection rate at a transferred threshold, is the comparison that counts. Length is also reported per case so the
   "longer response, more chances to exceed" effect is visible.
+- **(e)** exists to make the manuscript's Section II-B claim — localisation, not pooling, is the contribution — a
+  measured statement. Its threshold and both outcome sentences are in Amendment 7. It shares nothing with (b) except the
+  layer: it trains on its own read and is thresholded on its own train-half scores like every other design.
 - **(d)** is reported as a diagnostic only and is never described as a detector. It is the number that decides the
   PASS/FAIL question in GATES.md: an oracle that cannot separate injected from clean tool output is a statement about
   the representation, not about our engineering.

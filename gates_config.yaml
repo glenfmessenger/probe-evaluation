@@ -14,7 +14,14 @@ modes: [raw, templated]   # templated = the model's own chat template (Phase 2 f
 batch_size: 16
 max_length: 1024
 output_dir: results/gates
-activations_dir: results/gates/activations     # gitignored
+# Activation tensors are bulk intermediates and may be ignored: they are large, and anything computed from them can
+# be recomputed from them only while the GPU that made them exists. Per-case SCORES are not intermediates. They are
+# the smallest artifact from which an interval, a re-stratification or a re-analysis can be rebuilt on a laptop, and
+# committing them is the difference between a result that can be revisited and one that can only be re-run.
+# This split was introduced 2026-09-10 after Arm 2's per-case scores were written into activations_dir and lost with
+# it, which cost the manuscript a bootstrap it had to replace with an analytic approximation.
+activations_dir: results/gates/activations     # gitignored: bulk tensors, regenerable only on the original hardware
+scores_dir: results/gates/scores               # COMMITTED: one file per model, per-case scores behind every AUC
 
 b1:                                       # ARM 1 — paired AF
   probe_dir: aase_vllm/pretrained/af      # the January probes supply layer_index and the Phase 1 comparison row

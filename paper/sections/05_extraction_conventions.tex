@@ -11,16 +11,22 @@ ones that are reported.
 We use \emph{extraction convention} as the umbrella term for the three. Figure~\ref{fig:extraction} previews the two
 that are repairable, on every model.
 
+% Plain figure*, NOT the class's \Figure macro: \Figure sets \xfigwd to the graphic's width, which sends
+% \@makecaption down a branch that typesets the caption in a non-wrapping tabular. See the \xfigwd note in
+% main.tex. Captions here are long, so they must wrap.
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_extraction}
 \caption{The extraction convention, not the probe, decides the outcome. Each line joins one model's score under two
 reads of the same activation, with everything else held fixed. \textbf{A}: harmful-content probes read at the final
-token of the bare prompt versus of the prompt in the model's own chat template; length-stratified AUC rises by
-$+0.296$ to $+0.544$, to $0.923$--$0.983$, on all seven models. \textbf{B}: prompt-injection probes read at the final
-token versus averaged over the tool-response span, on the grouped split in which no injection string in the test half
-was seen in training; the four models with learnable signal move from $0.58$--$0.86$ to $0.94$--$0.97$. Neither change
-touches the probe or its training data.}
+token of the bare prompt versus of the prompt in the model's own chat template, for probes fitted with on-topic
+negatives; length-stratified AUC rises by $+0.296$ to $+0.544$, to $0.923$--$0.983$, on all seven models. The probes
+as shipped, fitted on off-topic negatives, do not share the gain: three of them regress under the templated read
+(Table~\ref{tab:extraction_convention}). \textbf{B}: prompt-injection probes read at the final token versus averaged
+over the tool-response span, on the grouped split in which no injection string in the test half was seen in training;
+the four models on which the mean read clears the pre-registered $0.90$ pass threshold move from $0.58$--$0.85$ to
+$0.94$--$0.97$, three never reach the pass band, and Gemma-3-4B is worse at the point estimate. Neither change touches
+the probe or its training data.}
 \label{fig:extraction}
 \end{figure*}
 
@@ -40,8 +46,18 @@ shipped probes were originally fitted with.
 \input{tables/tab_extraction_convention}
 
 The templated read is better on every model. For the probe trained on on-topic twins, length-stratified AUC rises by
-between $+0.296$ and $+0.544$, with a mean of $+0.368$, and there is no model on which it falls. The effect is largest
+between $+0.296$ and $+0.544$, with a mean of $+0.368$, and there is no model on which it falls. Every one of those
+seven differences excludes zero under a paired case bootstrap, the weakest lower bound being $+0.228$ on Gemma-3-1B
+(Appendix~\ref{app:ci}, panel A), so ``positive on all seven models'' is a statement about intervals and not only
+about point estimates. The effect is largest
 precisely where the bare read was worst: on Llama-3.2-3B the same direction moves from $0.437$ to $0.980$.
+
+The claim is about probes fitted with on-topic negatives, and the scope is not decorative. The shipped probes, whose
+negatives are the off-topic set they were originally fitted with, do not share it: templating helps four of them but
+costs Gemma-3-4B $-0.016$, Llama-3.2-1B $-0.019$ and Llama-3.1-8B $-0.383$, the last moving from $\aucstar{} = 0.770$
+to $0.387$. Templating is therefore not a universal improvement to any probe one happens to hold. What
+Table~\ref{tab:extraction_convention} supports is narrower: with the release recipe's training negatives replaced by
+on-topic twins and everything else held fixed, reading through the chat template improves every model.
 
 The false-positive picture moves with it, and this is the part that matters for deployment. Reported against on-topic
 benign prompts at an operating point matched to each model's shipped-probe XSTest false-positive rate, the templated
@@ -81,17 +97,38 @@ information.
 
 \input{tables/tab_aag_designs}
 
-Averaging over the tool-response span recovers most of what the final-token read misses. On the four models with
-learnable signal, mean-over-tool-response reading reaches $0.94$--$0.97$ against $0.58$--$0.86$ for the final-token
-read trained on identical data. Both figures are quoted from the grouped split, and the full seven-model picture is in
-Table~\ref{tab:aag_designs} rather than summarised away: on the remaining three models the task is not learnable by
-any of the four reads.
+Averaging over the tool-response span recovers most of what the final-token read misses. On the four models on which
+the mean read clears the pass threshold of $0.90$ that was pre-registered before any activation was extracted
+(Section~\ref{sec:prereg}), mean-over-tool-response reading reaches $0.94$--$0.97$ against $0.58$--$0.85$ for the final-token
+read trained on identical data; on those four the paired difference excludes zero, with a smallest lower bound of
+$+0.067$ (Appendix~\ref{app:ci}, panel B). On the other three it does not: the interval crosses zero on Llama-3.1-8B
+($+0.030$, $[-0.022, +0.082]$), on Llama-3.2-3B ($-0.008$, $[-0.062, +0.047]$) and on Gemma-3-4B, where the mean read
+is worse at the point estimate ($-0.089$, $[-0.198, +0.026]$). Both figures are quoted from the grouped split, and the
+full seven-model picture is in Table~\ref{tab:aag_designs} rather than summarised away.
+
+Localisation, not pooling as such, is what the span read adds. Prior work already compares mean pooling with
+last-token reads (Section~\ref{sec:related}), so Table~\ref{tab:aag_designs} carries the whole-prompt mean,
+mean\textsubscript{all}, as the baseline that claim is defined against; the comparison was pre-registered with its
+threshold before the run (Section~\ref{sec:prereg}). On the four passing models the tool-response mean exceeds the
+whole-prompt mean by $+0.023$ to $+0.093$, every paired interval excluding zero, and by $+0.074$ and $+0.076$ on
+Llama-3.1-8B and Llama-3.2-3B; only on Gemma-3-4B, where no read works, is the whole-prompt mean ahead ($-0.044$,
+$[-0.106, +0.011]$). The honest reading cuts both ways: pooling over the whole input already clears the pass threshold
+on three of the four models (Gemma-3-1B is the exception, at $0.849$), so most of the repair is pooling at all, and
+localising the pool to the span where the threat sits is a measurable further gain rather than the whole effect. The remaining three models divide in a way worth stating: on
+Llama-3.1-8B and Llama-3.2-3B no deployable read reaches the pass band, yet the oracle reaches $0.963$ and $0.961$, so
+the signal is present and it is position-finding that fails to capture it without label knowledge; on Gemma-3-4B no
+read works at all, and the oracle ($0.751$) is below that model's own final-token read, so there is nothing at the
+injection position for a better-placed read to find.
 
 The right-hand block of Table~\ref{tab:aag_designs} is the result we rest on. Because the corpus crosses only $62$
 injection strings with $17$ user instructions, a case-level split leaves every test-half injection string present in
 training, and any number computed on it measures recognition. Assigning whole injection strings to one side removes
 that: the mean AUC change across models is between $-0.016$ and $+0.005$ for every read. The improvement is
-generalisation to injections never seen, not memorisation.
+generalisation to injections never seen, not memorisation. The corpus still contains only $62$ injection strings: the
+grouped split removes the leakage, it does not create a large sample of injection types. The grouped test half holds
+only $59$ benign cases, which
+is why the intervals in Appendix~\ref{app:ci} are wide; the per-case split, with all $120$ benign cases in play,
+agrees with it to within $0.016$ and is the corroboration rather than the headline.
 
 The oracle reaches $0.96$--$0.99$ on five models, and the gap between it and the best deployable read is $+0.02$ to
 $+0.15$ on those five and negative on two. Most of the available signal is therefore already reachable without label
@@ -102,8 +139,8 @@ evaluation half would not be held out.
 
 Refusal separation shows the probe is not redundant with model behaviour here. The models refuse only $3$--$25\,\%$ of
 injection prompts and follow the injected instruction in $2$--$5\,\%$ of generations, so there is little behavioural
-signal for the probe to be re-detecting---in contrast to harmful-content probing, where the overlap with refusal is
-substantial (Section~\ref{sec:learn}).
+signal for the probe to be re-detecting---in contrast to harmful-content probing, where the shipped probe's flags
+largely coincide with the model's own refusals (Table~\ref{tab:af_refusal}, Section~\ref{sec:topicharm}).
 
 \subsection{Tensor identity: which activation the probe was actually trained on}
 \label{sec:tensor}
@@ -150,7 +187,7 @@ the model sees in use. For a policy-compliance case it wraps a model \emph{respo
 it as input, which is stranger still.
 
 We therefore report the other two tasks in both modes as observations and draw no hypothesis test from them.
-Table~\ref{tab:aag_modes} gives the agent-scaffold comparison: templating helps the final-token read on three models
+Table~\ref{tab:aag_modes} gives the agent-scaffold comparison: templating helps the final-token read on four models
 by $+0.04$ to $+0.15$, is neutral on two, and hurts one by $-0.14$, while the mean-span and oracle reads barely move.
 That is a different pattern from the uniform, large improvement in Table~\ref{tab:extraction_convention}, and it is
 consistent with the two operations being different rather than with a single effect of ``using the chat template''.

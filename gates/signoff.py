@@ -36,13 +36,10 @@ APPROVALS = {
 }
 
 # sha256 of each authored data file, taken at sign-off.
-# NOTE for this public artifact: the three Arm 3 files differ from the signed-off originals in ONE metadata string
-# each -- the "author" field, generalised here. No case text, label, rationale or count differs, and no reported
-# number is affected. The pins below are recomputed against these files so verify() passes.
 DATA_SHA256 = {
-    "gates/data/arm3_medical_ab.json": "b909f9a1cb4d1c740aa1b634426fe07cb8492be33bf5c9f30b2e751f6bc0ac98",
-    "gates/data/arm3_medical_cd.json": "834c7fdce6ee8f1b457ca78a4255f1c3e82a937b5ba66edf89c8448d45dfe8c7",
-    "gates/data/arm3_cross_topic.json": "c11b436dffc7230a1b02f33c36178cee18e6211b89905796e2c217b3fd0d9ce4",
+    "gates/data/arm3_medical_ab.json": "3a5593b30ac2789af3f40d3be453c872d0db15e492f5beac8d6255037df59475",
+    "gates/data/arm3_medical_cd.json": "28dddb8460ade9baae8ccbfcd85d3f3b1f9f80adcdb9fd65c67f2ae21eb4945d",
+    "gates/data/arm3_cross_topic.json": "7aef4a76dc9890d8fa80e9001eaa5658b74abf9b98b20b544c54149dd5f50107",
 }
 
 # sha256 of the canonical JSON of gates.arm1_pairs.PAIRS — pins the strings, not the module's prose, so the docstring

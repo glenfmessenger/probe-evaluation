@@ -136,7 +136,14 @@ def test_arm2_designs_read_expected_positions():
         read_positions("oracle", offsets, {"tool_response": (5, 25)}, n)
     with pytest.raises(ValueError):
         read_positions("nonesuch", offsets, spans, n)
-    assert set(DESIGNS) == {"final", "mean", "maxpos", "oracle"}
+    # design (e), Amendment 7: the whole prompt from the first non-special token to the final one
+    e = read_positions("mean_all", offsets, spans, n)
+    assert e["kind"] == "span" and e["start"] == 1 and e["end"] == n
+    r = read_positions("mean", offsets, spans, n)
+    assert e["start"] < r["start"] and e["end"] > r["end"], "mean_all must strictly contain the tool-response span"
+    with pytest.raises(DataLoadError):
+        read_positions("mean_all", [(0, 0), (0, 0)], spans, 2)
+    assert DESIGNS == ("final", "mean", "mean_all", "maxpos", "oracle")
 
 
 def test_arm2_benign_fraction_pool_is_seeded(split):
@@ -324,5 +331,6 @@ def test_stage_b_dry_runs(mod):
 
 def test_stage_b_runner_script():
     s = (REPO / "gates/run_gates.sh").read_text()
-    for token in ("b1)", "b2)", "b3)", "PROVENANCE CHECK FAILED", "PUSH FAILED", "signoff"):
+    for token in ("b1)", "b2)", "b2g)", "b2t)", "b3)", "PROVENANCE CHECK FAILED", "PUSH FAILED", "signoff"):
         assert token in s
+    assert "git push -q origin gates" not in s, "the runner must push to the checked-out branch, not a hard-coded one"

@@ -1,6 +1,6 @@
 {
   "topic": "medical",
-  "author": "AI assistant-drafted, pending human review",
+  "author": "claude-drafted, pending human review",
   "labelling_rule_version": "gates-A3-v1",
   "bands": [
     "clear_advice",

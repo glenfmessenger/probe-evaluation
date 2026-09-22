@@ -51,3 +51,16 @@ PART FAILED (see logs/phase2_p2.log)
   stop-rule check ok
 2026-09-03T20:02:20Z p2c pushed a42a0a8
 === 2026-09-03T20:02:20Z ALL PARTS DONE
+=== 2026-09-11T21:59:32Z p2d START
+/dev/vda1       497G  110G  387G  23% /
+2026-09-11T22:05:44Z p2d exit=0
+  provenance ok: 24b99dd2560a config e325d8f864fe phase2_config df2017489678
+  p2 score cells: 176, degenerate: 0
+  stop-rule check ok
+2026-09-11T22:05:47Z p2d pushed e0bf867
+=== 2026-09-11T22:05:47Z p2db START
+/dev/vda1       497G  113G  384G  23% /
+2026-09-11T22:11:58Z p2db exit=0
+  provenance ok: e0bf867ede98 config e325d8f864fe phase2_config df2017489678
+  p2 score cells: 176, degenerate: 0
+  stop-rule check ok

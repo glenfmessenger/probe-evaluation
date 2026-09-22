@@ -39,7 +39,7 @@ python3 src/evaluate_prompted_agent.py \
   --use_cache
 ```
 Command parameters:
-- `--model_type`: we support four different model types: `GPT` (OpenAI models), `AI assistant` (the AI assistant model), `TogetherAI` (open-source models from https://www.together.ai/) and `Llama` (local llama models)
+- `--model_type`: we support four different model types: `GPT` (OpenAI models), `Claude` (the Claude model), `TogetherAI` (open-source models from https://www.together.ai/) and `Llama` (local llama models)
 - `--model_name`: a model within the selected model type
 - `--setting`: `base` or `enhanced`. The `enhanced` setting uses an additional hacking prompt.
 - `--prompt_type`: `InjecAgent` or `hwchase17_react`. The prompt of the LLM agent. `InjecAgent` is more complex than `hwchase17_react`.
@@ -66,7 +66,7 @@ Then, add an additional entry in `MODELS` dictionary in `src/models.py` as follo
 
 ```python3
 MODELS = {
-    "AI assistant": AI assistantModel,
+    "Claude": ClaudeModel,
     "GPT": GPTModel,
     "Llama": LlamaModel,
     "TogetherAI": TogetherAIModel

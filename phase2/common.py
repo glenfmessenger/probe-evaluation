@@ -22,7 +22,7 @@ import hashlib
 import json
 import random
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
 
@@ -123,6 +123,31 @@ def format_for_mode(text: str, mode: str) -> str:
     if mode == "templated":
         return GEMMA_TEMPLATE.format(prompt=text)
     raise DataLoadError(f"unknown mode {mode!r}")
+
+
+# ---------------------------------------------------------------- pooled-read spans (P2d, GATES.md Amendment 7)
+def payload_span(encoded_text: str, encoding: str, wrapper: str = "phase1") -> Tuple[int, int]:
+    """Character span of the encoded payload inside an encoded prompt. For Base64 and ROT13 that is the text after the
+    wrapper's instruction sentence; plain and leetspeak prompts have no wrapper, so the payload is the whole text.
+    Fails loud if the text does not begin with the prefix the encoder would have produced."""
+    prefix = encode("", encoding, wrapper)
+    if not encoded_text.startswith(prefix):
+        raise DataLoadError(f"payload_span: text does not start with the {wrapper}/{encoding} wrapper {prefix[:40]!r}: {encoded_text[:60]!r}")
+    if len(encoded_text) <= len(prefix):
+        raise DataLoadError(f"payload_span: empty payload for {wrapper}/{encoding}")
+    return (len(prefix), len(encoded_text))
+
+
+def pooled_spans(encoded_text: str, mode: str, encoding: str, wrapper: str = "phase1") -> Dict[str, Tuple[int, int]]:
+    """The two P2d reads as character spans in the MODE-FORMATTED text the model actually sees:
+    `payload` = the encoded payload only (the analogue of Arm 2's tool-response span); `prompt` = everything, chat
+    template included in templated mode. Special tokens are excluded later at token level by the offset mapping."""
+    formatted = format_for_mode(encoded_text, mode)
+    if formatted.count(encoded_text) != 1:
+        raise DataLoadError(f"pooled_spans: encoded text occurs {formatted.count(encoded_text)} times in its formatted form")
+    off = formatted.index(encoded_text)
+    a, b = payload_span(encoded_text, encoding, wrapper)
+    return {"payload": (off + a, off + b), "prompt": (0, len(formatted))}
 
 
 # ---------------------------------------------------------------- evaluation set

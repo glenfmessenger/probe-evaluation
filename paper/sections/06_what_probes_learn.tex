@@ -18,13 +18,23 @@ The harmful-content probes separate topic from not-topic rather than harmful fro
 Section~\ref{sec:data} make this legible. Read at the final token of bare text, the shipped probes reach AUC
 $0.90$--$1.00$ against XSTest---benign prompts that merely sound alarming---and only $0.46$--$0.67$ against
 JailbreakBench benign prompts, which share their subject matter with harmful requests. The false-positive rates say
-the same thing more bluntly: $0$--$17\,\%$ on XSTest against $30$--$94\,\%$ on the on-topic set. A detector that fires
+the same thing more bluntly: $0$--$17\,\%$ on XSTest against $30$--$94\,\%$ on the on-topic set, at each probe's own shipped threshold; at the
+matched operating point of Table~\ref{tab:extraction_convention} the same probes reach $0.99$. A detector that fires
 on nine in ten benign requests about the same subject is not detecting harm.
 
 This is what makes the pooled benign set a reporting hazard rather than a convenience. Pooling XSTest and
 JailbreakBench yields an aggregate AUC of $0.81$--$0.91$, which reads as a working detector and conceals that
 essentially all of its errors fall on one half of the benign data. It also explains the system-level result of
 Section~\ref{sec:guard}: all $94$ of the probe pipeline's false positives are on-topic benign prompts.
+
+Refusal separation says the same thing from the model's side. Table~\ref{tab:af_refusal} conditions the shipped
+probe's flag rate on whether the model's own continuation was a refusal. On HarmBench the probe flags $0.91$--$1.00$ of
+the prompts six of the seven models refuse anyway, so on the harmful side it is largely redundant with the model's
+behaviour; the exception, Gemma-3-4B, flags about a third in either condition. On the on-topic benign set it flags
+answered prompts at $0.69$--$0.96$ on those same six models, refusal or no refusal. A detector that fires on what the
+model already refuses and on benign requests the model answers is tracking the subject, not the decision.
+
+\input{tables/tab_af_refusal}
 
 Chat-templated reading substantially repairs this (Table~\ref{tab:extraction_convention}), which is the finding of
 Section~\ref{sec:template}. What it does not do is make the probe a harm detector by construction, and the lexical
@@ -35,8 +45,9 @@ of its AUC.
 \subsection{Paired contrastive training is not a training method}
 \label{sec:paired}
 
-A recurring proposal for minimal-data probes is to build the training set from matched pairs---each positive aligned
-with a negative sharing topic, style and length---and to average the \emph{within-pair} differences, on the argument
+Our own earlier release \cite{messenger2026aase} proposed, as others have for minimal-data probes generally, to build
+the training set from matched pairs---each positive aligned with a negative sharing topic, style and length---and to
+average the \emph{within-pair} differences, on the argument
 that shared features cancel in the difference and only the safety-relevant direction survives.
 
 The argument is sound and the method is not distinct. For $n$ complete, aligned pairs,
@@ -57,7 +68,7 @@ probes were fitted with moves AUC against on-topic benign prompts by between $-0
 from zero on every model---while the extraction change discussed above moves it by $+0.296$ to $+0.544$. The training
 set was not where the leverage was.
 
-We report this as a retirement rather than a refutation. The proposal is not wrong about pairing cancelling shared
+We report this as a retirement of our own proposal rather than as a refutation of it. The proposal is not wrong about pairing cancelling shared
 features; it is wrong that this constitutes a distinct \emph{method}, and that part is settled by
 equation~\eqref{eq:identity} rather than by measurement. What remains is the data construction, and there our claim is
 the narrower empirical one: across seven models we observed no effect distinguishable from zero, against an extraction
@@ -77,7 +88,8 @@ recipe---fifteen authored contrastive pairs per policy, evaluated on six held-ou
 a perfect held-out score. On an external evaluation set of $360$ labelled responses it collapses: AUC $0.14$--$0.58$
 across models (Table~\ref{tab:apc_external}), and at its own calibrated threshold it flags every case---every advice
 response, every information response, and all twenty refusals---in four of the six model/mode cells
-(Table~\ref{tab:apc_refusal}). The perfect original score is an artifact of a six-example split; the refusal result
+(Table~\ref{tab:apc_refusal}). The refusal band holds $20$ responses, so this is an illustration of the conflation
+rather than an estimate of its rate. The perfect original score is an artifact of a six-example split; the refusal result
 illustrates a measurement error we suggest is general, in which a probe's detections are never separated from the
 model's own refusal behaviour, conflating ``the probe caught it'' with ``the model was never going to comply.''
 
@@ -111,7 +123,8 @@ opposite label and the classifier reliably anti-predicts. Measured that way draf
 separation with the sign inverted---which says nothing about lexical separability. Leave-pair-out against a
 within-pair-swap null is the correct procedure and is what the figures above report.
 
-\textbf{The finding.} The three failures share one cause, which we state as a result rather than as a limitation: in
+\textbf{The finding.} The three failures share one cause, which we state as a result rather than as a limitation, and
+inductively---on the evidence of three instruments, not by proof: in
 short text, directive force is substantially constituted by its lexical markers. Pronoun address, deontic modality,
 and register are not confounds of the advice/information distinction at this granularity; they are much of what the
 distinction consists in. It follows that short-text authored evaluations cannot certify a semantic claim for any
@@ -120,7 +133,9 @@ the construct.
 
 Two practical consequences. First, for short responses, a lexical classifier may simply be an adequate compliance
 control, and claims that a representation-level method outperforms one require evidence such evaluations cannot
-provide. Second, certifying semantic speech-act classification requires naturally occurring multi-sentence responses,
+provide. The lexical baseline's role here is as a validity bound on the evaluation rather than as a recommended
+control, and none of this licenses regex-based enforcement on longer responses, where the cues and the construct are
+precisely what we expect to come apart. Second, certifying semantic speech-act classification requires naturally occurring multi-sentence responses,
 where directive force is carried structurally across discourse---an evaluation we scope as future work rather than
 attempt with an instrument we have shown cannot answer the question.
 

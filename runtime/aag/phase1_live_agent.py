@@ -827,7 +827,7 @@ Tool output:
         ]
     }
     
-    output_path = "/home/AI assistant/agent_gating_poc/phase1_benchmark_results.json"
+    output_path = "/home/claude/agent_gating_poc/phase1_benchmark_results.json"
     with open(output_path, "w") as f:
         json.dump(output, f, indent=2)
     print(f"\nResults saved to: {output_path}")

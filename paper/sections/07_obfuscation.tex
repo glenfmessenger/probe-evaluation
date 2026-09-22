@@ -38,22 +38,28 @@ can only inherit robustness from a capability the model actually has.
 
 We swept every decoder block from $14$ to $35$ (roughly $33\,\%$ to $85\,\%$ depth), in both template modes, with two
 probe constructions---the shipped direction and a direction retrained per block and per mode---and in both activation
-spaces of Section~\ref{sec:tensor}. That is $176$ scored cells per space per encoding.
+spaces of Section~\ref{sec:tensor}. That is $88$ scored cells per activation space per encoding, $176$ across both spaces.
 
 \input{tables/tab_obfuscation_sweep}
 
 Figure~\ref{fig:obfuscation} shows the sweep in full for the most favourable configuration.
 
+% Plain figure*, NOT the class's \Figure macro: \Figure sets \xfigwd to the graphic's width, which sends
+% \@makecaption down a branch that typesets the caption in a non-wrapping tabular. See the \xfigwd note in
+% main.tex. Captions here are long, so they must wrap.
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_obfuscation}
 \caption{No configuration separates encoded-harmful from encoded-benign prompts once prompt length is controlled.
 Each cell is the length-stratified AUC at one decoder block, scoring harmful against benign prompts carrying the same
-encoding. \textbf{The configuration shown is the best-performing one in the entire sweep}---the probe retrained per
-block and per mode, read in the MLP-branch space the probes under study occupy---so what fails here is the strongest
-case available, not a weak probe. Plain text and leetspeak
-remain readable across the depth of the network; Base64 and ROT13 sit at or near chance everywhere, with a median of
-$0.513$ over the $132$ encoded cells and a maximum of $0.787$. The uncontrolled versions of several of these cells
+encoding. \textbf{The configuration shown is the one in which the probe reads unencoded text best}---the probe retrained
+per block and per mode, in the MLP-branch space the probes under study occupy, with median length-stratified AUC
+$\obfShownPlainMedian$ on plain text and $\obfShownLeetMedian$ on leetspeak---so what fails here is the strongest reader
+of readable text, not a weak probe. Plain text and leetspeak remain readable across the depth of the network; Base64
+and ROT13 sit at or near chance everywhere, with a median of $\obfShownEncMedian$ over the $\obfShownEncCells$ Base64
+and ROT13 cells shown and a maximum of $\obfShownEncMax$. The single best Base64 and leetspeak cells in the whole sweep
+lie in the \obfBestSpace{} space, not shown ($\obfBestBaseSixtyFour$ and $\obfBestLeet$; Appendix~\ref{app:ci},
+panel C), and do not change the picture. The uncontrolled versions of several of these cells
 reach $0.85$--$0.92$, which is what length stratification removes.}
 \label{fig:obfuscation}
 \end{figure*}
@@ -61,7 +67,7 @@ reach $0.85$--$0.92$, which is what length stratification removes.}
 Read the two numbers in each cell together. Several cells reach $0.85$--$0.92$ raw on Base64 and ROT13, which taken
 alone would look like a positive result. In those same cells the probe score correlates with prompt length at
 Spearman $\rho$ up to $+0.95$, and once length is stratified they fall to $0.49$--$0.65$. The best length-stratified
-figure anywhere in the sweep is $0.73$ for Base64 and $0.79$ for ROT13, and the median across the $176$ cells is at or
+figure anywhere in the sweep is $0.73$ for Base64 and $0.79$ for ROT13, and the median across the $176$ cells in both spaces is at or
 below chance for both. Plain text and leetspeak lose almost nothing under the same control.
 
 A second control settles the interpretation. If a block represented the decoded content of an encoded prompt, the
@@ -73,6 +79,23 @@ Leetspeak is the exception that clarifies the rule. It leaves most characters re
 plain text, and detection is nearly unchanged from plain ($46.5\,\%$ against $47.8\,\%$ at the shipped threshold). It
 is not an obfuscation for this probe, and reporting it beside Base64 and ROT13 as though the three were comparable
 overstates robustness considerably.
+
+\textbf{Read position.} The sweep above holds read position fixed at the final token, and Section~\ref{sec:read}
+showed that position can dominate every other choice, so the sweep was repeated with two pooled reads, pre-registered
+with their thresholds before the run (Section~\ref{sec:prereg}): the mean over the encoded payload alone, the
+analogue of the tool-response span, and the mean over the whole prompt. Table~\ref{tab:obfuscation_pooled} gives the
+result for every block, mode, construction and space. Pooling over the whole prompt raises the raw Base64 AUC to
+$0.93$--$0.95$, and length stratification removes it again: the best pooled Base64 cell anywhere is
+$\aucstar{} = 0.746$ $[0.700, 0.790]$, against $0.728$ at the final token, and its score correlates with prompt length
+at $\rho = +0.83$ and with the same prompts' plain-text scores at only $+0.25$. The payload-only read, which never sees
+the wrapper sentence and has no length signal at its best cell ($\rho = 0.08$), reaches $0.728$ with a plain-text
+coupling of $+0.32$. Pooling does lift the typical cell---the median length-stratified Base64 cell is $0.647$ in the
+residual space and $0.532$ in the MLP-branch space, against $0.482$ at the final token---so a pooled read is a mildly
+better length-and-style detector, not a reader of the decoded content. The pre-registered verdict, computed by the
+harness from its thresholds rather than read off afterwards, is that the negative result is strengthened in both
+spaces.
+
+\input{tables/tab_obfuscation_pooled}
 
 \subsection{How the favourable result is manufactured}
 \label{sec:circularity}
@@ -109,16 +132,24 @@ Stated precisely, so that the negative result is not overread in either directio
 \begin{itemize}
 \item Gemma-2-9B decodes Base64 in generation and does not decode ROT13.
 \item Within the searched space --- $22$ blocks, two template modes, two probe constructions, two activation spaces,
-      all at the last token --- no configuration separates Base64- or ROT13-encoded harmful prompts from equally
-      encoded benign prompts once prompt length is controlled. The search did not vary read position, which
-      Section~\ref{sec:read} shows can dominate everything else; that is the largest gap in this negative result.
+      at the final token and under two pooled reads --- no configuration achieves the separation the robustness claim requires, once prompt
+      length is controlled. The median cell is at or below chance for both encodings ($0.482$ for Base64, $0.399$ for
+      ROT13). The best single cell per encoding is above chance ($0.728$ and $0.787$, intervals in
+      Appendix~\ref{app:ci}), but each is a maximum selected over $176$ cells and is a length-and-style direction
+      rather than a reading of the prompt: its scores track the same prompts' plain-text scores at $\rho \le 0.36$.
+      Pooling the read over the encoded payload or over the whole prompt, at every block in both spaces, does not
+      change this: the best pooled Base64 cell is $0.746$ $[0.700, 0.790]$ (Table~\ref{tab:obfuscation_pooled}),
+      against $0.728$ at the final token, and it tracks prompt length ($\rho = +0.83$) rather than the prompt's
+      plain-text score ($\rho = +0.25$).
 \item Apparent successes on encoded prompts in this design are explained by prompt length, and reported successes
       elsewhere are explained by training on the encodings being tested, with no encoded benign control to expose it.
 \item Leetspeak is read as noisy plain text and should not be grouped with the other two.
 \end{itemize}
 
-What this does \emph{not} establish is a general impossibility. We tested one model family at one scale, one probe
-construction, and last-token reads. Section~\ref{sec:read} showed that a read position can matter more than anything
-else in the setup, and we did not sweep read positions here. The honest summary is that the obfuscation-robustness
+What this does \emph{not} establish is a general impossibility. We tested one model family at one scale, linear probes
+of one construction, and three read positions: the final token, the mean over the encoded payload, and the mean over
+the whole prompt. A read placed by an oracle at the decoded content, the diagnostic that settled
+Section~\ref{sec:read}, has no analogue here, because unlike an injected instruction the decoding occupies no span of
+the input at which to place it. The honest summary is that the obfuscation-robustness
 claim is unsupported on these models and that the experiments which appear to support it elsewhere have a control
 missing---not that no representation of decoded content exists anywhere in any model.

@@ -37,8 +37,14 @@ attack literature constructs inputs whose activations evade probe detection whil
 \cite{bailey2025obfuscated}, which is the
 adversarial counterpart of our distributional negative result in Section~\ref{sec:obfuscation}: we show a probe fails
 on encodings chosen without reference to it, and that line shows it fails on encodings chosen against it. Work on detecting
-high-stakes interactions with activation probes \cite{mckenzie2025probes} sits alongside both, and is the closest
-published analogue to the minimal-data question we ask.
+high-stakes interactions with activation probes \cite{mckenzie2025probes} sits alongside both, is the closest
+published analogue to the minimal-data question we ask, and already compares token-aggregation schemes for
+probes---last-token, mean, max and attention-weighted pooling---including in small-data settings. Aggregation as such
+is therefore not what Section~\ref{sec:read} contributes. What is new there is localizing the read to the
+threat-bearing span of an agent scaffold rather than pooling over the input as a whole---measured against that
+whole-input baseline, localisation is worth $+0.02$ to $+0.09$ AUC on the models where the probe works
+(Table~\ref{tab:aag_designs})---and bounding what the deployable reads achieve against a label-informed oracle placed
+at the injection itself.
 
 \subsection{Probes in production}
 \label{sec:production}
@@ -99,6 +105,12 @@ capacities they were never shown to measure has been made directly of machine-le
 cannot certify the semantic claim attached to it, and we show what it costs to find that out.
 
 \subsection{Positioning}
+
+The three probe families studied here---harmful-content filtering, agent-injection detection and policy compliance,
+named \af{}, \aag{} and \apc{} in Section~\ref{sec:tasks}---and the paired contrastive data construction examined in
+Section~\ref{sec:learn}, originate in a publicly released minimal-data recipe \cite{messenger2026aase}; this paper's
+contribution relative to it is diagnosis and controls---extraction conventions and evaluation validity---rather than a
+new probe family.
 
 The papers above establish that safety-relevant properties are decodable from activations and that probes built on
 that fact can be made to work. This paper takes the next question seriously: under what evaluation conditions is a

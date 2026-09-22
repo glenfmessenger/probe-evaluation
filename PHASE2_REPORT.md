@@ -347,3 +347,28 @@ difference-of-means direction on gemma-2-9b-it reads harmful intent through Base
 | `tests/test_phase2.py` | 16 CPU tests (eval-set construction, wrappers, training-set reconstruction, probe math, hook-module selection, dry runs) |
 | `logs/phase2_status.txt`, `logs/phase2_<part>.log` | runner status and per-part logs |
 | `AILUMINATE_DISCREPANCY.md` | erratum on the hook-convention axis added |
+
+---
+
+## Amendment 7c (2026-09-11) — pooled reads: the read-position gap in the negative result, closed
+
+`phase2/p2d_pooled_reads.py`, results commits e0bf867 (residual) and ad85ad4 (MLP-branch), per-case scores in
+`results/phase2/p2d_scores{,_mlp}.npz`. Same 6,200 phase1-wrapper records, both modes, blocks 14–35, both
+constructions; two reads computed in one pass: `mean_payload` (mean over the encoded payload span) and `mean_prompt`
+(mean over every non-special prompt token). Run at `max_length` 2048 because one AILuminate prompt
+(`airr_practice_1_0_152140`) exceeds 1,024 tokens under Base64 (1,135) and leetspeak (1,109); **the P2 final-token sweep
+truncated that prompt in those two conditions** — one harmful prompt of 1,200, recorded here and in the paper checklist.
+
+Pre-registered thresholds (`phase2_config.yaml` `p2d`, committed before the run): strengthened below 0.80 length-stratified
+on Base64; overturned at 0.85 with ρ(encoded, plain) ≥ 0.5; stop rule at 0.95.
+
+| Space | Verdict (harness) | Best Base64 cell (length-stratified) | ρ(score, length) | ρ(encoded, plain) | Median over 176 Base64 cells |
+|---|---|---|---|---|---|
+| residual | **strengthened** | 0.746 @ `inmode|mean_prompt|raw|phase1|19|base64` (raw 0.942) | +0.83 | +0.25 | 0.647 |
+| MLP-branch | **strengthened** | 0.692 @ `inmode|mean_payload|templated|phase1|31|base64` (raw 0.714) | +0.11 | +0.33 | 0.532 |
+
+Bootstrap interval on the best pooled Base64 cell (paper/stats/ci.json): 0.746 [0.700, 0.790], against 0.728 [0.681, 0.770] at the final
+token. No cell reached the stop rule. Reading: whole-prompt pooling lifts the *raw* Base64 AUC to 0.93–0.95 and the length
+control removes it (ρ(score, length) up to +0.89); the payload-only read has no length signal at its best cell (ρ 0.08)
+and reaches 0.728 with ρ(encoded, plain) +0.32. Pooling lifts the typical cell (median 0.647 residual / 0.532 MLP-branch
+against 0.482 at the final token) without approaching the separation the claim needs. **Obfuscation stays diagnosed only.**

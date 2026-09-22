@@ -107,6 +107,65 @@ def extract_last_token(model, tok, texts: Sequence[str], blocks: Sequence[int] =
     return out
 
 
+def extract_pooled(model, tok, texts: Sequence[str], spans: Sequence[Dict[str, Tuple[int, int]]], blocks: Sequence[int] = BLOCKS,
+                   batch_size: int = 16, max_length: int = 1024, progress: Optional[str] = None, feature: str = "residual",
+                   reads: Sequence[str] = ("payload", "prompt")) -> Dict[str, np.ndarray]:
+    """Mean-pooled activations over character spans at every block, one forward pass per batch (P2d, Amendment 7).
+
+    `spans[i]` maps each read name to a character span of texts[i]; spans are mapped to token indices with the
+    tokenizer's offset mapping exactly as gates.runb.extract_reads does, so special tokens (offset (0, 0), BOS above
+    all) are never pooled and an unmappable span raises. A text that hits `max_length` also raises: a truncated payload
+    would silently pool over part of the prompt. Returns {read: float16 [n_texts, len(blocks), hidden]}.
+    """
+    import torch
+    from gates.arm2_protocol import token_span     # lazy import; arm2_protocol does not import phase2, so no cycle
+    from aase_eval import DataLoadError
+    if feature not in FEATURES:
+        raise ValueError(f"feature must be one of {FEATURES}, got {feature!r}")
+    base = model.get_decoder() if hasattr(model, "get_decoder") else model.model
+    captured: Dict[int, "torch.Tensor"] = {}
+    handles = []
+    if feature == "mlp_out":
+        for b in blocks:
+            def _hook(module, inp, output, _b=b):
+                captured[_b] = (output[0] if isinstance(output, tuple) else output).detach()
+            handles.append(_mlp_branch_module(base.layers[b]).register_forward_hook(_hook))
+    n = len(texts); out = {r: None for r in reads}
+    t0 = time.time()
+    try:
+        for i0 in range(0, n, batch_size):
+            batch = list(texts[i0:i0 + batch_size])
+            enc = tok(batch, return_tensors="pt", padding=True, truncation=True, max_length=max_length,
+                      add_special_tokens=True, return_offsets_mapping=True)
+            offs = enc.pop("offset_mapping")
+            enc = {k: v.to(model.device) for k, v in enc.items()}
+            with torch.no_grad():
+                res = base(**enc, output_hidden_states=(feature == "residual"), use_cache=False)
+            per_block = {b: res.hidden_states[b + 1] for b in blocks} if feature == "residual" else {b: captured[b] for b in blocks}
+            attn = enc["attention_mask"]
+            for j in range(len(batch)):
+                idx = i0 + j
+                keep = attn[j].bool(); pad = int((~keep).sum())
+                off = [tuple(map(int, o)) for o, k in zip(offs[j].tolist(), attn[j].tolist()) if k]
+                n_tok = len(off)
+                if n_tok >= max_length:
+                    raise DataLoadError(f"text {idx}: {n_tok} tokens reaches max_length={max_length}; a truncated span cannot be pooled honestly")
+                for r in reads:
+                    t_a, t_b = token_span(off, spans[idx][r])
+                    if not (0 <= t_a < t_b <= n_tok):
+                        raise DataLoadError(f"text {idx}: bad token span for {r}: ({t_a},{t_b}) of {n_tok}")
+                    if out[r] is None:
+                        out[r] = np.zeros((n, len(blocks), per_block[blocks[0]].shape[-1]), dtype=np.float16)
+                    for bi, b in enumerate(blocks):
+                        out[r][idx, bi, :] = per_block[b][j, pad + t_a: pad + t_b, :].float().mean(0).cpu().numpy().astype(np.float16)
+            if progress and ((i0 // batch_size) % 10 == 0 or i0 + batch_size >= n):
+                print(f"    {progress}: {min(i0 + batch_size, n)}/{n} ({time.time() - t0:.0f}s)", flush=True)
+    finally:
+        for h in handles:
+            h.remove()
+    return out
+
+
 def generate(model, tok, prompts: Sequence[str], max_new_tokens: int = 96, batch_size: int = 8) -> List[str]:
     """Greedy generation through the tokenizer's chat template; returns the decoded continuations."""
     import torch

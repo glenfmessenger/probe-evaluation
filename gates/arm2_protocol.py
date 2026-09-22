@@ -31,6 +31,11 @@ train and evaluate with the same design — no cross-design probe transfer.
   (d) oracle — hidden state at the token where the injected instruction ENDS. Uses label knowledge (the attacker
                instruction string) to place the read, so it is NOT deployable; it is the diagnostic upper bound. If (d)
                is also weak, the ceiling is in the representation, not in the extraction position.
+  (e) mean_all — mean of the hidden states over EVERY non-special prompt token (user instruction, tool response and the
+               turn boundary alike). Added by GATES.md Amendment 7 (2026-09-11) as the prior-work mean-pooling baseline
+               that (b) is claimed to improve on: (b) localises the read to the tool-response span, (e) pools over the
+               input as a whole. Deployable. BOS is excluded because its activation is a norm outlier that would
+               dominate any mean.
 
 Benign-side convention for (d). Benign cases contain no injection, so there is no "injection end" to read. Reading them
 at the end of the tool response instead would make position itself informative (harmful read mid-span, benign read at
@@ -59,7 +64,7 @@ from aase_eval.config import load_config, resolve_path  # noqa: E402
 from aase_eval.errors import DataLoadError  # noqa: E402
 from aase_eval.injecagent import DEFAULT_PROMPT_TEMPLATE, format_prompt, load_test_cases  # noqa: E402
 
-DESIGNS = ("final", "mean", "maxpos", "oracle")
+DESIGNS = ("final", "mean", "mean_all", "maxpos", "oracle")
 DEFAULT_SEED = 20260904
 
 
@@ -190,6 +195,12 @@ def read_positions(design: str, offsets: Sequence[Tuple[int, int]], spans: Dict[
         raise ValueError(f"unknown design {design!r}, expected one of {DESIGNS}")
     if design == "final":
         return {"kind": "single", "index": n_tokens - 1}
+    if design == "mean_all":
+        # every real token: from the first non-special token (BOS carries offset (0, 0)) to the final prompt token
+        real = [i for i, (s, e) in enumerate(offsets[:n_tokens]) if e > s]
+        if not real:
+            raise DataLoadError("mean_all: no non-special token in the prompt")
+        return {"kind": "span", "start": real[0], "end": n_tokens}
     tstart, tend = token_span(offsets, spans["tool_response"])
     if design in ("mean", "maxpos"):
         return {"kind": "span", "start": tstart, "end": tend}

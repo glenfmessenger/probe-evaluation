@@ -6,17 +6,19 @@ a test of the harmful-content result: wrapping an entire agent transcript in a u
 operation from templating a bare user prompt.}
 \label{tab:aag_modes}
 \centering
-\begin{tabular}{lccc}
+\setlength{\tabcolsep}{2.0pt}
+\scriptsize
+\begin{tabular}{lcccc}
 \toprule
-Model & final & mean & oracle \\
+Model & final & mean & mean\textsubscript{all} & oracle \\
 \midrule
-Gemma-2-2B & 0.774 / 0.880 & 0.964 / 0.959 & 0.992 / 0.993 \\
-Gemma-2-9B & 0.849 / 0.891 & 0.970 / 0.954 & 0.997 / 0.999 \\
-Gemma-3-1B & 0.546 / 0.692 & 0.845 / 0.913 & 0.796 / 0.810 \\
-Gemma-3-4B & 0.796 / 0.661 & 0.758 / 0.738 & 0.774 / 0.711 \\
-Llama-3.1-8B & 0.853 / 0.849 & 0.858 / 0.848 & 0.987 / 0.994 \\
-Llama-3.2-1B & 0.828 / 0.885 & 0.949 / 0.957 & 0.994 / 0.992 \\
-Llama-3.2-3B & 0.840 / 0.838 & 0.818 / 0.809 & 0.987 / 0.990 \\
+Gemma-2-2B & 0.774 / 0.880 & 0.964 / 0.959 & 0.936 / 0.932 & 0.992 / 0.993 \\
+Gemma-2-9B & 0.849 / 0.891 & 0.970 / 0.954 & 0.921 / 0.902 & 0.997 / 0.999 \\
+Gemma-3-1B & 0.546 / 0.692 & 0.845 / 0.913 & 0.782 / 0.869 & 0.796 / 0.810 \\
+Gemma-3-4B & 0.796 / 0.661 & 0.758 / 0.738 & 0.783 / 0.749 & 0.774 / 0.711 \\
+Llama-3.1-8B & 0.853 / 0.849 & 0.858 / 0.848 & 0.784 / 0.775 & 0.987 / 0.994 \\
+Llama-3.2-1B & 0.828 / 0.886 & 0.949 / 0.958 & 0.882 / 0.873 & 0.994 / 0.991 \\
+Llama-3.2-3B & 0.840 / 0.841 & 0.818 / 0.809 & 0.741 / 0.753 & 0.987 / 0.990 \\
 \bottomrule
 \end{tabular}
 \end{table}

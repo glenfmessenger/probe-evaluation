@@ -362,3 +362,36 @@ mechanism. Arm 2's survived intact. Arm 3's did not survive.
 | `gates/ARM1_REVIEW.md`, `ARM3_REVIEW.md`, `ARM3_V2_REVIEW.md` | authored-data review files |
 | `gates/data/arm3_v2_discriminator.json` | draft 3, `NOT FOR EVALUATION`, retained as the construction-failure artifact |
 | `tests/test_gates.py` | 29 CPU gates including the sign-off byte-compare fixtures |
+
+---
+
+## Amendment 7 re-run (2026-09-11) — Arm 2 with five designs and committed per-case scores
+
+Re-run on a Lambda A100-SXM4-40GB from the pinned image (`Dockerfile.pinned`: torch 2.9.0+cu128, transformers 4.57.6,
+vLLM 0.13.0), same seeds, splits and layers; results commits 391119e (`b2`), 2efd84d (`b2_grouped`), 24b99dd
+(`b2_templated`), per-case scores under `results/gates/scores/`. **Drift against the 2026-09-03 run: 0.0000 on every
+model and every original read for `b2` and `b2_grouped`; at most 0.003 (Llama-3.2-1B, Llama-3.2-3B) for `b2_templated`.**
+All numbers below are from `paper/stats/ci.json` (paired case bootstrap, 2,000 resamples, seed 20260910), grouped split.
+
+| Model | final | mean | mean_all | mean − final [95 % CI] | mean − mean_all [95 % CI] |
+|---|---|---|---|---|---|
+| gemma-2-2b | 0.789 | 0.961 | 0.937 | +0.172 [+0.110, +0.239] | +0.023 [+0.008, +0.043] |
+| gemma-2-9b | 0.847 | 0.969 | 0.927 | +0.121 [+0.074, +0.173] | +0.042 [+0.020, +0.068] |
+| gemma-3-1b | 0.576 | 0.943 | 0.849 | +0.367 [+0.285, +0.447] | +0.093 [+0.046, +0.145] |
+| gemma-3-4b | 0.806 | 0.717 | 0.762 | -0.089 [-0.198, +0.026] | -0.044 [-0.106, +0.011] |
+| Llama-3.1-8B | 0.859 | 0.889 | 0.815 | +0.030 [-0.022, +0.082] | +0.074 [+0.048, +0.105] |
+| Llama-3.2-1B | 0.839 | 0.956 | 0.906 | +0.116 [+0.067, +0.169] | +0.050 [+0.029, +0.071] |
+| Llama-3.2-3B | 0.847 | 0.839 | 0.763 | -0.008 [-0.062, +0.047] | +0.076 [+0.049, +0.106] |
+
+**Amendment 7a verdict: SUPPORTED.** On the four models whose mean read clears the pre-registered 0.90 PASS threshold
+(gemma-2-2b, gemma-2-9b, gemma-3-1b, Llama-3.2-1B) the paired mean − mean_all interval excludes zero, weakest lower
+bound +0.008 (gemma-2-2b). It also excludes zero on Llama-3.1-8B and Llama-3.2-3B; only on gemma-3-4b, where no read
+works, is the whole-prompt mean ahead (interval crosses zero). Honest nuance for the paper: mean_all alone clears 0.90
+on three of the four passing models (not gemma-3-1b, 0.849), so pooling as such delivers most of the repair and
+localisation is a measured further gain of +0.02 to +0.09.
+
+**Amendment 7b: per-case scores now committed; Appendix A panel B is a paired bootstrap.** The paired bootstrap widens
+one interval relative to the Hanley–McNeil approximation the manuscript carried at f07ce36: gemma-3-4b's mean − final
+is −0.089 [−0.198, +0.026] and crosses zero, where the analytic interval [−0.165, −0.013] had called it significantly
+negative. The manuscript now says "worse at the point estimate". The 0.94 cut-off `gen_stats.py` used for "learnable
+signal" is retired in favour of the pre-registered 0.90 threshold (same four models).

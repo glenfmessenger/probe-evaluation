@@ -1,7 +1,7 @@
 {
  "topic": "medical",
  "set": "v2_lexical_discriminator",
- "author": "AI assistant-drafted, pending human review",
+ "author": "ai-assistant-drafted, pending human review",
  "labelling_rule_version": "gates-A3-v1",
  "cells": [
   "advice_no_2p",

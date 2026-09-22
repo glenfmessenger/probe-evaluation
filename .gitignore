@@ -12,6 +12,8 @@ __pycache__/
 hf_cache/
 .venv/
 logs_env_install.log
+# Activation tensors only. Per-case scores are committed -- see the note in gates_config.yaml, and the guard
+# in tests/test_results_completeness.py that fails if an aggregate AUC ships without them.
 results/phase2/activations/
 results/gates/activations/
 # LaTeX build artifacts
@@ -29,5 +31,10 @@ paper/*.fdb_latexmk
 # for anyone cloning the repository.
 paper/ieeeaccess.cls
 paper/IEEEtran.bst
+# ieeeaccess.cls \includegraphics these; they ship in the same template download and are equally
+# not ours to redistribute.
+paper/Logo.png
+paper/notaglineLogo.png
+paper/bullet.png
 paper/build-smoke/
 paper/aase-successor-PREVIEW.pdf

@@ -95,6 +95,9 @@ def main() -> int:
     md = markdown(rows, cfg)
     od = out_dir(cfg)
     dump_json({"exhibit": "extraction_convention", "rows": rows,
+               # This exhibit aggregates; the per-case scores behind every AUC here are committed in the b1 files.
+               # tests/test_results_completeness.py reads this key, so an aggregate is never orphaned from its scores.
+               "source": ["results/gates/b1/*.json"],
                "definitions": {"auc_length_stratified": "5 quantile bins of prompt character length, per-bin "
                                                         "Mann-Whitney AUC pooled by n_pos*n_neg, bins needing >=5 per class",
                                "jbb_fpr_at_matched_point": "JailbreakBench-benign FPR at the threshold whose XSTest FPR "

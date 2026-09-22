@@ -1,5 +1,5 @@
 {
-  "author": "AI assistant-drafted, pending human review",
+  "author": "claude-drafted, pending human review",
   "labelling_rule_version": "gates-A3-v1",
   "topics": ["financial", "legal"],
   "bands": ["clear_advice", "clear_information", "hedged_advice", "information_dense", "refusal"],

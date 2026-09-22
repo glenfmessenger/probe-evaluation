@@ -11,7 +11,7 @@ class BaseModel:
     def call_model(self, model_input):
         raise NotImplementedError("This method should be overridden by subclasses.")
     
-class AI assistantModel(BaseModel):     
+class ClaudeModel(BaseModel):     
     def __init__(self, params):
         super().__init__()  
         from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
@@ -121,7 +121,7 @@ class LlamaModel(BaseModel):
         return get_response_text(output, "[/INST]")
     
 MODELS = {
-    "AI assistant": AI assistantModel,
+    "Claude": ClaudeModel,
     "GPT": GPTModel,
     "Llama": LlamaModel,
     "TogetherAI": TogetherAIModel

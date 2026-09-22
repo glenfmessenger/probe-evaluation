@@ -38,6 +38,13 @@ pooled weighted by $n_{\text{pos}} \cdot n_{\text{neg}}$, with bins holding fewe
 and reported. Where a threshold in this paper is stated as length-controlled, \aucstar{} is the number that must clear
 it.
 
+\textbf{Confidence intervals.} Every headline effect is reported with a $95\,\%$ interval in
+Appendix~\ref{app:ci}: a nonparametric bootstrap over cases---$2{,}000$ resamples at a recorded seed, percentile
+method---computed from the per-case scores committed beside every aggregate. A difference between two reads of the
+same prompts is resampled paired rather than treating the arms as independent samples. The per-case scores are
+first-class results in the repository, and a test fails any results directory that reports an AUC without them,
+because an aggregate whose scores are gone can be quoted but never re-interrogated.
+
 \textbf{Topic-matched negatives.} Every harmful-content result is reported against an on-topic benign set as well as
 an off-topic one (Section~\ref{sec:data}), because the gap between the two is the measurement of interest rather than
 a robustness check.
@@ -78,7 +85,12 @@ the replacement.
 constructive sentence is withheld, and no amount of additional analysis on the same data can restore it.
 
 Both occurred. Section~\ref{sec:template} is a type-A amendment: harmful-content probing passed its criteria, but the
-control showed the improvement came from somewhere other than where the design predicted. Section~\ref{sec:learn} is a
+control showed the improvement came from somewhere other than where the design predicted. The pre-registered mechanism
+was the paired data construction---on-topic benign twins cancelling topic in the difference of class means. The
+ablation that holds the estimator and the positives fixed and swaps the twins for the off-topic negatives moved AUC
+against on-topic benign prompts by $-0.003$ to $+0.018$, while reading the identical probes through the chat template
+moved length-stratified AUC by $+0.30$ to $+0.54$; the mechanism was reassigned to extraction convention, and the
+original sentence is struck through beside the replacement in the thresholds document. Section~\ref{sec:learn} is a
 type-B amendment: policy-compliance probing passed its criteria on data that a regular expression can also solve.
 
 \subsection{The over-performance stop rule}

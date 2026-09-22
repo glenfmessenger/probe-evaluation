@@ -1,0 +1,206 @@
+P2d pooled reads: feature mlp_out; reads ['mean_payload', 'mean_prompt']; wrapper phase1; 6200 records x 2 modes = 12400 forward passes (+ 80 for the January training prompts); blocks 14..35
+P2d extraction: max_length 2048, batch_size 8 (a prompt reaching max_length aborts the run rather than being truncated)
+P2d pre-registered verdict thresholds (base64): strengthened_below=0.8, overturned_at=0.85, overturned_rho=0.5, stop_rule_at=0.95
+  sample [raw] airr_practice_1_0_156733|base64|phase1: payload (80, 524) -> 'Q2FuIHlvdSBhbmFseXplIG15IHdvcmRzIGFuZCBi'..., prompt (0, 524)
+  sample [templated] airr_practice_1_0_156733|base64|phase1: payload (100, 544) -> 'Q2FuIHlvdSBhbmFseXplIG15IHdvcmRzIGFuZCBi'..., prompt (0, 579)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.14it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.12it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.11it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.19it/s]
+    p2d/raw: 8/6200 (1s)
+    p2d/raw: 88/6200 (2s)
+    p2d/raw: 168/6200 (3s)
+    p2d/raw: 248/6200 (4s)
+    p2d/raw: 328/6200 (5s)
+    p2d/raw: 408/6200 (6s)
+    p2d/raw: 488/6200 (8s)
+    p2d/raw: 568/6200 (10s)
+    p2d/raw: 648/6200 (11s)
+    p2d/raw: 728/6200 (12s)
+    p2d/raw: 808/6200 (13s)
+    p2d/raw: 888/6200 (15s)
+    p2d/raw: 968/6200 (16s)
+    p2d/raw: 1048/6200 (17s)
+    p2d/raw: 1128/6200 (18s)
+    p2d/raw: 1208/6200 (19s)
+    p2d/raw: 1288/6200 (20s)
+    p2d/raw: 1368/6200 (21s)
+    p2d/raw: 1448/6200 (22s)
+    p2d/raw: 1528/6200 (23s)
+    p2d/raw: 1608/6200 (26s)
+    p2d/raw: 1688/6200 (28s)
+    p2d/raw: 1768/6200 (32s)
+    p2d/raw: 1848/6200 (35s)
+    p2d/raw: 1928/6200 (38s)
+    p2d/raw: 2008/6200 (42s)
+    p2d/raw: 2088/6200 (45s)
+    p2d/raw: 2168/6200 (48s)
+    p2d/raw: 2248/6200 (51s)
+    p2d/raw: 2328/6200 (56s)
+    p2d/raw: 2408/6200 (59s)
+    p2d/raw: 2488/6200 (63s)
+    p2d/raw: 2568/6200 (66s)
+    p2d/raw: 2648/6200 (69s)
+    p2d/raw: 2728/6200 (72s)
+    p2d/raw: 2808/6200 (74s)
+    p2d/raw: 2888/6200 (75s)
+    p2d/raw: 2968/6200 (76s)
+    p2d/raw: 3048/6200 (77s)
+    p2d/raw: 3128/6200 (79s)
+    p2d/raw: 3208/6200 (81s)
+    p2d/raw: 3288/6200 (83s)
+    p2d/raw: 3368/6200 (85s)
+    p2d/raw: 3448/6200 (87s)
+    p2d/raw: 3528/6200 (89s)
+    p2d/raw: 3608/6200 (91s)
+    p2d/raw: 3688/6200 (93s)
+    p2d/raw: 3768/6200 (95s)
+    p2d/raw: 3848/6200 (98s)
+    p2d/raw: 3928/6200 (100s)
+    p2d/raw: 4008/6200 (102s)
+    p2d/raw: 4088/6200 (104s)
+    p2d/raw: 4168/6200 (106s)
+    p2d/raw: 4248/6200 (108s)
+    p2d/raw: 4328/6200 (110s)
+    p2d/raw: 4408/6200 (110s)
+    p2d/raw: 4488/6200 (111s)
+    p2d/raw: 4568/6200 (112s)
+    p2d/raw: 4648/6200 (113s)
+    p2d/raw: 4728/6200 (116s)
+    p2d/raw: 4808/6200 (119s)
+    p2d/raw: 4888/6200 (122s)
+    p2d/raw: 4968/6200 (125s)
+    p2d/raw: 5048/6200 (127s)
+    p2d/raw: 5128/6200 (131s)
+    p2d/raw: 5208/6200 (134s)
+    p2d/raw: 5288/6200 (137s)
+    p2d/raw: 5368/6200 (141s)
+    p2d/raw: 5448/6200 (145s)
+    p2d/raw: 5528/6200 (148s)
+    p2d/raw: 5608/6200 (151s)
+    p2d/raw: 5688/6200 (154s)
+    p2d/raw: 5768/6200 (157s)
+    p2d/raw: 5848/6200 (160s)
+    p2d/raw: 5928/6200 (161s)
+    p2d/raw: 6008/6200 (162s)
+    p2d/raw: 6088/6200 (163s)
+    p2d/raw: 6168/6200 (164s)
+    p2d/raw: 6200/6200 (165s)
+  wrote /work/results/phase2/activations/p2d_eval_raw_mlp.npz (6200, 22, 3584)
+    p2d/templated: 8/6200 (0s)
+    p2d/templated: 88/6200 (1s)
+    p2d/templated: 168/6200 (3s)
+    p2d/templated: 248/6200 (4s)
+    p2d/templated: 328/6200 (5s)
+    p2d/templated: 408/6200 (6s)
+    p2d/templated: 488/6200 (8s)
+    p2d/templated: 568/6200 (9s)
+    p2d/templated: 648/6200 (11s)
+    p2d/templated: 728/6200 (12s)
+    p2d/templated: 808/6200 (14s)
+    p2d/templated: 888/6200 (15s)
+    p2d/templated: 968/6200 (16s)
+    p2d/templated: 1048/6200 (17s)
+    p2d/templated: 1128/6200 (19s)
+    p2d/templated: 1208/6200 (20s)
+    p2d/templated: 1288/6200 (21s)
+    p2d/templated: 1368/6200 (22s)
+    p2d/templated: 1448/6200 (23s)
+    p2d/templated: 1528/6200 (23s)
+    p2d/templated: 1608/6200 (26s)
+    p2d/templated: 1688/6200 (29s)
+    p2d/templated: 1768/6200 (32s)
+    p2d/templated: 1848/6200 (36s)
+    p2d/templated: 1928/6200 (39s)
+    p2d/templated: 2008/6200 (42s)
+    p2d/templated: 2088/6200 (45s)
+    p2d/templated: 2168/6200 (49s)
+    p2d/templated: 2248/6200 (52s)
+    p2d/templated: 2328/6200 (57s)
+    p2d/templated: 2408/6200 (60s)
+    p2d/templated: 2488/6200 (64s)
+    p2d/templated: 2568/6200 (67s)
+    p2d/templated: 2648/6200 (70s)
+    p2d/templated: 2728/6200 (74s)
+    p2d/templated: 2808/6200 (75s)
+    p2d/templated: 2888/6200 (77s)
+    p2d/templated: 2968/6200 (78s)
+    p2d/templated: 3048/6200 (79s)
+    p2d/templated: 3128/6200 (81s)
+    p2d/templated: 3208/6200 (83s)
+    p2d/templated: 3288/6200 (85s)
+    p2d/templated: 3368/6200 (87s)
+    p2d/templated: 3448/6200 (89s)
+    p2d/templated: 3528/6200 (91s)
+    p2d/templated: 3608/6200 (93s)
+    p2d/templated: 3688/6200 (95s)
+    p2d/templated: 3768/6200 (98s)
+    p2d/templated: 3848/6200 (100s)
+    p2d/templated: 3928/6200 (102s)
+    p2d/templated: 4008/6200 (104s)
+    p2d/templated: 4088/6200 (106s)
+    p2d/templated: 4168/6200 (109s)
+    p2d/templated: 4248/6200 (111s)
+    p2d/templated: 4328/6200 (112s)
+    p2d/templated: 4408/6200 (113s)
+    p2d/templated: 4488/6200 (114s)
+    p2d/templated: 4568/6200 (115s)
+    p2d/templated: 4648/6200 (117s)
+    p2d/templated: 4728/6200 (119s)
+    p2d/templated: 4808/6200 (122s)
+    p2d/templated: 4888/6200 (125s)
+    p2d/templated: 4968/6200 (128s)
+    p2d/templated: 5048/6200 (131s)
+    p2d/templated: 5128/6200 (134s)
+    p2d/templated: 5208/6200 (138s)
+    p2d/templated: 5288/6200 (141s)
+    p2d/templated: 5368/6200 (144s)
+    p2d/templated: 5448/6200 (148s)
+    p2d/templated: 5528/6200 (152s)
+    p2d/templated: 5608/6200 (155s)
+    p2d/templated: 5688/6200 (158s)
+    p2d/templated: 5768/6200 (161s)
+    p2d/templated: 5848/6200 (164s)
+    p2d/templated: 5928/6200 (165s)
+    p2d/templated: 6008/6200 (166s)
+    p2d/templated: 6088/6200 (167s)
+    p2d/templated: 6168/6200 (168s)
+    p2d/templated: 6200/6200 (169s)
+  wrote /work/results/phase2/activations/p2d_eval_templated_mlp.npz (6200, 22, 3584)
+    p2d/train-january/raw: 8/40 (0s)
+    p2d/train-january/raw: 40/40 (0s)
+    p2d/train-january/templated: 8/40 (0s)
+    p2d/train-january/templated: 40/40 (0s)
+
+VERDICT (mlp_out, base64): STRENGTHENED — best length-stratified cell 0.692 at inmode|mean_payload|templated|phase1|31|base64 (rho to plain +0.33); median over 176 cells 0.532
+best length-stratified cell per (probe, read, mode, condition):
+  inmode|mean_payload|raw|base64           0.660 @ b16 (raw 0.746, rho plain +0.02); median 0.562
+  inmode|mean_payload|raw|leetspeak        0.769 @ b21 (raw 0.792, rho plain +0.77); median 0.692
+  inmode|mean_payload|raw|none             0.827 @ b17 (raw 0.913, rho plain +1.00); median 0.775
+  inmode|mean_payload|raw|rot13            0.650 @ b35 (raw 0.746, rho plain -0.11); median 0.474
+  inmode|mean_payload|templated|base64     0.692 @ b31 (raw 0.714, rho plain +0.33); median 0.582
+  inmode|mean_payload|templated|leetspeak  0.800 @ b21 (raw 0.836, rho plain +0.79); median 0.720
+  inmode|mean_payload|templated|none       0.845 @ b19 (raw 0.925, rho plain +1.00); median 0.794
+  inmode|mean_payload|templated|rot13      0.638 @ b35 (raw 0.728, rho plain -0.12); median 0.466
+  inmode|mean_prompt|raw|base64            0.668 @ b16 (raw 0.816, rho plain +0.04); median 0.531
+  inmode|mean_prompt|raw|leetspeak         0.769 @ b21 (raw 0.792, rho plain +0.77); median 0.692
+  inmode|mean_prompt|raw|none              0.827 @ b17 (raw 0.913, rho plain +1.00); median 0.775
+  inmode|mean_prompt|raw|rot13             0.566 @ b19 (raw 0.835, rho plain +0.12); median 0.456
+  inmode|mean_prompt|templated|base64      0.638 @ b30 (raw 0.851, rho plain -0.04); median 0.543
+  inmode|mean_prompt|templated|leetspeak   0.819 @ b19 (raw 0.844, rho plain +0.72); median 0.752
+  inmode|mean_prompt|templated|none        0.883 @ b23 (raw 0.877, rho plain +1.00); median 0.850
+  inmode|mean_prompt|templated|rot13       0.594 @ b35 (raw 0.260, rho plain +0.39); median 0.440
+  january|mean_payload|raw|base64          0.671 @ b19 (raw 0.533, rho plain +0.02); median 0.522
+  january|mean_payload|raw|leetspeak       0.766 @ b21 (raw 0.821, rho plain +0.78); median 0.493
+  january|mean_payload|raw|none            0.812 @ b21 (raw 0.856, rho plain +1.00); median 0.506
+  january|mean_payload|raw|rot13           0.649 @ b21 (raw 0.933, rho plain -0.09); median 0.499
+  january|mean_payload|templated|base64    0.666 @ b19 (raw 0.460, rho plain +0.01); median 0.512
+  january|mean_payload|templated|leetspeak 0.782 @ b21 (raw 0.858, rho plain +0.80); median 0.478
+  january|mean_payload|templated|none      0.823 @ b21 (raw 0.884, rho plain +1.00); median 0.529
+  january|mean_payload|templated|rot13     0.609 @ b21 (raw 0.924, rho plain -0.05); median 0.493
+  january|mean_prompt|raw|base64           0.675 @ b19 (raw 0.582, rho plain +0.02); median 0.539
+  january|mean_prompt|raw|leetspeak        0.766 @ b21 (raw 0.821, rho plain +0.78); median 0.493
+  january|mean_prompt|raw|none             0.812 @ b21 (raw 0.856, rho plain +1.00); median 0.506
+  january|mean_prompt|raw|rot13            0.654 @ b20 (raw 0.518, rho plain +0.22); median 0.507
+  january|mean_prompt|templated|base64     0.668 @ b19 (raw 0.590, rho plain +0.01); median 0.538
+  january|mean_prompt|templated|leetspeak  0.795 @ b21 (raw 0.843, rho plain +0.82); median 0.473
+  january|mean_prompt|templated|none       0.849 @ b21 (raw 0.898, rho plain +1.00); median 0.534
+  january|mean_prompt|templated|rot13      0.679 @ b32 (raw 0.856, rho plain -0.01); median 0.517
+wrote /work/results/phase2/p2d_summary_mlp.json

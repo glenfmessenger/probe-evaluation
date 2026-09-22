@@ -55,6 +55,15 @@ is reported as a note rather than as a headline.
 
 \input{tables/tab_models}
 
+The shipped probes are the publicly released direction vectors of the author's earlier minimal-data recipe
+\cite{messenger2026aase}, fitted on the training sets that archive contains; this paper takes them as given and does
+not refit them. Those training sets are small by design, and their sizes are stated here once so that every later
+number is read against them: $20$ harmful and $20$ benign prompts for the harmful-content probe; $50$ injected agent
+scaffolds against $100$ clean ones for the injection probe, all synthetic and none drawn from InjecAgent, which is why
+Section~\ref{sec:read} retrains that probe on a held-out half of the real benchmark before comparing read positions;
+and $15$ authored contrastive pairs per policy for the compliance probe. The counts are those recorded in the released
+probes' metadata.
+
 One detail of the extraction stack turns out to matter more than the layer index, and is treated separately in
 Section~\ref{sec:tensor}: which \emph{tensor} at that layer the probe reads.
 
@@ -109,7 +118,10 @@ professional practice without directing the reader, however actionable the conte
 is $400$--$600$\,mg every six hours'' is information. Responses that decline and hand off without conveying either a
 directive or substantive content are labelled \emph{refusal} and are excluded from the advice-versus-information
 comparison, then reported separately: a compliance probe that fires on refusals would fire on precisely the responses
-the policy is trying to elicit, and Section~\ref{sec:learn} shows that the shipped probes do.
+the policy is trying to elicit, and Section~\ref{sec:learn} shows that the shipped probes do. Labels were applied by
+the author under this rule, frozen in writing before any activation was extracted; we report no inter-annotator
+agreement, and the construct-validity finding Section~\ref{sec:apc} draws from the set is a finding about authored
+short responses, not about medical advice as a phenomenon.
 
 The external evaluation set contains $240$ medical responses in four bands---clear advice, clear information, hedged
 advice, and information detailed enough to act on---plus $20$ refusals, with $60$ financial and $60$ legal responses

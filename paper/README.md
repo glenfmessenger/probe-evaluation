@@ -23,10 +23,11 @@ make: *** [tables] Error 1
 `tables/_provenance.tex` records the results commit the tables were generated from and the sha256 of every source
 file; `\resultscommit` is available in the manuscript.
 
-## One file you must supply
+## Two files you must supply
 
-`IEEEtran.bst` is included (LPPL). `ieeeaccess.cls` is IEEE's and is not redistributable: download the IEEE
-Access LaTeX template and drop it into `paper/`. `make check` fails with a clear message until it is present.
+`ieeeaccess.cls` and `IEEEtran.bst` are IEEE's template files and are not redistributable, so they are not
+committed. Download the IEEE Access LaTeX template and drop both into `paper/`. `make check` fails with a clear
+message until they are present.
 
 ## Editorial markers
 

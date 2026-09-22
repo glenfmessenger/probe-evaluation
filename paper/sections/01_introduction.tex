@@ -30,12 +30,15 @@ splits.
 Our central finding is that reported outcomes in this regime are dominated by two factors that most papers do not
 report: extraction convention and evaluation design. The same probes, on the same models, move from apparent failure
 to strong performance---or the reverse---when either factor changes. Concretely: probes that flag $30$--$94\,\%$ of
-topic-matched benign prompts become accurate detectors (length-stratified AUC $0.92$--$0.98$, exceeding tuned lexical
-baselines by $+0.21$ to $+0.27$) when prompts are read through the model's chat template rather than as bare text; and
-probes that the conventional final-token read leaves at $0.58$--$0.86$ reach $0.94$--$0.97$ AUC when the activation is
-instead averaged over the tool-response span, on injections never seen in training.
+topic-matched benign prompts at their shipped thresholds become accurate detectors (length-stratified AUC $0.92$--$0.98$, exceeding tuned lexical
+baselines by $+0.21$ to $+0.27$) when they are fitted with on-topic negatives and read through the model's chat
+template rather than as bare text; and
+probes that the conventional final-token read leaves at $0.58$--$0.85$ reach $0.94$--$0.97$ AUC when the activation is
+instead averaged over the tool-response span, on the four models that clear a pre-registered pass threshold and on
+injections never seen in training.
 Neither repair changes the probe or its training data. Conversely, rigorous evaluation retires claims that weaker
-evaluation supports: a proposed training method whose estimator we show to be algebraically identical to its baseline;
+evaluation supports: a proposed training method whose estimator we show to be algebraically identical to its baseline
+and whose data construction we measure at no effect;
 obfuscation robustness that can be manufactured at will by training on encodings; and a compliance-classification task
 whose short-text evaluations, we show, cannot certify a semantic claim for any classifier---probe or
 otherwise---because directive force in short text is carried by the very lexical markers such evaluations must
@@ -45,22 +48,21 @@ The frontier-scale evidence points the same direction: DeepMind's production rep
 input length as the principal generalization failure for deployed probes \cite{gdm2026probes}---at production scale,
 the same class of phenomenon we localize, at accessible scale, to specific and repairable conventions.
 
-We make six contributions.
+We make five contributions.
 
 \begin{enumerate}[leftmargin=*]
 \item \textbf{Two extraction-convention repairs.} Reading prompts through the model's chat template removes the topic
-      confound in harmful-content probing, raising length-stratified AUC by $+0.30$ to $+0.54$ on all seven models;
+      confound in harmful-content probing, raising length-stratified AUC by $+0.30$ to $+0.54$ on all seven models
+      for probes fitted with on-topic negatives;
       and reading the mean over the tool-response span rather than the final token raises prompt-injection detection
-      from $0.58$--$0.86$ to $0.94$--$0.97$ AUC on injections never seen in training (Section~\ref{sec:extraction}).
-\item \textbf{Retirement of paired contrastive training.} Its estimator is algebraically identical to standard
-      contrastive training for complete aligned pairs, and an ablation holding the estimator fixed shows its data
-      construction contributes between $-0.003$ and $+0.018$ AUC (Section~\ref{sec:learn}).
+      from $0.58$--$0.85$ to $0.94$--$0.97$ AUC on the four models that clear the pre-registered pass threshold, on
+      injections never seen in training (Section~\ref{sec:extraction}).
 \item \textbf{A construct-validity result.} In short authored text, directive force is substantially lexically
       constituted, so short-text authored evaluation cannot certify a semantic claim for any compliance classifier;
       we show this by building three instruments that each fail in a different way (Section~\ref{sec:learn}).
-\item \textbf{An anatomy of obfuscation failure.} Across $22$ blocks, two template modes, two probe constructions and
-      two activation spaces, no configuration separates encoded-harmful from encoded-benign prompts once length is
-      controlled---even for encodings the model demonstrably decodes---while training on encoded examples
+\item \textbf{An anatomy of obfuscation failure.} Across $22$ blocks, two template modes, two probe constructions,
+      two activation spaces and three read positions, no configuration separates encoded-harmful from
+      encoded-benign prompts once length is controlled---even for encodings the model demonstrably decodes---while training on encoded examples
       manufactures near-perfect apparent detection at a near-perfect encoded-benign false-positive rate
       (Section~\ref{sec:obfuscation}).
 \item \textbf{Five evaluation hazards of independent value.} Exploitable label artifacts in a standard

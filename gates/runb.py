@@ -56,7 +56,15 @@ def out_dir(cfg) -> Path:
 
 
 def act_dir(cfg) -> Path:
+    """Bulk activation tensors. Gitignored by design; nothing that has to survive the run may live here alone."""
     d = REPO / cfg["activations_dir"]; d.mkdir(parents=True, exist_ok=True); return d
+
+
+def scores_dir(cfg) -> Path:
+    """Per-case scores, committed. Every aggregate this project reports must be rebuildable from a file written here:
+    an AUC without its scores can be quoted but never re-interrogated, and tests/test_results_completeness.py fails a
+    results directory that ships the one without the other."""
+    d = REPO / cfg.get("scores_dir", "results/gates/scores"); d.mkdir(parents=True, exist_ok=True); return d
 
 
 def dump_json(obj, path: Path):
@@ -232,7 +240,7 @@ def extract_reads(model, tok, texts: Sequence[str], spans: Sequence[Dict[str, An
     for an injection case, and {"benign_fraction": f} for a benign case under the oracle design. Character spans are
     mapped to token indices with the tokenizer's offset mapping; an unmappable span raises (no heuristic fallback).
 
-    Returns, per layer: `final` / `mean` / `oracle` vectors [n, d], and — when `directions` is given — `maxproj[name]`,
+    Returns, per layer: `final` / `mean` / `mean_all` / `oracle` vectors [n, d], and — when `directions` is given — `maxproj[name]`,
     the maximum cosine projection over the tool-response span, computed in the same pass so that design (c) needs no
     second extraction. Hooking several layers at once makes the Arm 2 three-layer check almost free.
     """
@@ -252,7 +260,8 @@ def extract_reads(model, tok, texts: Sequence[str], spans: Sequence[Dict[str, An
             cap[_L] = (output[0] if isinstance(output, tuple) else output).detach()
         handles.append(mod.register_forward_hook(hook))
     n = len(texts)
-    out = {L: {"final": [], "mean": [], "oracle": [], "maxproj": {k: [] for k in (directions or {})}} for L in layers}
+    out = {L: {"final": [], "mean": [], "mean_all": [], "oracle": [], "maxproj": {k: [] for k in (directions or {})}}
+           for L in layers}
     meta = []
     t0 = time.time()
     try:
@@ -282,19 +291,25 @@ def extract_reads(model, tok, texts: Sequence[str], spans: Sequence[Dict[str, An
                     o_idx = min(max(t_a + int(round(f * max(0, t_b - 1 - t_a))), t_a), t_b - 1)
                 if not (0 <= t_a < t_b <= n_tok and t_a <= o_idx < t_b):
                     raise DataLoadError(f"text {idx}: bad token spans tool=({t_a},{t_b}) oracle={o_idx} n={n_tok}")
+                # design (e), Amendment 7: the whole prompt, first non-special token to the final token (BOS excluded)
+                real = [k for k, (s, e) in enumerate(off) if e > s]
+                if not real:
+                    raise DataLoadError(f"text {idx}: no non-special token for the mean_all read")
+                a_all = real[0]
                 for L in layers:
                     h = cap[L][j]
                     blk = h[pad + t_a: pad + t_b, :].float()
                     out[L]["final"].append(h[pad + n_tok - 1, :].float().cpu().numpy().astype(np.float16))
                     out[L]["mean"].append(blk.mean(0).cpu().numpy().astype(np.float16))
+                    out[L]["mean_all"].append(h[pad + a_all: pad + n_tok, :].float().mean(0).cpu().numpy().astype(np.float16))
                     out[L]["oracle"].append(h[pad + o_idx, :].float().cpu().numpy().astype(np.float16))
                     if directions:
                         bn = blk / (blk.norm(dim=-1, keepdim=True) + 1e-8)
                         for name, d in directions.items():
                             dv = torch.as_tensor(d, dtype=bn.dtype, device=bn.device)
                             out[L]["maxproj"][name].append(float((bn @ dv).max().item()))
-                meta.append({"i": idx, "n_tokens": n_tok, "tool_span": [t_a, t_b], "oracle_index": o_idx,
-                             "oracle_from_label": "injection" in sp})
+                meta.append({"i": idx, "n_tokens": n_tok, "tool_span": [t_a, t_b], "all_span": [a_all, n_tok],
+                             "oracle_index": o_idx, "oracle_from_label": "injection" in sp})
             if progress and ((i0 // batch_size) % 20 == 0 or i0 + batch_size >= n):
                 print(f"    {progress}: {min(i0 + batch_size, n)}/{n} ({time.time() - t0:.0f}s)", flush=True)
     finally:

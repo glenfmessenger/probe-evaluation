@@ -1,0 +1,30 @@
+% Appendix -- confidence intervals. Every panel is a case bootstrap computed by paper/tools/gen_stats.py from committed
+% per-case scores; panel B was analytic until the 2026-09-11 re-run of Arm 2 (GATES.md Amendment 7b).
+\appendices
+\section{Confidence Intervals on the Headline Effects}
+\label{app:ci}
+
+Table~\ref{tab:confidence} reports a $95\,\%$ interval for each of the effects the paper rests on. Every one is a
+nonparametric case bootstrap over the committed per-case scores: $2{,}000$ resamples at a recorded seed, percentile
+method, and the same length-stratified or plain AUC function that produced the committed point estimate, which the
+tool reproduces exactly before resampling anything and aborts if it cannot.
+
+Every difference between two reads of the same cases is resampled \emph{paired}: one draw of case indices is applied
+to both arms and the difference is taken within the draw, so the positive correlation between the arms is carried in
+the interval rather than assumed away. Panel B reports two such differences. The first, mean minus final, is the
+repair of Section~\ref{sec:read}; the second, mean minus mean\textsubscript{all}, is the pre-registered test of
+Section~\ref{sec:prereg} that the repair comes from localising the read to the tool-response span and not from
+pooling as such. Resampling is stratified by class, so every resample keeps the $525$ / $59$ composition of the grouped
+test half; the small benign half is why these intervals are the widest in the table.
+
+Panel C is conditional on a selection. Each final-token row is the largest length-stratified AUC anywhere in the
+sweep for that encoding---across both activation spaces, both probe constructions, both template modes and all $22$
+blocks---and the pooled row is the largest Base64 cell across both spaces, both constructions, both modes, both pooled
+reads and all $22$ blocks, so each interval describes the best case available to the claim of
+Section~\ref{sec:obfuscation} rather than a typical cell. The median column gives the population the maximum was
+drawn from, and it is the more representative number.
+
+\input{tables/tab_confidence}
+
+The re-run is deterministic: the resample seed is recorded in the table caption and in the machine-readable
+\texttt{paper/stats/ci.json} the same tool writes, alongside every interval it reports.
