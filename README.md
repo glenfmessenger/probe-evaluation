@@ -95,5 +95,4 @@ Third-party code under `runtime/aag/InjecAgent/` and `third_party/` is vendored 
 their licenses. Benchmarks used: HarmBench, XSTest, JailbreakBench, InjecAgent, AgentDojo, AILuminate.
 
 An AI assistant built the evaluation harness and ran the experiments under the author's pre-registered protocol;
-the author designed the study, made every decision and sign-off, and verified all results. The paper's AI-use
-disclosure states this in full. Some authored data files record it per record, in an `author` field.
+the author designed the study, made every decision and sign-off, and verified all results.
