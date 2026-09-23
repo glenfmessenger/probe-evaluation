@@ -94,5 +94,8 @@ and the vendored HarmBench tree beyond its behaviour datasets.
 Third-party code under `runtime/aag/InjecAgent/` and `third_party/` is vendored as its authors wrote it and carries
 their licenses. Benchmarks used: HarmBench, XSTest, JailbreakBench, InjecAgent, AgentDojo, AILuminate.
 
+The AILuminate v1.0 DEMO prompt set redistributed at `runtime/ailuminate_demo_en_us.csv` is © MLCommons, licensed
+CC BY 4.0; see `runtime/AILUMINATE_LICENSE_NOTICE.md` for the attribution that licence requires.
+
 An AI assistant built the evaluation harness and ran the experiments under the author's pre-registered protocol;
 the author designed the study, made every decision and sign-off, and verified all results.
